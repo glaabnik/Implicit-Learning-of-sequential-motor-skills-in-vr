@@ -277,6 +277,8 @@ MonoBehaviour:
   timeToHitObjects: 0
   roundGenerated: 0
   colorAfterHit: {r: 0.9528302, g: 0.7311643, b: 0, a: 0}
+  pieceToSpawn: {fileID: 1490485518336213760, guid: 45bdd254831bfb54b94ff0998388d045,
+    type: 3}
 --- !u!54 &8039643484440574680
 Rigidbody:
   m_ObjectHideFlags: 0

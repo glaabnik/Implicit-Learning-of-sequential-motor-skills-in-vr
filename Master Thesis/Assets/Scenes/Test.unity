@@ -553,12 +553,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &206503159
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,12 +594,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &211410976
@@ -1030,12 +1018,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &424765871
@@ -2436,12 +2418,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &749616507
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,7 +3144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1080044111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3189,10 +3165,15 @@ MonoBehaviour:
   leftHandGameObject: {fileID: 3799188650805137351, guid: e4ccc1855927ac64d80c79e59b94d778,
     type: 3}
   sphereRadius: 3
-  timeToHitGameObjects: 10
+  timeToHitGameObjects: 3
   timeToWaitBetween: 1
   scaleSpawnedGameObjects: 0.7
   randomizeElevation: 0
+  offsetLeftSide: 40
+  offsetRightSide: 40
+  animatedSpawning: 1
+  loadSequenceFromCsv: 0
+  filenameCsv: sequenceOne50Easy
   forwardVectorTest: {x: 0, y: 0, z: 0}
 --- !u!4 &1080044112
 Transform:
@@ -3800,12 +3781,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1398099533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3859,12 +3834,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1429281900
@@ -4595,6 +4564,7 @@ MonoBehaviour:
   listPrecisionWithThatObjectWasHit: []
   listEarnedPoints: 
   listBlockPairNumber: 
+  destroyVariant: 1
 --- !u!65 &1670114287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4639,6 +4609,7 @@ MonoBehaviour:
   listPrecisionWithThatObjectWasHit: []
   listEarnedPoints: 
   listBlockPairNumber: 
+  destroyVariant: 1
 --- !u!1 &1703585521
 GameObject:
   m_ObjectHideFlags: 0
@@ -4655,7 +4626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1703585522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4680,6 +4651,11 @@ MonoBehaviour:
   timeToWaitBetween: 1
   scaleSpawnedGameObjects: 0.7
   randomizeElevation: 0
+  offsetLeftSide: 40
+  offsetRightSide: 40
+  animatedSpawning: 1
+  loadSequenceFromCsv: 1
+  filenameCsv: 
   forwardVectorTest: {x: 0, y: 0, z: 0}
 --- !u!4 &1703585523
 Transform:
@@ -4933,12 +4909,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1865129452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4949,12 +4919,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1865129453
@@ -5075,12 +5039,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1965105571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,12 +5113,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &1965105575
@@ -5271,12 +5223,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1969102702
 GameObject:
   m_ObjectHideFlags: 0
@@ -5330,6 +5276,7 @@ MonoBehaviour:
   listPrecisionWithThatObjectWasHit: []
   listEarnedPoints: 
   listBlockPairNumber: 
+  destroyVariant: 1
 --- !u!65 &1969102705
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5441,6 +5388,7 @@ MonoBehaviour:
   listPrecisionWithThatObjectWasHit: []
   listEarnedPoints: 
   listBlockPairNumber: 
+  destroyVariant: 1
 --- !u!65 &1975129070
 BoxCollider:
   m_ObjectHideFlags: 0

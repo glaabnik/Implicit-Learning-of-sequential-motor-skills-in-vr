@@ -2,9 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class SphereCoordinates
+{
+    public float phi, theta;
+    public float phi2, theta2;
+    public SphereCoordinates()
+    {
+        phi = 0.0f;
+        theta = 0.0f;
+        phi2 = 0.0f;
+        theta2 = 0.0f;
+    }
+}
+
 public class SpawnCubes : MonoBehaviour
 {
-
     public Transform hmd_transform;
     public HitInteractable leftHand;
     public HitInteractable rightHand;
@@ -15,10 +28,15 @@ public class SpawnCubes : MonoBehaviour
     public int timeToWaitBetween;
     public float scaleSpawnedGameObjects = 1.0f;
     public bool randomizeElevation = false;
-
+    public int offsetLeftSide = 40;
+    public int offsetRightSide = 40;
+    public bool animatedSpawning = true;
+    public bool loadSequenceFromCsv = true;
+    public string filenameCsv;
     // Debug Variables
     public Vector3 forwardVectorTest;
 
+    private List<SphereCoordinates> sequenceOfSpawns;
     private float timeCounter;
     private float instantiateTimeCounter;
     private bool instantiated;
@@ -33,14 +51,22 @@ public class SpawnCubes : MonoBehaviour
         forwardVectorTest = hmd_transform.forward;
         spawnCubesForBothHandsRandomizedInSightOfCameraDirection();
         instantiated = true;
+        sequenceOfSpawns = new List<SphereCoordinates>();
+        if (loadSequenceFromCsv)
+        {
+             if(!string.IsNullOrEmpty(filenameCsv)) LoadFixedSequenceOfSpawns.loadSpawnSequence(ref sequenceOfSpawns, filenameCsv);
+        }
+        Debug.Log(" Size of List: "+sequenceOfSpawns.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(lastLeftHandTarget.getPointsRewarded() && lastRightHandTarget.getPointsRewarded() && instantiated)
+        float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f;
+
+        if(instantiated && lastLeftHandTarget.getPointsRewarded() && lastRightHandTarget.getPointsRewarded())
         {
-            timeCounter = timeToHitGameObjects;
+            timeCounter = timeToHitGameObjects + animationTimeBonus;
         }
         forwardVectorTest = hmd_transform.forward;
         timeCounter += Time.deltaTime;
@@ -50,7 +76,7 @@ public class SpawnCubes : MonoBehaviour
             spawnCubesForBothHandsRandomizedInSightOfCameraDirection();
             instantiated = true;
         }
-        if(timeCounter >= timeToHitGameObjects)
+        if(timeCounter >= timeToHitGameObjects + animationTimeBonus)
         {
             float destroyTimeLeft = 0;
             float destroyTimeRight = 0;
@@ -74,18 +100,31 @@ public class SpawnCubes : MonoBehaviour
 
     private void spawnCubesForBothHandsRandomizedInSightOfCameraDirection()
     {
-        int phiOffset = calculatePhiOffset();
-        Debug.Log(phiOffset);
-        int degLeftPhi = Random.Range(15, 40);
-        int degRightPhi = Random.Range(-40, -15);
-        degLeftPhi += phiOffset;
-        degRightPhi += phiOffset;
-        int degLeftTheta = 90;
-        int degRightTheta = 90;
-        if( randomizeElevation)
+        int degLeftPhi, degRightPhi, degLeftTheta, degRightTheta;
+        if(sequenceOfSpawns == null || sequenceOfSpawns.Count == 0)
         {
-            degLeftTheta = 70 + Random.Range(0, 40);
-            degRightTheta = 70 + Random.Range(0, 40);
+            int phiOffset = calculatePhiOffset();
+            Debug.Log(phiOffset);
+            degLeftPhi = Random.Range(15, offsetLeftSide);
+            degRightPhi = Random.Range(-offsetRightSide, -15);
+            degLeftPhi += phiOffset;
+            degRightPhi += phiOffset;
+            degLeftTheta = 90;
+            degRightTheta = 90;
+            if (randomizeElevation)
+            {
+                degLeftTheta = 70 + Random.Range(0, 40);
+                degRightTheta = 70 + Random.Range(0, 40);
+            }
+        }
+        else
+        {
+            int listSize = sequenceOfSpawns.Count;
+            int actIndexInList = (objectsSpawned / 2) % listSize;
+            degLeftPhi = (int) sequenceOfSpawns[actIndexInList].phi;
+            degLeftTheta = (int)sequenceOfSpawns[actIndexInList].theta;
+            degRightPhi = (int)sequenceOfSpawns[actIndexInList].phi2;
+            degRightTheta = (int)sequenceOfSpawns[actIndexInList].theta2;
         }
         ++roundGenerated;
         spawnGameObject(true, sphereToCartesianCoordinate(degLeftTheta, degLeftPhi), leftHandGameObject);
@@ -138,9 +177,20 @@ public class SpawnCubes : MonoBehaviour
 
     private void spawnGameObject(bool leftHand, Vector3 position, GameObject objectToSpawn)
     {
+        Vector3 normalizedOffset = new Vector3(0, 0, 0);
+        if(animatedSpawning)
+        {
+            Vector3 directionTowardsGameObject = position - hmd_transform.position;
+            directionTowardsGameObject.y = 0;
+            normalizedOffset = directionTowardsGameObject.normalized * 20.0f;
+            Vector3 movedPosition = position + normalizedOffset;
+            position = movedPosition;
+        }
+      
         GameObject gameObject = Instantiate(objectToSpawn, position, Quaternion.identity);
         gameObject.transform.localScale = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
         SpawnedInteractable si = gameObject.GetComponent<SpawnedInteractable>();
+        si.setMovedOffset(normalizedOffset);
         si.setTimeToHitObjects(timeToHitGameObjects);
         si.roundGenerated = roundGenerated;
         if (leftHand) lastLeftHandTarget = si;

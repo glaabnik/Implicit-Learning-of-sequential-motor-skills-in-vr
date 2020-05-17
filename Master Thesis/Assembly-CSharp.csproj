@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\HighScore.cs" />
     <Compile Include="Assets\Scripts\HitInteractable.cs" />
+    <Compile Include="Assets\Scripts\LoadFixedSequenceOfSpawns.cs" />
     <Compile Include="Assets\Scripts\SerializeData.cs" />
     <Compile Include="Assets\Scripts\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\SpawnedInteractable.cs" />
@@ -559,19 +560,19 @@
     <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
     <None Include="Assets\xml\sportGameData8.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Niko/Documents/Unity Projects/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Niko/Documents/Unity Projects/Master Thesis/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/Niko/Documents/Unity Projects/Master Thesis/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Niko/Documents/Unity Projects/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/Niko/Documents/Unity Projects/Master Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -775,7 +776,7 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/Niko/Documents/Unity Projects/Master Thesis/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

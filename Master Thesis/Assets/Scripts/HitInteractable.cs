@@ -12,6 +12,7 @@ public class HitInteractable : MonoBehaviour
     public List<int> listBlockPairNumber;
     private bool interactionLocked = false;
     private Vector3 relevantPositionToAddForce;
+    public int destroyVariant = 0;
     void Start()
     {
         
@@ -96,7 +97,7 @@ public class HitInteractable : MonoBehaviour
 
             Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
             highScore.updateHighscore(pointsEarned);
-            si.addForceToRigidBody(relevantPositionToAddForce);
+            destroyEffect(si);
             listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
             listPrecisionWithThatObjectWasHit.Add(precisionPercent);
             listEarnedPoints.Add(pointsEarned);
@@ -111,5 +112,11 @@ public class HitInteractable : MonoBehaviour
             Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
             //si.addForceToRigidBody(relevantPositionToAddForce);
         }
+    }
+
+    private void destroyEffect(SpawnedInteractable si)
+    {
+        if(destroyVariant == 0) si.addForceToRigidBody(relevantPositionToAddForce);
+        if(destroyVariant == 1) si.ExplodeIntoPieces(relevantPositionToAddForce);
     }
 }
