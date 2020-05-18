@@ -3166,13 +3166,13 @@ MonoBehaviour:
     type: 3}
   sphereRadius: 3
   timeToHitGameObjects: 3
-  timeToWaitBetween: 1
+  timeToWaitBetween: 0
   scaleSpawnedGameObjects: 0.7
   randomizeElevation: 0
   offsetLeftSide: 40
   offsetRightSide: 40
   animatedSpawning: 1
-  loadSequenceFromCsv: 0
+  loadSequenceFromCsv: 1
   filenameCsv: sequenceOne50Easy
   forwardVectorTest: {x: 0, y: 0, z: 0}
 --- !u!4 &1080044112

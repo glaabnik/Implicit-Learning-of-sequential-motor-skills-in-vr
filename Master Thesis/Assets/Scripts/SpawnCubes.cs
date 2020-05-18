@@ -49,7 +49,7 @@ public class SpawnCubes : MonoBehaviour
         timeCounter = 0;
         instantiateTimeCounter = timeToWaitBetween + 1;
         forwardVectorTest = hmd_transform.forward;
-        spawnCubesForBothHandsRandomizedInSightOfCameraDirection();
+        spawnCubesForBothHandsInSightOfCameraDirection();
         instantiated = true;
         sequenceOfSpawns = new List<SphereCoordinates>();
         if (loadSequenceFromCsv)
@@ -73,7 +73,7 @@ public class SpawnCubes : MonoBehaviour
         instantiateTimeCounter += Time.deltaTime;
         if(instantiateTimeCounter >= timeToWaitBetween && !instantiated)
         {
-            spawnCubesForBothHandsRandomizedInSightOfCameraDirection();
+            spawnCubesForBothHandsInSightOfCameraDirection();
             instantiated = true;
         }
         if(timeCounter >= timeToHitGameObjects + animationTimeBonus)
@@ -98,13 +98,13 @@ public class SpawnCubes : MonoBehaviour
         }
     }
 
-    private void spawnCubesForBothHandsRandomizedInSightOfCameraDirection()
+    private void spawnCubesForBothHandsInSightOfCameraDirection()
     {
         int degLeftPhi, degRightPhi, degLeftTheta, degRightTheta;
-        if(sequenceOfSpawns == null || sequenceOfSpawns.Count == 0)
+        int phiOffset = calculatePhiOffset();
+        Debug.Log(phiOffset);
+        if (sequenceOfSpawns == null || sequenceOfSpawns.Count == 0) // no list of spawn points => randomized spawning of cubes
         {
-            int phiOffset = calculatePhiOffset();
-            Debug.Log(phiOffset);
             degLeftPhi = Random.Range(15, offsetLeftSide);
             degRightPhi = Random.Range(-offsetRightSide, -15);
             degLeftPhi += phiOffset;
@@ -117,13 +117,13 @@ public class SpawnCubes : MonoBehaviour
                 degRightTheta = 70 + Random.Range(0, 40);
             }
         }
-        else
+        else                                                          // spawning of blocks in points loaded from csv file
         {
             int listSize = sequenceOfSpawns.Count;
             int actIndexInList = (objectsSpawned / 2) % listSize;
-            degLeftPhi = (int) sequenceOfSpawns[actIndexInList].phi;
+            degLeftPhi = (int) sequenceOfSpawns[actIndexInList].phi + phiOffset;
             degLeftTheta = (int)sequenceOfSpawns[actIndexInList].theta;
-            degRightPhi = (int)sequenceOfSpawns[actIndexInList].phi2;
+            degRightPhi = (int)sequenceOfSpawns[actIndexInList].phi2 + phiOffset;
             degRightTheta = (int)sequenceOfSpawns[actIndexInList].theta2;
         }
         ++roundGenerated;
