@@ -102,8 +102,9 @@ GameObject:
   - component: {fileID: 114985606322881180}
   - component: {fileID: 54797208153675660}
   - component: {fileID: 65487418599378772}
+  - component: {fileID: 114042561583440208}
   m_Layer: 0
-  m_Name: CubeBlue
+  m_Name: CubeBlue 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,6 +192,9 @@ MonoBehaviour:
   colorAfterHit: {r: 0.059807744, g: 0.9056604, b: 0.8790408, a: 1}
   pieceToSpawn: {fileID: 3037558863908495923, guid: ac1517df43fe2f944b59def4dc9f6d2e,
     type: 3}
+  explosionForce: 125
+  explosionRadius: 2
+  explosionUpward: 0.8
 --- !u!54 &54797208153675660
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -220,6 +224,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114042561583440208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3799188650805137351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb03ecfc8fe7c449be3d8dcf0ef6938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAtPoint: {x: 0, y: 1.6, z: 0}
+  height: 0
 --- !u!1 &5066889004036717314
 GameObject:
   m_ObjectHideFlags: 0

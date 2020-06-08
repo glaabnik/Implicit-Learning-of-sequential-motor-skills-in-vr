@@ -14,6 +14,8 @@ public class SpawnedInteractable : MonoBehaviour
     private Vector3 movedOffset;
     private bool isAnimating = true;
     private float timeToAnimate = 0.0f;
+    private int id;
+    private Transform hmd_transform;
 
 
     public GameObject pieceToSpawn;
@@ -44,9 +46,24 @@ public class SpawnedInteractable : MonoBehaviour
         if (movedOffset.x == 0 && movedOffset.z == 0) isAnimating = false;
     }
 
+    public void setHmd_transform(Transform t)
+    {
+        hmd_transform = t;
+    }
+
     public bool isMoving()
     {
         return rigidBody.velocity.magnitude > 0;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 
     public void setTimeToHitObjects(float timeToHitGameObjects)
@@ -144,5 +161,6 @@ public class SpawnedInteractable : MonoBehaviour
             if (timeToAnimate >= 2.0f) isAnimating = false;
         }
         else remainingTime -= Time.deltaTime;
+        transform.LookAt(hmd_transform);
     }
 }
