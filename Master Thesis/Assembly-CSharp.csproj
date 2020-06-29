@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BuildSequenceFromLevel.cs" />
-    <Compile Include="Assets\Scripts\EditorScripts\DropObjectEditor.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPoint.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPointEditor.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\MyWindow.cs" />

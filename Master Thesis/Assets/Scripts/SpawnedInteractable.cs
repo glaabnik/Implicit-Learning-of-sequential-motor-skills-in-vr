@@ -161,6 +161,8 @@ public class SpawnedInteractable : MonoBehaviour
             if (timeToAnimate >= 2.0f) isAnimating = false;
         }
         else remainingTime -= Time.deltaTime;
+        float zRotation = transform.localEulerAngles.z;
         transform.LookAt(hmd_transform);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, zRotation);
     }
 }

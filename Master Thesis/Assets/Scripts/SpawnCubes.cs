@@ -11,6 +11,10 @@ public class SphereCoordinates
     public float theta2;
     public float radius;
     public float radius2;
+    public float rotationZ;
+    public float rotationZ2;
+    public Vector3 scale;
+    public Vector3 scale2;
     public SphereCoordinates(float p, float t, float p2, float t2)
     {
         phi = p;
@@ -43,6 +47,7 @@ public class SpawnCubes : MonoBehaviour
     public int offsetRightSide = 40;
     public bool animatedSpawning = true;
     public bool loadSequenceFromCsv = true;
+    public bool useScaleFromCsv = false;
     public bool turnLoadedSequenceTowardsPlayer = false;
     public string filenameCsv;
     // Debug Variables
@@ -121,8 +126,10 @@ public class SpawnCubes : MonoBehaviour
 
     private void spawnCubesForBothHandsInSightOfCameraDirection()
     {
-        int degLeftPhi, degRightPhi, degLeftTheta, degRightTheta;
+        float degLeftPhi, degRightPhi, degLeftTheta, degRightTheta;
         float radiusLeft, radiusRight;
+        Vector3 rotationLeft, rotationRight;
+        Vector3 scaleLeft, scaleRight;
         int phiOffset = calculatePhiOffset();
         Debug.Log(phiOffset);
         if (sequenceOfSpawns == null || sequenceOfSpawns.Count == 0) // no list of spawn points => randomized spawning of cubes
@@ -135,6 +142,10 @@ public class SpawnCubes : MonoBehaviour
             degRightTheta = 90;
             radiusLeft = sphereRadius;
             radiusRight = sphereRadius;
+            rotationLeft = new Vector3(0, 0, 0);
+            rotationRight = new Vector3(0, 0, 0);
+            scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+            scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
             if (randomizeElevation)
             {
                 degLeftTheta = 70 + Random.Range(0, 40);
@@ -146,18 +157,34 @@ public class SpawnCubes : MonoBehaviour
             if (!turnLoadedSequenceTowardsPlayer) phiOffset = 0;
             int listSize = sequenceOfSpawns.Count;
             int actIndexInList = (objectsSpawned / 2) % listSize;
-            degLeftPhi = (int) sequenceOfSpawns[actIndexInList].phi + phiOffset;
+
+            degLeftPhi = (int)sequenceOfSpawns[actIndexInList].phi + phiOffset;
             degLeftTheta = (int)sequenceOfSpawns[actIndexInList].theta;
             radiusLeft = sequenceOfSpawns[actIndexInList].radius;
-            degRightPhi = (int)sequenceOfSpawns[actIndexInList].phi2 + phiOffset;
-            degRightTheta = (int)sequenceOfSpawns[actIndexInList].theta2;
+            rotationLeft = new Vector3(0, 0, sequenceOfSpawns[actIndexInList].rotationZ);
+
+            degRightPhi = sequenceOfSpawns[actIndexInList].phi2 + phiOffset;
+            degRightTheta = sequenceOfSpawns[actIndexInList].theta2;
             radiusRight = sequenceOfSpawns[actIndexInList].radius2;
-            Debug.Log("DegLeftTheta: "+degLeftTheta);
-            Debug.Log("DegRightTheta: "+degRightTheta);
+            rotationRight = new Vector3(0, 0, sequenceOfSpawns[actIndexInList].rotationZ2);
+
+            if (useScaleFromCsv)
+            {
+                scaleLeft = sequenceOfSpawns[actIndexInList].scale;
+                scaleRight = sequenceOfSpawns[actIndexInList].scale2;
+            }
+            else
+            {
+                scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+                scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+            }
+
+            //Debug.Log("DegLeftTheta: "+degLeftTheta);
+            //Debug.Log("DegRightTheta: "+degRightTheta);
         }
         ++roundGenerated;
-        spawnGameObject(true, sphereToCartesianCoordinate(degLeftTheta, degLeftPhi, radiusLeft), leftHandGameObject);
-        spawnGameObject(false, sphereToCartesianCoordinate(degRightTheta, degRightPhi, radiusRight), rightHandGameObject);
+        spawnGameObject(true, sphereToCartesianCoordinate(degLeftTheta, degLeftPhi, radiusLeft), rotationLeft, scaleLeft, leftHandGameObject);
+        spawnGameObject(false, sphereToCartesianCoordinate(degRightTheta, degRightPhi, radiusRight), rotationRight, scaleRight, rightHandGameObject);
         objectsSpawned += 2;
     }
 
@@ -209,7 +236,7 @@ public class SpawnCubes : MonoBehaviour
         return degree * Mathf.PI / 180;
     }
 
-    private void spawnGameObject(bool leftHand, Vector3 position, GameObject objectToSpawn)
+    private void spawnGameObject(bool leftHand, Vector3 position, Vector3 rotationVector, Vector3 scaleVector, GameObject objectToSpawn)
     {
         Vector3 normalizedOffset = new Vector3(0, 0, 0);
         if(animatedSpawning)
@@ -223,8 +250,9 @@ public class SpawnCubes : MonoBehaviour
         }
       
         GameObject gameObject = Instantiate(objectToSpawn, position, Quaternion.identity);
-        gameObject.transform.localScale = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
-        gameObject.transform.LookAt(hmd_transform.position);
+        gameObject.transform.localScale = scaleVector;
+        gameObject.transform.localEulerAngles = rotationVector;
+        //gameObject.transform.LookAt(hmd_transform.position);
         SpawnedInteractable si = gameObject.GetComponent<SpawnedInteractable>();
         si.setMovedOffset(normalizedOffset);
         si.setTimeToHitObjects(timeToHitGameObjects);

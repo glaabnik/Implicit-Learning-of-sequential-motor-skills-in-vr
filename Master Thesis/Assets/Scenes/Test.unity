@@ -3160,9 +3160,9 @@ MonoBehaviour:
   hmd_transform: {fileID: 618264175}
   leftHand: {fileID: 1975129069}
   rightHand: {fileID: 1969102704}
-  rightHandGameObject: {fileID: 6622909462059180691, guid: f3ef20b2ec17d364893b3e5981ae5d6b,
+  rightHandGameObject: {fileID: 603042587020635366, guid: 8f9f00a44abc7e7438ef7a6abbe157d3,
     type: 3}
-  leftHandGameObject: {fileID: 3799188650805137351, guid: e4ccc1855927ac64d80c79e59b94d778,
+  leftHandGameObject: {fileID: 6318931682605342790, guid: 840d198befad5754aa34e65960aed42c,
     type: 3}
   sphereRadius: 3
   timeToHitGameObjects: 3
@@ -3171,10 +3171,11 @@ MonoBehaviour:
   randomizeElevation: 0
   offsetLeftSide: 40
   offsetRightSide: 40
-  animatedSpawning: 1
+  animatedSpawning: 0
   loadSequenceFromCsv: 1
+  useScaleFromCsv: 0
   turnLoadedSequenceTowardsPlayer: 0
-  filenameCsv: nameSavedLevelSecondImp
+  filenameCsv: nameSavedLevelDifferentRotations
   forwardVectorTest: {x: 0, y: 0, z: 0}
 --- !u!4 &1080044112
 Transform:
@@ -4309,7 +4310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1602722696
 GameObject:
@@ -4656,6 +4657,7 @@ MonoBehaviour:
   offsetRightSide: 40
   animatedSpawning: 1
   loadSequenceFromCsv: 0
+  useScaleFromCsv: 0
   turnLoadedSequenceTowardsPlayer: 0
   filenameCsv: 
   forwardVectorTest: {x: 0, y: 0, z: 0}
@@ -6032,7 +6034,7 @@ PrefabInstance:
     - target: {fileID: 6631668284775894902, guid: f3ef20b2ec17d364893b3e5981ae5d6b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6631668284775894902, guid: f3ef20b2ec17d364893b3e5981ae5d6b,
         type: 3}

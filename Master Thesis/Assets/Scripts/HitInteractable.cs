@@ -11,6 +11,11 @@ public class HitInteractable : MonoBehaviour
     public List<int> listEarnedPoints;
     public List<int> listBlockPairNumber;
     private bool interactionLocked = false;
+    private bool startColliderHit = false;
+    private bool middleColliderHit = false;
+    private bool endColliderHit = false;
+    private int actAccuracyStart = 0;
+    private int actAccuracyMiddle = 0;
     private Vector3 relevantPositionToAddForce;
     public int destroyVariant = 0;
     void Start()
@@ -48,8 +53,66 @@ public class HitInteractable : MonoBehaviour
         {
             //Debug.Log("Fith collider entered");
         }
+
+        if (other.gameObject.CompareTag("directionFirst"))
+        {
+            if(!middleColliderHit && !endColliderHit)
+            startColliderHit = true;
+            assignStartAccuracy(other.gameObject.name);
+            //Debug.Log("Fith collider entered");
+        }
+        if (other.gameObject.CompareTag("directionSecond"))
+        {
+            if(startColliderHit && !endColliderHit)
+            middleColliderHit = true;
+            assignMiddleAccuracy(other.gameObject.name);
+            //Debug.Log("Fith collider entered");
+        }
+        if (other.gameObject.CompareTag("directionThird"))
+        {
+            endColliderHit = true;
+            //Debug.Log("Fith collider entered");
+        }
         /*SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         si.addForceToRigidBody(gameObject.transform.position);*/
+    }
+
+    private void assignStartAccuracy(string colliderName)
+    {
+        assignConditionalAcc(colliderName, "One", ref actAccuracyStart, 1);
+        assignConditionalAcc(colliderName, "Two", ref actAccuracyStart, 2);
+        assignConditionalAcc(colliderName, "Three", ref actAccuracyStart, 3);
+        assignConditionalAcc(colliderName, "Four", ref actAccuracyStart, 4);
+        assignConditionalAcc(colliderName, "Five", ref actAccuracyStart, 5);
+        assignConditionalAcc(colliderName, "Six", ref actAccuracyStart, 6);
+        assignConditionalAcc(colliderName, "Seven", ref actAccuracyStart, 7);
+        assignConditionalAcc(colliderName, "Eight", ref actAccuracyStart, 8);
+        assignConditionalAcc(colliderName, "Nine", ref actAccuracyStart, 9);
+        assignConditionalAcc(colliderName, "Ten", ref actAccuracyStart, 10);
+    }
+
+    private void assignMiddleAccuracy(string colliderName)
+    {
+        assignConditionalAcc(colliderName, "One", ref actAccuracyMiddle, 1);
+        assignConditionalAcc(colliderName, "Two", ref actAccuracyMiddle, 2);
+        assignConditionalAcc(colliderName, "Three", ref actAccuracyMiddle, 3);
+        assignConditionalAcc(colliderName, "Four", ref actAccuracyMiddle, 4);
+        assignConditionalAcc(colliderName, "Five", ref actAccuracyMiddle, 5);
+        assignConditionalAcc(colliderName, "Six", ref actAccuracyMiddle, 6);
+        assignConditionalAcc(colliderName, "Seven", ref actAccuracyMiddle, 7);
+        assignConditionalAcc(colliderName, "Eight", ref actAccuracyMiddle, 8);
+        assignConditionalAcc(colliderName, "Nine", ref actAccuracyMiddle, 9);
+        assignConditionalAcc(colliderName, "Ten", ref actAccuracyMiddle, 10);
+    }
+
+    private void assignConditionalAcc(string colliderName, string ending, ref int accuracy, int val)
+    {
+        if (colliderName.EndsWith(ending)) assignIfGreaterThanActAccuracy(ref accuracy, val);
+    }
+
+    private void assignIfGreaterThanActAccuracy(ref int acc, int newVal)
+    {
+        if (newVal > acc) acc = newVal;
     }
 
     private void OnTriggerExit(Collider other)
@@ -83,16 +146,24 @@ public class HitInteractable : MonoBehaviour
         }
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         bool pointsRewarded = si.getPointsRewarded();
-        if (!pointsRewarded)
+        if (!pointsRewarded && startColliderHit && middleColliderHit)
         {
+            precision = (actAccuracyStart + actAccuracyMiddle) / 2;
+            precisionPercent = (actAccuracyStart + actAccuracyMiddle) / 2.0f * 0.1f;
             si.setPointsRewarded();
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
             if (precision == 1) pointsEarned = (int)(percentRemainingTime * 10);
-            if (precision == 2) pointsEarned = (int)(percentRemainingTime * 25);
-            if (precision == 3) pointsEarned = (int)(percentRemainingTime * 40);
-            if (precision == 4) pointsEarned = (int)(percentRemainingTime * 75);
-            if (precision == 5) pointsEarned = (int)(percentRemainingTime * 100);
+            if (precision == 2) pointsEarned = (int)(percentRemainingTime * 15);
+            if (precision == 3) pointsEarned = (int)(percentRemainingTime * 20);
+            if (precision == 4) pointsEarned = (int)(percentRemainingTime * 30);
+            if (precision == 5) pointsEarned = (int)(percentRemainingTime * 35);
+
+            if (precision == 6) pointsEarned = (int)(percentRemainingTime * 50);
+            if (precision == 7) pointsEarned = (int)(percentRemainingTime * 60);
+            if (precision == 8) pointsEarned = (int)(percentRemainingTime * 75);
+            if (precision == 9) pointsEarned = (int)(percentRemainingTime * 90);
+            if (precision == 10) pointsEarned = (int)(percentRemainingTime * 100);
 
 
             Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
@@ -103,15 +174,26 @@ public class HitInteractable : MonoBehaviour
             listEarnedPoints.Add(pointsEarned);
             listBlockPairNumber.Add(si.roundGenerated);
             ++countObjectsHit;
+            initialiseVariables();
         }
 
 
         if (precision == 1)
         {
-            interactionLocked = false;
-            Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
+            bool pr = si.getPointsRewarded();
+            if(pr) Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
             //si.addForceToRigidBody(relevantPositionToAddForce);
         }
+    }
+
+    private void initialiseVariables()
+    {
+        interactionLocked = false;
+        startColliderHit = false;
+        middleColliderHit = false;
+        endColliderHit = false;
+        actAccuracyStart = 0;
+        actAccuracyMiddle = 0;
     }
 
     private void destroyEffect(SpawnedInteractable si)

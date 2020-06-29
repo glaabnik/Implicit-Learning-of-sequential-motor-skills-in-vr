@@ -35,6 +35,10 @@ public class LoadFixedSequenceOfSpawns : MonoBehaviour
                     sc.phi2 = float.Parse(values[3]);
                     sc.theta2 = float.Parse(values[4]);
                     sc.radius2 = float.Parse(values[5]);
+                    sc.rotationZ = float.Parse(values[14]);
+                    sc.rotationZ2 = float.Parse(values[17]);
+                    sc.scale = new Vector3(float.Parse(values[18]), float.Parse(values[19]), float.Parse(values[20]));
+                    sc.scale2 = new Vector3(float.Parse(values[21]), float.Parse(values[22]), float.Parse(values[23]));
                     list.Add(sc);
                 }
             }
@@ -60,13 +64,13 @@ public class LoadFixedSequenceOfSpawns : MonoBehaviour
                 float positionY2 = listCubeBlue[i].transform.position.y;
                 float positionZ2 = listCubeBlue[i].transform.position.z;
 
-                float rotationX = listCubeRed[i].transform.rotation.x;
-                float rotationY = listCubeRed[i].transform.rotation.y;
-                float rotationZ = listCubeRed[i].transform.rotation.z;
+                float rotationX = listCubeRed[i].transform.localEulerAngles.x;
+                float rotationY = listCubeRed[i].transform.localEulerAngles.y;
+                float rotationZ = listCubeRed[i].transform.localEulerAngles.z;
 
-                float rotationX2 = listCubeBlue[i].transform.rotation.x;
-                float rotationY2 = listCubeBlue[i].transform.rotation.y;
-                float rotationZ2 = listCubeBlue[i].transform.rotation.z;
+                float rotationX2 = listCubeBlue[i].transform.localEulerAngles.x;
+                float rotationY2 = listCubeBlue[i].transform.localEulerAngles.y;
+                float rotationZ2 = listCubeBlue[i].transform.localEulerAngles.z;
 
                 float scaleX = listCubeRed[i].transform.localScale.x;
                 float scaleY = listCubeRed[i].transform.localScale.y;

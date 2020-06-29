@@ -28,16 +28,19 @@ public class DropObjectEditor : EditorWindow
 
         if (GUILayout.Button("Bottom"))
         {
+            Debug.Log("Bottom Button entered");
             DropObjects("Bottom");
         }
 
         if (GUILayout.Button("Origin"))
         {
+            Debug.Log("Origin Button entered");
             DropObjects("Origin");
         }
 
         if (GUILayout.Button("Center"))
         {
+            Debug.Log("Center Button entered");
             DropObjects("Center");
         }
 
@@ -63,6 +66,7 @@ public class DropObjectEditor : EditorWindow
         {
             // get the game object
             GameObject go = Selection.transforms[i].gameObject;
+            Debug.Log("Gameobject: " + go);
 
             // don't think I need to check, but just to be sure...
             if (!go)
@@ -80,8 +84,9 @@ public class DropObjectEditor : EditorWindow
             int savedLayer = go.layer;
             go.layer = 2; // ignore raycast
             // see if this ray hit something
-            if (Physics.Raycast(go.transform.position, -Vector3.up, out hit, 30.0f))
+            if (Physics.Raycast(go.transform.position, -Vector3.up, out hit))
             {
+                Debug.Log("Raycast has hit!!");
                 // determine how the y will need to be adjusted
                 switch (method)
                 {
