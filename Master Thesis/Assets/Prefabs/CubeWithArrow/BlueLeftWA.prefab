@@ -1402,6 +1402,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueLeftWA
       objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: pieceToSpawn
+      value: 
+      objectReference: {fileID: 3037558863908495923, guid: ac1517df43fe2f944b59def4dc9f6d2e,
+        type: 3}
     - target: {fileID: 8011210822832587816, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: m_Sprite

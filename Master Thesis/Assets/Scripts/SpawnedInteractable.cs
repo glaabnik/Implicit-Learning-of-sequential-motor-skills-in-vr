@@ -17,6 +17,13 @@ public class SpawnedInteractable : MonoBehaviour
     private int id;
     private Transform hmd_transform;
 
+    private bool startColliderHit = false;
+    private bool middleColliderHit = false;
+    private bool endColliderHit = false;
+    private int actAccuracyStart = 0;
+    private int actAccuracyMiddle = 0;
+    private int actAccuracyEnd = 0;
+
 
     public GameObject pieceToSpawn;
     private float cubeSize = 0.2f;
@@ -38,6 +45,76 @@ public class SpawnedInteractable : MonoBehaviour
         //use this value to create pivot vector)
         cubesPivot = new Vector3(cubesPivotDistance, cubesPivotDistance, cubesPivotDistance);
         spawnedPieces = new List<GameObject>();
+    }
+
+    public void startColliderGroupHit(string colliderName)
+    {
+        actAccuracyStart = 0;
+        actAccuracyMiddle = 0;
+        actAccuracyEnd = 0;
+        if (!middleColliderHit && !endColliderHit)
+        {
+            startColliderHit = true;
+            assignAccuracyFor(colliderName, ref actAccuracyStart);
+        }   
+    }
+
+    public void middleColliderGroupHit(string colliderName)
+    {
+        if (startColliderHit && !endColliderHit)
+        {
+            middleColliderHit = true;
+            assignAccuracyFor(colliderName, ref actAccuracyMiddle);
+        }
+    }
+
+    public void endColliderGroupHit(string colliderName)
+    {
+        if (startColliderHit && middleColliderHit)
+        {
+            endColliderHit = true;
+            assignAccuracyFor(colliderName, ref actAccuracyEnd);
+        }
+            
+    }
+
+    public bool wasHitInRightDirection()
+    {
+        return startColliderHit && middleColliderHit && endColliderHit;
+    }
+
+    public int getAvgAccuracy()
+    {
+        return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3;
+    }
+
+    public float getAvgAccuracyPercent()
+    {
+        return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3.0f * 0.1f;
+    }
+
+    private void assignAccuracyFor(string colliderName, ref int accAttribute)
+    {
+        assignConditionalAcc(colliderName, "One", ref accAttribute, 1);
+        assignConditionalAcc(colliderName, "Two", ref accAttribute, 2);
+        assignConditionalAcc(colliderName, "Three", ref accAttribute, 3);
+        assignConditionalAcc(colliderName, "Four", ref accAttribute, 4);
+        assignConditionalAcc(colliderName, "Five", ref accAttribute, 5);
+        assignConditionalAcc(colliderName, "Six", ref accAttribute, 6);
+        assignConditionalAcc(colliderName, "Seven", ref accAttribute, 7);
+        assignConditionalAcc(colliderName, "Eight", ref accAttribute, 8);
+        assignConditionalAcc(colliderName, "Nine", ref accAttribute, 9);
+        assignConditionalAcc(colliderName, "Ten", ref accAttribute, 10);
+    }
+
+    private void assignConditionalAcc(string colliderName, string ending, ref int accuracy, int val)
+    {
+        if (colliderName.EndsWith(ending)) assignIfGreaterThanActAccuracy(ref accuracy, val);
+    }
+
+    private void assignIfGreaterThanActAccuracy(ref int acc, int newVal)
+    {
+        if (newVal > acc) acc = newVal;
     }
 
     public void setMovedOffset(Vector3 offset)

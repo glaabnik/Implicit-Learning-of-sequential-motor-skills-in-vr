@@ -1311,7 +1311,8 @@ MonoBehaviour:
   timeToHitObjects: 0
   roundGenerated: 0
   colorAfterHit: {r: 0.059807744, g: 0.9056604, b: 0.8790408, a: 1}
-  pieceToSpawn: {fileID: 0}
+  pieceToSpawn: {fileID: 3037558863908495923, guid: ac1517df43fe2f944b59def4dc9f6d2e,
+    type: 3}
   explosionForce: 125
   explosionRadius: 2
   explosionUpward: 0.8
