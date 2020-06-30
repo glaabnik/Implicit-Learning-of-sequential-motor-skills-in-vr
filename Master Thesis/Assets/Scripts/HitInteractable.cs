@@ -70,6 +70,7 @@ public class HitInteractable : MonoBehaviour
         }
         if (other.gameObject.CompareTag("directionThird"))
         {
+            if(startColliderHit && middleColliderHit)
             endColliderHit = true;
             //Debug.Log("Fith collider entered");
         }
@@ -117,9 +118,8 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        int precision = 0;
-        float precisionPercent = 0.0f;
-        if (other.gameObject.CompareTag("precisionOne"))
+        
+        /*if (other.gameObject.CompareTag("precisionOne"))
         {
             precision = 1;
             precisionPercent = 0.2f;
@@ -143,10 +143,13 @@ public class HitInteractable : MonoBehaviour
         {
             precision = 5;
             precisionPercent = 1.0f;
-        }
+        }*/
+        if (!other.CompareTag("directionThird")) return;
+        int precision = 0;
+        float precisionPercent = 0.0f;
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         bool pointsRewarded = si.getPointsRewarded();
-        if (!pointsRewarded && startColliderHit && middleColliderHit)
+        if (!pointsRewarded && startColliderHit && middleColliderHit && endColliderHit)
         {
             precision = (actAccuracyStart + actAccuracyMiddle) / 2;
             precisionPercent = (actAccuracyStart + actAccuracyMiddle) / 2.0f * 0.1f;

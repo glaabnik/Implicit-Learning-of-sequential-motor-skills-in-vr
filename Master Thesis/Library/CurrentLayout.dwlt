@@ -46,7 +46,7 @@ MonoBehaviour:
     y: 0
     width: 2195
     height: 1152
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 498}
   m_MaxSize: {x: 14006, y: 14048}
   vertical: 0
-  controlID: 13199
+  controlID: 2646
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 13200
+  controlID: 2726
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 224}
   m_MaxSize: {x: 8004, y: 4024}
   vertical: 0
-  controlID: 13201
+  controlID: 2727
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -308,10 +308,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -284.28574
-    m_HBaseRangeMax: 284.28574
-    m_VBaseRangeMin: -172.28572
-    m_VBaseRangeMax: 172.28572
+    m_HBaseRangeMin: -628.28577
+    m_HBaseRangeMax: 628.28577
+    m_VBaseRangeMin: -304.57144
+    m_VBaseRangeMax: 304.57144
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -329,25 +329,25 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 17
-      width: 995
-      height: 603
-    m_Scale: {x: 1.7284245, y: 1.7284249}
-    m_Translation: {x: 497.5, y: 301.5}
+      width: 2199
+      height: 1066
+    m_Scale: {x: 1.7284245, y: 1.7284248}
+    m_Translation: {x: 1099.5, y: 533}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -287.83438
-      y: -174.43628
-      width: 575.66876
-      height: 348.87256
+      x: -636.1284
+      y: -308.37326
+      width: 1272.2568
+      height: 616.7465
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 1
-  m_LastWindowPixelSize: {x: 1741.25, y: 1085}
+  m_LastWindowPixelSize: {x: 3848.25, y: 1895.25}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000100000100
@@ -381,9 +381,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 3c3b0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: d243feff8a51feff5671feff9883feff72defeffd8fbffff221b0000861b0000f68400002c8600004ea70000fea7000046a80000
+      m_SelectedIDs: 721b0000
+      m_LastClickedID: 7026
+      m_ExpandedIDs: d8fbffff481b0000ac1b0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -550,20 +550,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/CubeWithArrow
+    - Assets/pictures
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/CubeWithArrow
+  - Assets/pictures
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Niko\nikolaiglaab\Master Thesis
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 90140000
-    m_LastClickedID: 5264
-    m_ExpandedIDs: 000000002a0e00004a0e0000a40f00004e12000014140000fa3a0000fc3a0000fe3a000000ca9a3b
+    m_SelectedIDs: 080f0000
+    m_LastClickedID: 3848
+    m_ExpandedIDs: 000000003a0e00005a0e0000bc0f00006812000034140000063c0000083c00000a3c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -591,7 +591,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002a0e00004a0e0000a40f00004e12000014140000fa3a0000fc3a0000fe3a000000ca9a3b
+    m_ExpandedIDs: 000000003a0e00005a0e0000bc0f00006812000034140000063c0000083c00000a3c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
