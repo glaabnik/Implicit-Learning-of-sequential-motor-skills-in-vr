@@ -225,8 +225,8 @@ public class SpawnCubes : MonoBehaviour
 
     private Vector3 sphereToCartesianCoordinate(float theta, float phi, float radius)
     {
-        float x = radius * Mathf.Sin(DegToRadians(theta)) * Mathf.Cos(DegToRadians(phi)) + hmd_transform.position.x;
-        float z = radius * Mathf.Sin(DegToRadians(theta)) * Mathf.Sin(DegToRadians(phi)) + hmd_transform.position.z;
+        float x = sphereRadius * Mathf.Sin(DegToRadians(theta)) * Mathf.Cos(DegToRadians(phi)) + hmd_transform.position.x;
+        float z = sphereRadius * Mathf.Sin(DegToRadians(theta)) * Mathf.Sin(DegToRadians(phi)) + hmd_transform.position.z;
         float y = radius * Mathf.Cos(DegToRadians(theta)) + hmd_transform.position.y;
         return new Vector3(x, y, z);
     }
