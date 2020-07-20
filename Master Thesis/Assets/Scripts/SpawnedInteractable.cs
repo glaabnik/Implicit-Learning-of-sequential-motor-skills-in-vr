@@ -47,6 +47,16 @@ public class SpawnedInteractable : MonoBehaviour
         spawnedPieces = new List<GameObject>();
     }
 
+    public void resetColliderGroupsHit()
+    {
+        startColliderHit = false;
+        middleColliderHit = false;
+        endColliderHit = false;
+        actAccuracyStart = 0;
+        actAccuracyMiddle = 0;
+        actAccuracyEnd = 0;
+    }
+
     public void startColliderGroupHit(string colliderName)
     {
         actAccuracyStart = 0;

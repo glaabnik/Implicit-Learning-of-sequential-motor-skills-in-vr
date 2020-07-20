@@ -15,7 +15,11 @@ public class HitInteractable : MonoBehaviour
     public int destroyVariant = 0;
     void Start()
     {
-        
+        listTimeNeededToHitObject = new List<float>();
+        listPrecisionWithThatObjectWasHit = new List<float>();
+        listEarnedPoints = new List<int>();
+        listBlockPairNumber = new List<int>();
+
     }
 
     // Update is called once per frame
@@ -70,12 +74,13 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        
-        /*if (other.gameObject.CompareTag("precisionOne"))
+        bool endColliderHit = false;
+        if (other.gameObject.CompareTag("precisionOne"))
         {
-            precision = 1;
-            precisionPercent = 0.2f;
+            endColliderHit = true;
         }
+        /*
+
         if (other.gameObject.CompareTag("precisionTwo"))
         {
             precision = 2;
@@ -133,9 +138,10 @@ public class HitInteractable : MonoBehaviour
         }
 
 
-        if (precision == 1)
+        if (endColliderHit)
         {
             bool pr = si.getPointsRewarded();
+            si.resetColliderGroupsHit();
             if(pr) Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
             //si.addForceToRigidBody(relevantPositionToAddForce);
         }
