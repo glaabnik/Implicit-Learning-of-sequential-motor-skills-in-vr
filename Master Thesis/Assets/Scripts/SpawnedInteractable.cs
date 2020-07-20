@@ -238,6 +238,13 @@ public class SpawnedInteractable : MonoBehaviour
         return timeToHitObjects - remainingTime;
     }
 
+    public void lookAt()
+    {
+        float zRotation = transform.localEulerAngles.z;
+        transform.LookAt(hmd_transform);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, zRotation);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -246,10 +253,9 @@ public class SpawnedInteractable : MonoBehaviour
             transform.position -= movedOffset * (Time.deltaTime / 2.0f);
             timeToAnimate += Time.deltaTime;
             if (timeToAnimate >= 2.0f) isAnimating = false;
+            lookAt();
         }
         else remainingTime -= Time.deltaTime;
-        float zRotation = transform.localEulerAngles.z;
-        transform.LookAt(hmd_transform);
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, zRotation);
+       
     }
 }

@@ -258,6 +258,7 @@ public class SpawnCubes : MonoBehaviour
         si.setTimeToHitObjects(timeToHitGameObjects);
         si.roundGenerated = roundGenerated;
         si.setHmd_transform(hmd_transform);
+        si.lookAt();
         if (leftHand) lastLeftHandTarget = si;
         else lastRightHandTarget = si;
     }
