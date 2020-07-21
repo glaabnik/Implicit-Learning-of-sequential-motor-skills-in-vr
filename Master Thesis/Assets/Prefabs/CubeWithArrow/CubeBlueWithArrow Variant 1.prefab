@@ -1402,11 +1402,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CubeBlueWithArrow Variant 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6166386274514002075, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: m_TagString
+      value: blue
+      objectReference: {fileID: 0}
     - target: {fileID: 8011210822832587816, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3c6aeb027422901419e9d3328071ed69,
+      objectReference: {fileID: 21300000, guid: 0a3c56eb194f72b46b6175c1ca89d39f,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4746481f7ff6c07469b5cbcf61b69587, type: 3}

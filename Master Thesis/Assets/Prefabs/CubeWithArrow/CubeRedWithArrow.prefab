@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 3625046609728473374}
   - component: {fileID: 6718047211628721908}
   m_Layer: 0
-  m_Name: CubeRed 1
-  m_TagString: Untagged
+  m_Name: CubeRedWithArrow
+  m_TagString: red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,6 +102,10 @@ MonoBehaviour:
   timeToHitObjects: 0
   roundGenerated: 0
   colorAfterHit: {r: 0.9528302, g: 0.7311643, b: 0, a: 0}
+  pieceToSpawn: {fileID: 0}
+  explosionForce: 125
+  explosionRadius: 2
+  explosionUpward: 0.8
 --- !u!54 &3625046609728473374
 Rigidbody:
   m_ObjectHideFlags: 0

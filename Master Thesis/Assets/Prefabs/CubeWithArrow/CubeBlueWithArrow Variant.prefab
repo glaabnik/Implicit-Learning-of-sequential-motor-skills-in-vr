@@ -16,7 +16,12 @@ PrefabInstance:
     - target: {fileID: 3122295974962342507, guid: d48a111b33dc277408756ee429e68b52,
         type: 3}
       propertyPath: m_Name
-      value: CubeBlueWithArrow
+      value: CubeBlueWithArrow Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122295974962342507, guid: d48a111b33dc277408756ee429e68b52,
+        type: 3}
+      propertyPath: m_TagString
+      value: blue
       objectReference: {fileID: 0}
     - target: {fileID: 3221685198061422478, guid: d48a111b33dc277408756ee429e68b52,
         type: 3}

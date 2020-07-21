@@ -9,6 +9,7 @@ public class SpawnedInteractable : MonoBehaviour
     public int roundGenerated;
     private bool pointsRewarded = false;
     public Color colorAfterHit;
+    public Color colorAfterHit2;
     private MeshRenderer meshRenderer;
     private Rigidbody rigidBody;
     private Vector3 movedOffset;
@@ -26,6 +27,8 @@ public class SpawnedInteractable : MonoBehaviour
 
 
     public GameObject pieceToSpawn;
+    public GameObject pieceToSpawn2;
+    public GameObject pieceToSpawn3;
     private float cubeSize = 0.2f;
     private int cubesInRow = 5;
     private float cubesPivotDistance;
@@ -158,18 +161,19 @@ public class SpawnedInteractable : MonoBehaviour
         timeToHitObjects = remainingTime = timeToHitGameObjects;
     }
 
-    public void setPointsRewarded()
+    public void setPointsRewarded(int pointsGained)
     {
         pointsRewarded = true;
-        changeColor();
+        changeColor(pointsGained);
     }
 
-    private void changeColor()
+    private void changeColor(int pointsGained)
     {
-        meshRenderer.material.color = colorAfterHit;
+        if (pointsGained > 35 && pointsGained <= 70) meshRenderer.material.color = colorAfterHit;
+        else if (pointsGained > 70 && pointsGained <= 100) meshRenderer.material.color = colorAfterHit2;
     }
 
-    public void ExplodeIntoPieces(Vector3 positionVector)
+    public void ExplodeIntoPieces(Vector3 positionVector, int pointsRewarded)
     {
         //make object disappear
         gameObject.SetActive(false);
@@ -181,7 +185,7 @@ public class SpawnedInteractable : MonoBehaviour
             {
                 for (int z = 0; z < cubesInRow; z++)
                 {
-                    createPiece(x, y, z);
+                    createPiece(x, y, z, pointsRewarded);
                 }
             }
         }
@@ -200,11 +204,15 @@ public class SpawnedInteractable : MonoBehaviour
 
     }
 
-    void createPiece(int x, int y, int z)
+    void createPiece(int x, int y, int z, int pointsRewarded)
     {
 
         //create piece
-        GameObject piece = Instantiate(pieceToSpawn);
+        GameObject piece;
+        if (pointsRewarded <= 35) piece = Instantiate(pieceToSpawn);
+        else if (pointsRewarded <= 70) piece = Instantiate(pieceToSpawn2);
+        else if (pointsRewarded <= 100) piece = Instantiate(pieceToSpawn3);
+        else piece = Instantiate(pieceToSpawn);
         
 
         //set piece position and scale
