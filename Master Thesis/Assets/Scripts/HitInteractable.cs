@@ -74,13 +74,13 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("precisionOne"))
+        /*if (other.gameObject.CompareTag("precisionOne"))
         {
             SpawnedInteractable block = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
             block.resetColliderGroupsHit();
             Debug.Log("Collider Groups resettet");
             Debug.Log("Endcollider was hit!!!!!!!");
-        }
+        }*/
         /*
 
         if (other.gameObject.CompareTag("precisionTwo"))
@@ -103,48 +103,60 @@ public class HitInteractable : MonoBehaviour
             precision = 5;
             precisionPercent = 1.0f;
         }*/
-        if (!other.CompareTag("directionThird")) return;
-        int precision = 0;
-        float precisionPercent = 0.0f;
+        if (!other.gameObject.CompareTag("precisionOne")) return;
+    
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         bool pointsRewarded = si.getPointsRewarded();
-        if (!pointsRewarded && si.wasHitInRightDirection())
+
+        if (!pointsRewarded )
         {
-            precision = si.getAvgAccuracy();
-            precisionPercent = si.getAvgAccuracyPercent();
-         
+            int precision = 0;
+            float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
-            if (precision == 1) pointsEarned = (int)(percentRemainingTime * 10);
-            if (precision == 2) pointsEarned = (int)(percentRemainingTime * 15);
-            if (precision == 3) pointsEarned = (int)(percentRemainingTime * 20);
-            if (precision == 4) pointsEarned = (int)(percentRemainingTime * 30);
-            if (precision == 5) pointsEarned = (int)(percentRemainingTime * 35);
+            if (si.wasHitInRightDirection())
+            {
+                precision = si.getAvgAccuracy();
+                precisionPercent = si.getAvgAccuracyPercent();
 
-            if (precision == 6) pointsEarned = (int)(percentRemainingTime * 50);
-            if (precision == 7) pointsEarned = (int)(percentRemainingTime * 60);
-            if (precision == 8) pointsEarned = (int)(percentRemainingTime * 75);
-            if (precision == 9) pointsEarned = (int)(percentRemainingTime * 90);
-            if (precision == 10) pointsEarned = (int)(percentRemainingTime * 100);
+                if (precision == 1) pointsEarned = (int)(percentRemainingTime * 10);
+                if (precision == 2) pointsEarned = (int)(percentRemainingTime * 15);
+                if (precision == 3) pointsEarned = (int)(percentRemainingTime * 20);
+                if (precision == 4) pointsEarned = (int)(percentRemainingTime * 30);
+                if (precision == 5) pointsEarned = (int)(percentRemainingTime * 35);
 
-            si.setPointsRewarded(pointsEarned);
-            Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
-            highScore.updateHighscore(pointsEarned);
-            SoundManager.Instance.PlayHitSound(precision, 0.5f);
-            destroyEffect(si, pointsEarned);
-            listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
-            listPrecisionWithThatObjectWasHit.Add(precisionPercent);
-            listEarnedPoints.Add(pointsEarned);
-            listBlockPairNumber.Add(si.roundGenerated);
-            ++countObjectsHit;
-            interactionLocked = false;
-            Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
+                if (precision == 6) pointsEarned = (int)(percentRemainingTime * 50);
+                if (precision == 7) pointsEarned = (int)(percentRemainingTime * 60);
+                if (precision == 8) pointsEarned = (int)(percentRemainingTime * 75);
+                if (precision == 9) pointsEarned = (int)(percentRemainingTime * 90);
+                if (precision == 10) pointsEarned = (int)(percentRemainingTime * 100);
+            }
+            else
+            {
+                precision = 0;
+                precisionPercent = 0.0f;
+            }
+                si.setPointsRewarded(pointsEarned);
+                Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
+                highScore.updateHighscore(pointsEarned);
+                SoundManager.Instance.PlayHitSound(precision, 0.5f);
+                destroyEffect(si, pointsEarned);
+                listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
+                listPrecisionWithThatObjectWasHit.Add(precisionPercent);
+                listEarnedPoints.Add(pointsEarned);
+                listBlockPairNumber.Add(si.roundGenerated);
+                ++countObjectsHit;
+                interactionLocked = false;
+                Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
+           
+           
         }
     }
 
     private void destroyEffect(SpawnedInteractable si, int pointsEarned)
     {
-        if(destroyVariant == 0) si.addForceToRigidBody(relevantPositionToAddForce);
-        if(destroyVariant == 1) si.ExplodeIntoPieces(relevantPositionToAddForce, pointsEarned);
+        if(pointsEarned == 0) si.fadeOutEffect();
+        else if(destroyVariant == 0) si.addForceToRigidBody(relevantPositionToAddForce);
+        else if(destroyVariant == 1) si.ExplodeIntoPieces(relevantPositionToAddForce, pointsEarned);
     }
 }

@@ -44,8 +44,7 @@ public class SoundManager : MonoBehaviour
     // Play a single clip through the music source.
     public void PlayBackgroundMusic()
     {
-        backgroundSource.clip = backgroundMusic;
-        backgroundSource.Play();
+        backgroundSource.PlayOneShot(backgroundMusic, 0.6f);
     }
 
     // Play a random clip from an array, and randomize the pitch slightly.

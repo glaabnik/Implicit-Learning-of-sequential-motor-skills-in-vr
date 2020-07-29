@@ -37,6 +37,8 @@ public class SpawnedInteractable : MonoBehaviour
     public float explosionRadius = 2f;
     public float explosionUpward = 0.8f;
     private List<GameObject> spawnedPieces;
+    private bool startFadingOut = false;
+    private float fadeSpeed = 1.0f;
 
     void Start()
     {
@@ -230,6 +232,12 @@ public class SpawnedInteractable : MonoBehaviour
         rigidBody.useGravity = true;
     }
 
+    public void fadeOutEffect()
+    {
+        startFadingOut = true;
+        Object.Destroy(this, 5.0f);
+    }
+
     public bool getPointsRewarded()
     {
         return pointsRewarded;
@@ -265,5 +273,17 @@ public class SpawnedInteractable : MonoBehaviour
         }
         else remainingTime -= Time.deltaTime;
        
+        if(startFadingOut)
+        {
+            Renderer renderer = this.GetComponent<Renderer>();
+            Color objectColor = renderer.material.color;
+            float fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            renderer.material.color = objectColor;
+            if (objectColor.a <= 0)
+            {
+                startFadingOut = false;
+            }
+        }
     }
 }
