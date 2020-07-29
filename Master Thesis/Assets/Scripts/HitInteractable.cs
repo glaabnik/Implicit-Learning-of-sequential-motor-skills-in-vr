@@ -130,6 +130,7 @@ public class HitInteractable : MonoBehaviour
             si.setPointsRewarded(pointsEarned);
             Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
             highScore.updateHighscore(pointsEarned);
+            SoundManager.Instance.PlayHitSound(precision, 0.5f);
             destroyEffect(si, pointsEarned);
             listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
             listPrecisionWithThatObjectWasHit.Add(precisionPercent);

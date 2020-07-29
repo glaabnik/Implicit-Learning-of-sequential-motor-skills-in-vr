@@ -49,6 +49,7 @@ public class SpawnCubes : MonoBehaviour
     public bool loadSequenceFromCsv = true;
     public bool useScaleFromCsv = false;
     public bool turnLoadedSequenceTowardsPlayer = false;
+    public bool playBackgroundMusic = true;
     public string filenameCsv;
     // Debug Variables
     public Vector3 forwardVectorTest;
@@ -73,7 +74,7 @@ public class SpawnCubes : MonoBehaviour
         forwardVectorTest = hmd_transform.forward;
         spawnCubesForBothHandsInSightOfCameraDirection();
         instantiated = true;
-       
+        if (playBackgroundMusic) SoundManager.Instance.PlayBackgroundMusic();
         
         Debug.Log(" Size of List: "+sequenceOfSpawns.Count);
     }
