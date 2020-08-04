@@ -10,22 +10,29 @@ public class HitInteractable : MonoBehaviour
     public List<float> listPrecisionWithThatObjectWasHit;
     public List<int> listEarnedPoints;
     public List<int> listBlockPairNumber;
+    public bool oneTryForHittingCubesCorrectly = true;
     private bool interactionLocked = false;
     private Vector3 relevantPositionToAddForce;
+    private Vector3 positionInitialColliderEntered;
+    private Vector3 positionInitialColliderLeft;
+    private bool resetHasToBeDone = false;
+    private SpawnedInteractable siToReset;
     public int destroyVariant = 0;
+
+    //Debug
+    public float magnitudeVelocity;
     void Start()
     {
         listTimeNeededToHitObject = new List<float>();
         listPrecisionWithThatObjectWasHit = new List<float>();
         listEarnedPoints = new List<int>();
         listBlockPairNumber = new List<int>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        resetColliderGroups();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,6 +42,7 @@ public class HitInteractable : MonoBehaviour
         {
             interactionLocked = true;
             relevantPositionToAddForce = gameObject.transform.position;
+            positionInitialColliderEntered = gameObject.transform.position;
             //Debug.Log("First collider entered");
         }
         if (other.gameObject.CompareTag("precisionTwo"))
@@ -74,41 +82,20 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        /*if (other.gameObject.CompareTag("precisionOne"))
+        if (!oneTryForHittingCubesCorrectly && other.gameObject.CompareTag("precisionOne"))
         {
-            SpawnedInteractable block = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
-            block.resetColliderGroupsHit();
-            Debug.Log("Collider Groups resettet");
-            Debug.Log("Endcollider was hit!!!!!!!");
-        }*/
-        /*
+            SpawnedInteractable spawnedInteractable = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+            siToReset = spawnedInteractable;
+            resetHasToBeDone = true;
+        }
 
-        if (other.gameObject.CompareTag("precisionTwo"))
-        {
-            precision = 2;
-            precisionPercent = 0.4f;
-        }
-        if (other.gameObject.CompareTag("precisionThree"))
-        {
-            precision = 3;
-            precisionPercent = 0.6f;
-        }
-        if (other.gameObject.CompareTag("precisionFour"))
-        {
-            precision = 4;
-            precisionPercent = 0.8f;
-        }
-        if (other.gameObject.CompareTag("precisionFive"))
-        {
-            precision = 5;
-            precisionPercent = 1.0f;
-        }*/
         if (!other.gameObject.CompareTag("precisionOne")) return;
-    
+
+        positionInitialColliderLeft = gameObject.transform.position;
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         bool pointsRewarded = si.getPointsRewarded();
 
-        if (!pointsRewarded )
+        if (!pointsRewarded && hitOnObjectWasIntended(si))
         {
             int precision = 0;
             float precisionPercent = 0.0f;
@@ -136,21 +123,39 @@ public class HitInteractable : MonoBehaviour
                 precision = 0;
                 precisionPercent = 0.0f;
             }
-                si.setPointsRewarded(pointsEarned);
-                Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
-                highScore.updateHighscore(pointsEarned);
-                SoundManager.Instance.PlayHitSound(precision, 0.5f);
-                destroyEffect(si, pointsEarned);
-                listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
-                listPrecisionWithThatObjectWasHit.Add(precisionPercent);
-                listEarnedPoints.Add(pointsEarned);
-                listBlockPairNumber.Add(si.roundGenerated);
-                ++countObjectsHit;
-                interactionLocked = false;
-                Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
+
+            SoundManager.Instance.PlayHitSound(precision, 0.5f);
+            interactionLocked = false;
+            if (precision == 0 && !oneTryForHittingCubesCorrectly) return;
+
+            si.setPointsRewarded(pointsEarned);
+            Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
+            highScore.updateHighscore(pointsEarned);
+            destroyEffect(si, pointsEarned);
+            listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
+            listPrecisionWithThatObjectWasHit.Add(precisionPercent);
+            listEarnedPoints.Add(pointsEarned);
+            listBlockPairNumber.Add(si.roundGenerated);
+            ++countObjectsHit;
+            Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
            
            
         }
+    }
+
+    private void resetColliderGroups()
+    {
+        if (resetHasToBeDone && !interactionLocked)
+        {
+            if(siToReset != null) siToReset.resetColliderGroupsHit();
+            Debug.Log("Collider Groups resetted!!");
+            resetHasToBeDone = false;
+        }
+    }
+
+    private bool hitOnObjectWasIntended(SpawnedInteractable si)
+    {
+        return (positionInitialColliderLeft - positionInitialColliderEntered).magnitude >= 0.9 * si.gameObject.transform.localScale.x;
     }
 
     private void destroyEffect(SpawnedInteractable si, int pointsEarned)

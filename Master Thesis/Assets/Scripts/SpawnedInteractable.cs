@@ -39,6 +39,7 @@ public class SpawnedInteractable : MonoBehaviour
     private List<GameObject> spawnedPieces;
     private bool startFadingOut = false;
     private float fadeSpeed = 1.0f;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
@@ -50,6 +51,7 @@ public class SpawnedInteractable : MonoBehaviour
         //use this value to create pivot vector)
         cubesPivot = new Vector3(cubesPivotDistance, cubesPivotDistance, cubesPivotDistance);
         spawnedPieces = new List<GameObject>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void resetColliderGroupsHit()
@@ -235,7 +237,7 @@ public class SpawnedInteractable : MonoBehaviour
     public void fadeOutEffect()
     {
         startFadingOut = true;
-        Object.Destroy(this, 5.0f);
+        Object.Destroy(gameObject, 5.0f);
     }
 
     public bool getPointsRewarded()
@@ -280,6 +282,11 @@ public class SpawnedInteractable : MonoBehaviour
             float fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
             objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
             renderer.material.color = objectColor;
+
+            Color spriteColor = spriteRenderer.material.color;
+            spriteColor = new Color(spriteColor.r, spriteColor.g, spriteColor.b, fadeAmount);
+            spriteRenderer.material.color = spriteColor;
+
             if (objectColor.a <= 0)
             {
                 startFadingOut = false;

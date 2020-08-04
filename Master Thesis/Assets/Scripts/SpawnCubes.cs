@@ -84,7 +84,7 @@ public class SpawnCubes : MonoBehaviour
     {
         float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f;
 
-        if(instantiated && lastLeftHandTarget.getPointsRewarded() && lastRightHandTarget.getPointsRewarded())
+        if(instantiated && (lastLeftHandTarget ==  null || lastLeftHandTarget.getPointsRewarded()) && (lastRightHandTarget == null || lastRightHandTarget.getPointsRewarded()) )
         {
             timeCounter = timeToHitGameObjects + animationTimeBonus;
         }
@@ -100,11 +100,11 @@ public class SpawnCubes : MonoBehaviour
         {
             float destroyTimeLeft = 0;
             float destroyTimeRight = 0;
-            if (lastLeftHandTarget.getPointsRewarded()) destroyTimeLeft = 5.0f;
-            if (lastRightHandTarget.getPointsRewarded()) destroyTimeRight = 5.0f;
+            if (lastLeftHandTarget == null || lastLeftHandTarget.getPointsRewarded()) destroyTimeLeft = 5.0f;
+            if (lastRightHandTarget == null || lastRightHandTarget.getPointsRewarded()) destroyTimeRight = 5.0f;
 
-            Object.Destroy(lastLeftHandTarget.gameObject, destroyTimeLeft);
-            Object.Destroy(lastRightHandTarget.gameObject, destroyTimeRight);
+            if(lastLeftHandTarget != null) Object.Destroy(lastLeftHandTarget.gameObject, destroyTimeLeft);
+            if(lastRightHandTarget != null) Object.Destroy(lastRightHandTarget.gameObject, destroyTimeRight);
             timeCounter = -timeToWaitBetween;
             instantiateTimeCounter = 0;
             instantiated = false;

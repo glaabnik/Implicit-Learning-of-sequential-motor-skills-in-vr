@@ -16,6 +16,7 @@ TagManager:
   - projectile
   - blue
   - red
+  - precisionReset
   layers:
   - Default
   - TransparentFX

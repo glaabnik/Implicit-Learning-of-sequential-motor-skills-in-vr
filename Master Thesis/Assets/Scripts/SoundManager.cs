@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource backgroundSource;
     public AudioClip[] hitSoundsAccuracy;
     public AudioClip backgroundMusic;
+    public float volumeBackGroundMusic = 0.1f;
 
     // Random pitch adjustment range.
     public float LowPitchRange = .95f;
@@ -44,7 +45,7 @@ public class SoundManager : MonoBehaviour
     // Play a single clip through the music source.
     public void PlayBackgroundMusic()
     {
-        backgroundSource.PlayOneShot(backgroundMusic, 0.6f);
+        backgroundSource.PlayOneShot(backgroundMusic, volumeBackGroundMusic);
     }
 
     // Play a random clip from an array, and randomize the pitch slightly.
