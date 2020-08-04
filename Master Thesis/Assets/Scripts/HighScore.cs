@@ -9,11 +9,11 @@ public class HighScore : MonoBehaviour
     public PointGainedVisualization pgv;
     private int highScore = 0;
 
-    public void updateHighscore(int pointsEarned)
+    public void updateHighscore(int pointsEarned, Color color)
     {
         highScore += pointsEarned;
         updateText();
-        pgv.visualizePointsGained(pointsEarned);
+        pgv.visualizePointsGained(pointsEarned, color);
     }
 
     private void updateText()

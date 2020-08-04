@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PointGainedVisualization : MonoBehaviour
 {
+    public int initialFontSize;
     private Text text;
     private int pointsGained = 0;
     private float frameCounter;
@@ -32,8 +33,10 @@ public class PointGainedVisualization : MonoBehaviour
             if (frameCounter <= 0) text.text = "";
         }
     }
-    public void visualizePointsGained(int pointsEarned)
+    public void visualizePointsGained(int pointsEarned, Color color)
     {
+        text.fontSize = initialFontSize;
+        text.color = color;
         pointsGained = pointsEarned;
         frameCounter = 3.0f;
         frameCount = 0;

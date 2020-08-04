@@ -19,8 +19,6 @@ public class HitInteractable : MonoBehaviour
     private SpawnedInteractable siToReset;
     public int destroyVariant = 0;
 
-    //Debug
-    public float magnitudeVelocity;
     void Start()
     {
         listTimeNeededToHitObject = new List<float>();
@@ -35,14 +33,44 @@ public class HitInteractable : MonoBehaviour
         resetColliderGroups();
     }
 
+    private Vector3 GetPointOfContact()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        {
+            return hit.point;
+        }
+        return new Vector3(0, 0, 0);
+    }
+
+    /*void OnCollisionEnter(Collision collision)
+    {
+        ContactPoint[] contacts = new ContactPoint[20];
+        collision.GetContacts(contacts);
+        foreach (ContactPoint contact in contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
+        if (collision.collider.gameObject.CompareTag("precisionOne"))
+        {
+            positionInitialColliderEntered = collision.GetContact(0).point;
+            relevantPositionToAddForce = positionInitialColliderEntered;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.gameObject.CompareTag("precisionOne")) positionInitialColliderLeft = collision.GetContact(0).point;
+    }*/
+
     private void OnTriggerEnter(Collider other)
     {
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         if (other.gameObject.CompareTag("precisionOne"))
         {
             interactionLocked = true;
-            relevantPositionToAddForce = gameObject.transform.position;
-            positionInitialColliderEntered = gameObject.transform.position;
+            relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            positionInitialColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             //Debug.Log("First collider entered");
         }
         if (other.gameObject.CompareTag("precisionTwo"))
@@ -82,19 +110,17 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!oneTryForHittingCubesCorrectly && other.gameObject.CompareTag("precisionOne"))
-        {
-            SpawnedInteractable spawnedInteractable = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
-            siToReset = spawnedInteractable;
-            resetHasToBeDone = true;
-        }
 
         if (!other.gameObject.CompareTag("precisionOne")) return;
 
-        positionInitialColliderLeft = gameObject.transform.position;
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+        positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
         bool pointsRewarded = si.getPointsRewarded();
-
+        Debug.Log("War der Schlag gedacht?: " + hitOnObjectWasIntended(si));
+        Debug.Log("Position Collider verlassen: " + positionInitialColliderLeft);
+        Debug.Log("Position Collider betreten: " + positionInitialColliderEntered);
+        Debug.Log("Länge des Vektors: " + (positionInitialColliderLeft - positionInitialColliderEntered).magnitude);
+        Debug.Log("Scale des Würfels: " + si.gameObject.transform.localScale.x);
         if (!pointsRewarded && hitOnObjectWasIntended(si))
         {
             int precision = 0;
@@ -126,11 +152,13 @@ public class HitInteractable : MonoBehaviour
 
             SoundManager.Instance.PlayHitSound(precision, 0.5f);
             interactionLocked = false;
+            siToReset = si;
+            resetHasToBeDone = true;
             if (precision == 0 && !oneTryForHittingCubesCorrectly) return;
 
             si.setPointsRewarded(pointsEarned);
             Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
-            highScore.updateHighscore(pointsEarned);
+            highScore.updateHighscore(pointsEarned, si.getColor(pointsEarned));
             destroyEffect(si, pointsEarned);
             listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
             listPrecisionWithThatObjectWasHit.Add(precisionPercent);
