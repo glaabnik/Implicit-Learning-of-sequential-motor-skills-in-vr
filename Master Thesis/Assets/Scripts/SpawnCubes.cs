@@ -39,8 +39,8 @@ public class SpawnCubes : MonoBehaviour
     public GameObject rightHandGameObject;
     public GameObject leftHandGameObject;
     public float sphereRadius;
-    public int timeToHitGameObjects;
-    public int timeToWaitBetween;
+    public float timeToHitGameObjects;
+    public float timeToWaitBetween;
     public float scaleSpawnedGameObjects = 1.0f;
     public bool randomizeElevation = false;
     public int offsetLeftSide = 40;
@@ -262,5 +262,20 @@ public class SpawnCubes : MonoBehaviour
         si.lookAt();
         if (leftHand) lastLeftHandTarget = si;
         else lastRightHandTarget = si;
+    }
+
+    public void updateDifficultyParameters()
+    {
+        DifficultyManager inst = DifficultyManager.Instance;
+        timeToHitGameObjects = inst.getTimeToHitObjects();
+        sphereRadius = inst.getSphereRadius();
+        scaleSpawnedGameObjects = inst.getScaleObjects();
+    }
+
+    public void updateDifficultyParameters(float time, float scale, float sphere)
+    {
+        timeToHitGameObjects = time;
+        sphereRadius = sphere;
+        scaleSpawnedGameObjects = scale;
     }
 }

@@ -143,6 +143,8 @@ public class HitInteractable : MonoBehaviour
                 if (precision == 8) pointsEarned = (int)(percentRemainingTime * 75);
                 if (precision == 9) pointsEarned = (int)(percentRemainingTime * 90);
                 if (precision == 10) pointsEarned = (int)(percentRemainingTime * 100);
+
+                pointsEarned = (int) (pointsEarned * DifficultyManager.Instance.getPointModifier());
             }
             else
             {
