@@ -10,6 +10,7 @@ public class SpawnedInteractable : MonoBehaviour
     private bool pointsRewarded = false;
     public Color colorAfterHit;
     public Color colorAfterHit2;
+    public Color colorAfterHit3;
     private MeshRenderer meshRenderer;
     private Rigidbody rigidBody;
     private Vector3 movedOffset;
@@ -29,6 +30,7 @@ public class SpawnedInteractable : MonoBehaviour
     public GameObject pieceToSpawn;
     public GameObject pieceToSpawn2;
     public GameObject pieceToSpawn3;
+    public GameObject pieceToSpawn4;
     private float cubeSize = 0.2f;
     private int cubesInRow = 5;
     private float cubesPivotDistance;
@@ -181,9 +183,10 @@ public class SpawnedInteractable : MonoBehaviour
 
     public Color getColor(int pointsGained)
     {
+        if(pointsGained <= 35) return meshRenderer.material.color;
         if (pointsGained > 35 && pointsGained <= 70) return colorAfterHit;
         else if (pointsGained > 70 && pointsGained <= 100) return colorAfterHit2;
-        else return meshRenderer.material.color;
+        else return colorAfterHit3;
     }
 
     public Vector3 getCenter()
@@ -230,7 +233,7 @@ public class SpawnedInteractable : MonoBehaviour
         if (pointsRewarded <= 35) piece = Instantiate(pieceToSpawn);
         else if (pointsRewarded <= 70) piece = Instantiate(pieceToSpawn2);
         else if (pointsRewarded <= 100) piece = Instantiate(pieceToSpawn3);
-        else piece = Instantiate(pieceToSpawn);
+        else piece = Instantiate(pieceToSpawn4);
         
 
         //set piece position and scale

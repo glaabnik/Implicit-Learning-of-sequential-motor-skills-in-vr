@@ -1428,28 +1428,54 @@ PrefabInstance:
         type: 3}
       propertyPath: pieceToSpawn3
       value: 
-      objectReference: {fileID: 1490485518336213760, guid: be7dd06afec1c1a46a9e37a1e46833f7,
+      objectReference: {fileID: 1490485518336213760, guid: 94794332c53fb2a47914c25069014b5c,
         type: 3}
     - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: colorAfterHit2.r
-      value: 0.9433962
+      value: 0.5480926
       objectReference: {fileID: 0}
     - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: colorAfterHit2.g
-      value: 0.048949808
+      value: 0.120016046
       objectReference: {fileID: 0}
     - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: colorAfterHit2.b
-      value: 0.7774494
+      value: 0.8773585
       objectReference: {fileID: 0}
     - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: colorAfterHit2.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.r
+      value: 0.049172327
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.g
+      value: 0.8018868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.b
+      value: 0.3020081
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: pieceToSpawn4
+      value: 
+      objectReference: {fileID: 1490485518336213760, guid: 26cf35f7aa36d6a49857b9c0d757f2a3,
+        type: 3}
     - target: {fileID: 7044371035943100424, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: m_Enabled
