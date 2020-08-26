@@ -11,6 +11,7 @@ public class HitInteractable : MonoBehaviour
     public List<int> listEarnedPoints;
     public List<int> listBlockPairNumber;
     public bool oneTryForHittingCubesCorrectly = true;
+    public string tagCube;
     private bool interactionLocked = false;
     private Vector3 relevantPositionToAddForce;
     private Vector3 positionInitialColliderEntered;
@@ -65,6 +66,8 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.gameObject.CompareTag(tagCube)) return;
+
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         if (other.gameObject.CompareTag("precisionOne"))
         {
@@ -110,7 +113,7 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
+        if (!other.gameObject.CompareTag(tagCube)) return;
         if (!other.gameObject.CompareTag("precisionOne")) return;
 
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
