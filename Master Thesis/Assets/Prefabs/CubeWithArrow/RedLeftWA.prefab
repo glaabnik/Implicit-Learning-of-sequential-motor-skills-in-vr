@@ -1470,6 +1470,32 @@ PrefabInstance:
       propertyPath: colorAfterHit2.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.r
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.g
+      value: 0.05958529
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.b
+      value: 0.5641089
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: colorAfterHit3.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967781772906425792, guid: 4746481f7ff6c07469b5cbcf61b69587,
+        type: 3}
+      propertyPath: pieceToSpawn4
+      value: 
+      objectReference: {fileID: 1490485518336213760, guid: be7dd06afec1c1a46a9e37a1e46833f7,
+        type: 3}
     - target: {fileID: 7044371035943100424, guid: 4746481f7ff6c07469b5cbcf61b69587,
         type: 3}
       propertyPath: m_Enabled

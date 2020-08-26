@@ -14,6 +14,6 @@ public class ShowValueFromSlider : MonoBehaviour
 
     public void updateText(float sliderValue)
     {
-        label.text = sliderValue.ToString();
+        label.text = (Mathf.Round(sliderValue * 10.0f) * 0.1f).ToString();
     }
 }
