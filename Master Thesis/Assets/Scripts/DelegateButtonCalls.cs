@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DelegateButtonCalls : MonoBehaviour
 {
     public SpawnCubes sc;
-    public Slider reaction, sphere, scale;
+    public Slider reaction, sphere, scale, pointsMultiplicator;
     private DifficultyManager dm;
 
     public void Start()
@@ -61,11 +61,13 @@ public class DelegateButtonCalls : MonoBehaviour
         reaction.value = dm.getTimeToHitObjects();
         sphere.value = dm.getSphereRadius();
         scale.value = dm.getScaleObjects();
+        pointsMultiplicator.value = dm.getPointModifier();
     }
 
     public void button_Custom()
     {
         dm.setDifficulty(Difficulty.Custom);
+        pointsMultiplicator.value = dm.getPointModifier();
         sc.updateDifficultyParameters(reaction.value, scale.value, sphere.value);
     }
 }

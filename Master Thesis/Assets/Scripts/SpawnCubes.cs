@@ -42,19 +42,16 @@ public class SpawnCubes : MonoBehaviour
     public float timeToHitGameObjects;
     public float timeToWaitBetween;
     public float scaleSpawnedGameObjects = 1.0f;
-    public bool randomizeElevation = false;
-    public int offsetLeftSide = 40;
-    public int offsetRightSide = 40;
     public bool animatedSpawning = true;
-    public bool loadSequenceFromCsv = true;
-    public bool useScaleFromCsv = false;
+    public bool useScaleFromSphereCoordinates = false;
     public bool turnLoadedSequenceTowardsPlayer = false;
     public bool playBackgroundMusic = true;
-    public string filenameCsv;
+    public BlockSequence[] blockSequences;
+
     // Debug Variables
     public Vector3 forwardVectorTest;
 
-    private List<SphereCoordinates> sequenceOfSpawns;
+    private int blockSequenceIndex = 0;
     private float timeCounter;
     private float instantiateTimeCounter;
     private bool instantiated;
@@ -64,11 +61,6 @@ public class SpawnCubes : MonoBehaviour
     private int roundGenerated = 0;
     void Start()
     {
-        sequenceOfSpawns = new List<SphereCoordinates>();
-        if (loadSequenceFromCsv)
-        {
-            if (!string.IsNullOrEmpty(filenameCsv)) LoadFixedSequenceOfSpawns.loadSpawnSequence(ref sequenceOfSpawns, filenameCsv);
-        }
         timeCounter = 0;
         instantiateTimeCounter = timeToWaitBetween + 1;
         forwardVectorTest = hmd_transform.forward;
@@ -76,12 +68,19 @@ public class SpawnCubes : MonoBehaviour
         instantiated = true;
         if (playBackgroundMusic) SoundManager.Instance.PlayBackgroundMusic();
         
-        Debug.Log(" Size of List: "+sequenceOfSpawns.Count);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length)
+        {
+            SerializeData.SerializeSportGameData("sportGameData", leftHand.listTimeNeededToHitObject, leftHand.listPrecisionWithThatObjectWasHit, leftHand.listEarnedPoints,
+               rightHand.listTimeNeededToHitObject, rightHand.listPrecisionWithThatObjectWasHit, rightHand.listEarnedPoints, objectsSpawned, leftHand.countObjectsHit, rightHand.countObjectsHit);
+            Object.Destroy(this);
+        }
+
         float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f;
 
         if(instantiated && (lastLeftHandTarget ==  null || lastLeftHandTarget.getPointsRewarded()) && (lastRightHandTarget == null || lastRightHandTarget.getPointsRewarded()) )
@@ -133,10 +132,10 @@ public class SpawnCubes : MonoBehaviour
         Vector3 scaleLeft, scaleRight;
         int phiOffset = calculatePhiOffset();
         Debug.Log(phiOffset);
-        if (sequenceOfSpawns == null || sequenceOfSpawns.Count == 0) // no list of spawn points => randomized spawning of cubes
+        if (blockSequences == null || blockSequences.Length == 0) // no list of spawn points => randomized spawning of cubes
         {
-            degLeftPhi = Random.Range(15, offsetLeftSide);
-            degRightPhi = Random.Range(-offsetRightSide, -15);
+            degLeftPhi = Random.Range(15, 40);
+            degRightPhi = Random.Range(-40, -15);
             degLeftPhi += phiOffset;
             degRightPhi += phiOffset;
             degLeftTheta = 90;
@@ -147,32 +146,29 @@ public class SpawnCubes : MonoBehaviour
             rotationRight = new Vector3(0, 0, 0);
             scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
             scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
-            if (randomizeElevation)
-            {
-                degLeftTheta = 70 + Random.Range(0, 40);
-                degRightTheta = 70 + Random.Range(0, 40);
-            }
         }
-        else                                                          // spawning of blocks in points loaded from csv file
+        else                                                          // spawning of blocks in points defined in BlockSequencesArray
         {
-            if (!turnLoadedSequenceTowardsPlayer) phiOffset = 0;
-            int listSize = sequenceOfSpawns.Count;
-            int actIndexInList = (objectsSpawned / 2) % listSize;
+            if(!blockSequences[blockSequenceIndex].hasNextSphereCoordinates()) ++blockSequenceIndex;
+            if (blockSequenceIndex >= blockSequences.Length) return;
 
-            degLeftPhi = (int)sequenceOfSpawns[actIndexInList].phi + phiOffset;
-            degLeftTheta = (int)sequenceOfSpawns[actIndexInList].theta;
-            radiusLeft = sequenceOfSpawns[actIndexInList].radius;
-            rotationLeft = new Vector3(0, 0, sequenceOfSpawns[actIndexInList].rotationZ);
+            if (!turnLoadedSequenceTowardsPlayer && blockSequences[blockSequenceIndex].GetType() == typeof(BlockSequenceFromFile)) phiOffset = 0;
+            SphereCoordinates sc = blockSequences[blockSequenceIndex].nextSphereCoordinates();
 
-            degRightPhi = sequenceOfSpawns[actIndexInList].phi2 + phiOffset;
-            degRightTheta = sequenceOfSpawns[actIndexInList].theta2;
-            radiusRight = sequenceOfSpawns[actIndexInList].radius2;
-            rotationRight = new Vector3(0, 0, sequenceOfSpawns[actIndexInList].rotationZ2);
+            degLeftPhi = sc.phi + phiOffset;
+            degLeftTheta = sc.theta;
+            radiusLeft = sc.radius;
+            rotationLeft = new Vector3(0, 0, sc.rotationZ);
 
-            if (useScaleFromCsv)
+            degRightPhi = sc.phi2 + phiOffset;
+            degRightTheta = sc.theta2;
+            radiusRight = sc.radius2;
+            rotationRight = new Vector3(0, 0, sc.rotationZ2);
+
+            if (useScaleFromSphereCoordinates)
             {
-                scaleLeft = sequenceOfSpawns[actIndexInList].scale;
-                scaleRight = sequenceOfSpawns[actIndexInList].scale2;
+                scaleLeft = sc.scale;
+                scaleRight = sc.scale2;
             }
             else
             {

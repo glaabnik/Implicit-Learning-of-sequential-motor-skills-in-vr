@@ -42,7 +42,7 @@ public class SpawnedInteractable : MonoBehaviour
     private bool startFadingOut = false;
     private float fadeSpeed = 1.0f;
     private SpriteRenderer spriteRenderer;
-    private Renderer renderer;
+    private new Renderer renderer;
 
     void Start()
     {

@@ -11,6 +11,7 @@ public class HitInteractable : MonoBehaviour
     public List<int> listEarnedPoints;
     public List<int> listBlockPairNumber;
     public bool oneTryForHittingCubesCorrectly = true;
+    public bool canOnlyHitMatchingCube = false;
     public string tagCube;
     private bool interactionLocked = false;
     private Vector3 relevantPositionToAddForce;
@@ -66,13 +67,12 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag(tagCube)) return;
-
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         if (other.gameObject.CompareTag("precisionOne"))
         {
             interactionLocked = true;
-            relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            relevantPositionToAddForce = gameObject.transform.position;
             positionInitialColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             //Debug.Log("First collider entered");
         }
@@ -113,7 +113,6 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.CompareTag(tagCube)) return;
         if (!other.gameObject.CompareTag("precisionOne")) return;
 
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
@@ -153,6 +152,12 @@ public class HitInteractable : MonoBehaviour
             {
                 precision = 0;
                 precisionPercent = 0.0f;
+            }
+
+            if (canOnlyHitMatchingCube && !other.gameObject.transform.parent.gameObject.CompareTag(tagCube))
+            {
+                SoundManager.Instance.PlayHitSound(11, 0.5f);
+                return;
             }
 
             SoundManager.Instance.PlayHitSound(precision, 0.5f);
