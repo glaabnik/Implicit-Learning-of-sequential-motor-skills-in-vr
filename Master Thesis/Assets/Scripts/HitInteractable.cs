@@ -10,6 +10,7 @@ public class HitInteractable : MonoBehaviour
     public List<float> listPrecisionWithThatObjectWasHit;
     public List<int> listEarnedPoints;
     public List<int> listBlockPairNumber;
+    public List<Difficulty> listDifficulty;
     public bool oneTryForHittingCubesCorrectly = true;
     public bool canOnlyHitMatchingCube = false;
     public string tagCube;
@@ -27,6 +28,7 @@ public class HitInteractable : MonoBehaviour
         listPrecisionWithThatObjectWasHit = new List<float>();
         listEarnedPoints = new List<int>();
         listBlockPairNumber = new List<int>();
+        listDifficulty = new List<Difficulty>();
     }
 
     // Update is called once per frame
@@ -174,6 +176,7 @@ public class HitInteractable : MonoBehaviour
             listPrecisionWithThatObjectWasHit.Add(precisionPercent);
             listEarnedPoints.Add(pointsEarned);
             listBlockPairNumber.Add(si.roundGenerated);
+            listDifficulty.Add(DifficultyManager.Instance.difficulty);
             ++countObjectsHit;
             Object.Destroy(other.gameObject.transform.parent.gameObject, 10f);
            

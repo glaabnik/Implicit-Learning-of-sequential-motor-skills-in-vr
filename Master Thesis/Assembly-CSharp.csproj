@@ -52,9 +52,6 @@
     <UnityVersion>2018.4.25f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -63,24 +60,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BuildSequenceFromLevel.cs" />
-    <Compile Include="Assets\Scripts\DelegateButtonCalls.cs" />
+    <Compile Include="Assets\Scripts\Data\BuildSequenceFromLevel.cs" />
+    <Compile Include="Assets\Scripts\Data\LoadFixedSequenceOfSpawns.cs" />
+    <Compile Include="Assets\Scripts\Data\SerializeData.cs" />
     <Compile Include="Assets\Scripts\DifficultyManager.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPoint.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPointEditor.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\MyWindow.cs" />
-    <Compile Include="Assets\Scripts\HighScore.cs" />
     <Compile Include="Assets\Scripts\HitInteractable.cs" />
-    <Compile Include="Assets\Scripts\LoadFixedSequenceOfSpawns.cs" />
-    <Compile Include="Assets\Scripts\PointGainedVisualization.cs" />
-    <Compile Include="Assets\Scripts\SerializeData.cs" />
-    <Compile Include="Assets\Scripts\ShowValueFromSlider.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\SpawnedInteractable.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequence.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequenceFromFile.cs" />
     <Compile Include="Assets\Scripts\Spawning\RandomizedBlockSequence.cs" />
+    <Compile Include="Assets\Scripts\UI\DelegateButtonCalls.cs" />
+    <Compile Include="Assets\Scripts\UI\HighScore.cs" />
+    <Compile Include="Assets\Scripts\UI\PointGainedVisualization.cs" />
+    <Compile Include="Assets\Scripts\UI\ShowValueFromSlider.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_Teleporter.cs" />
@@ -532,22 +529,11 @@
     <Compile Include="Assets\VRTK\Source\SDK\Ximmerse\SDK_XimmerseDefines.cs" />
     <Compile Include="Assets\VRTK\Source\SDK\Ximmerse\SDK_XimmerseHeadset.cs" />
     <Compile Include="Assets\VRTK\Source\SDK\Ximmerse\SDK_XimmerseSystem.cs" />
-    <None Include="Assets\xml\sportGameData31.xml" />
-    <None Include="Assets\xml\sportGameData1.xml" />
-    <None Include="Assets\xml\sportGameData4.xml" />
-    <None Include="Assets\xml\sportGameData5.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\_LineStripShader.cginc" />
-    <None Include="Assets\xml\sportGameData28.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
-    <None Include="Assets\xml\sportGameData18.xml" />
-    <None Include="Assets\xml\sportGameData11.xml" />
     <None Include="Assets\Blade Sounds\Blade Sounds Readme.txt" />
     <None Include="Assets\SteamVR\Resources\SteamVR_ClearAll.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
-    <None Include="Assets\xml\sportGameData2.xml" />
-    <None Include="Assets\xml\sportGameData13.xml" />
-    <None Include="Assets\xml\sportGameData12.xml" />
-    <None Include="Assets\xml\sportGameData19.xml" />
     <None Include="Assets\VRTK\Documentation.txt" />
     <None Include="Assets\TS Sounds\Read Me.txt" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-LightSaber.shader" />
@@ -556,57 +542,37 @@
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\UIOverlay.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\VRTK_OutlineBasic.shader" />
-    <None Include="Assets\xml\sportGameData22.xml" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\AdaptiveQualityDebugVisualization.shader" />
-    <None Include="Assets\xml\sportGameData17.xml" />
-    <None Include="Assets\xml\sportGameData25.xml" />
-    <None Include="Assets\xml\sportGameData3.xml" />
-    <None Include="Assets\xml\sportGameData29.xml" />
-    <None Include="Assets\xml\sportGameData15.xml" />
-    <None Include="Assets\xml\sportGameData6.xml" />
-    <None Include="Assets\xml\sportGameData10.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAdditive.shader" />
-    <None Include="Assets\xml\sportGameData14.xml" />
-    <None Include="Assets\xml\sportGameData9.xml" />
-    <None Include="Assets\xml\sportGameData26.xml" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\VRTK_TunnelEffect.shader" />
-    <None Include="Assets\xml\sportGameData16.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAlphaBlended.shader" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAlphaBlended.shader" />
-    <None Include="Assets\xml\sportGameData30.xml" />
-    <None Include="Assets\xml\sportGameData7.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
-    <None Include="Assets\xml\sportGameData23.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAdditive.shader" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\TransparentFresnelBehind.shader" />
     <None Include="Assets\SteamVR\readme.txt" />
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
-    <None Include="Assets\xml\sportGameData24.xml" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\Unlit_TransparentColor.shader" />
     <None Include="Assets\hitori_yubin_soundpack\yubin_readme.txt" />
-    <None Include="Assets\xml\sportGameData21.xml" />
-    <None Include="Assets\xml\sportGameData27.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_ColorOut.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\_SingleLineShader.cginc" />
-    <None Include="Assets\xml\sportGameData20.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
-    <None Include="Assets\xml\sportGameData8.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -810,7 +776,7 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

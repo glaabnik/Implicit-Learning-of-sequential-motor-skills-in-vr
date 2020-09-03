@@ -76,8 +76,7 @@ public class SpawnCubes : MonoBehaviour
 
         if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length)
         {
-            SerializeData.SerializeSportGameData("sportGameData", leftHand.listTimeNeededToHitObject, leftHand.listPrecisionWithThatObjectWasHit, leftHand.listEarnedPoints,
-               rightHand.listTimeNeededToHitObject, rightHand.listPrecisionWithThatObjectWasHit, rightHand.listEarnedPoints, objectsSpawned, leftHand.countObjectsHit, rightHand.countObjectsHit);
+            serializeSportGameData();
             Object.Destroy(this);
         }
 
@@ -108,13 +107,13 @@ public class SpawnCubes : MonoBehaviour
             instantiateTimeCounter = 0;
             instantiated = false;
         }
-        bool inputS = Input.GetKey(KeyCode.L);
-        if(inputS)
-        {
-            Debug.Log("L pressed");
-            SerializeData.SerializeSportGameData("sportGameData", leftHand.listTimeNeededToHitObject, leftHand.listPrecisionWithThatObjectWasHit, leftHand.listEarnedPoints,
-                rightHand.listTimeNeededToHitObject, rightHand.listPrecisionWithThatObjectWasHit, rightHand.listEarnedPoints, objectsSpawned, leftHand.countObjectsHit, rightHand.countObjectsHit);
-        }
+    }
+
+    private void serializeSportGameData()
+    {
+        SerializeData.SerializeSportGameData("sportGameData", leftHand.listTimeNeededToHitObject, leftHand.listPrecisionWithThatObjectWasHit, leftHand.listEarnedPoints,
+              rightHand.listTimeNeededToHitObject, rightHand.listPrecisionWithThatObjectWasHit, rightHand.listEarnedPoints, objectsSpawned, leftHand.countObjectsHit, rightHand.countObjectsHit,
+              leftHand.listBlockPairNumber, rightHand.listBlockPairNumber, leftHand.listDifficulty, rightHand.listDifficulty);
     }
 
     void OnDrawGizmosSelected()
