@@ -105,6 +105,15 @@ public class HitInteractable : MonoBehaviour
         }
         if (other.gameObject.CompareTag("directionThird"))
         {
+            if (si.uses5ColliderGroups) si.middleColliderGroupHit2(other.gameObject.name);
+            else si.endColliderGroupHit(other.gameObject.name);
+        }
+        if (other.gameObject.CompareTag("directionFourth"))
+        {
+            si.middleColliderGroupHit3(other.gameObject.name);
+        }
+        if (other.gameObject.CompareTag("directionFith"))
+        {
             si.endColliderGroupHit(other.gameObject.name);
         }
         /*SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();

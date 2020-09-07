@@ -11,19 +11,24 @@ public class SpawnedInteractable : MonoBehaviour
     public Color colorAfterHit;
     public Color colorAfterHit2;
     public Color colorAfterHit3;
+    public int id;
+    public bool uses5ColliderGroups = false;
     private MeshRenderer meshRenderer;
     private Rigidbody rigidBody;
     private Vector3 movedOffset;
     private bool isAnimating = true;
     private float timeToAnimate = 0.0f;
-    private int id;
     private Transform hmd_transform;
 
     private bool startColliderHit = false;
     private bool middleColliderHit = false;
+    private bool middleColliderHit2 = false;
+    private bool middleColliderHit3 = false;
     private bool endColliderHit = false;
     private int actAccuracyStart = 0;
     private int actAccuracyMiddle = 0;
+    private int actAccuracyMiddle2 = 0;
+    private int actAccuracyMiddle3 = 0;
     private int actAccuracyEnd = 0;
 
 
@@ -89,9 +94,27 @@ public class SpawnedInteractable : MonoBehaviour
         }
     }
 
+    public void middleColliderGroupHit2(string colliderName)
+    {
+        if (startColliderHit && middleColliderHit &&  !endColliderHit)
+        {
+            middleColliderHit2 = true;
+            assignAccuracyFor(colliderName, ref actAccuracyMiddle2);
+        }
+    }
+
+    public void middleColliderGroupHit3(string colliderName)
+    {
+        if (startColliderHit && middleColliderHit && middleColliderHit2 && !endColliderHit)
+        {
+            middleColliderHit3 = true;
+            assignAccuracyFor(colliderName, ref actAccuracyMiddle3);
+        }
+    }
+
     public void endColliderGroupHit(string colliderName)
     {
-        if (startColliderHit && middleColliderHit)
+        if (( startColliderHit && middleColliderHit && !uses5ColliderGroups) || (startColliderHit && middleColliderHit && middleColliderHit2 && middleColliderHit3) )
         {
             endColliderHit = true;
             assignAccuracyFor(colliderName, ref actAccuracyEnd);
@@ -101,17 +124,20 @@ public class SpawnedInteractable : MonoBehaviour
 
     public bool wasHitInRightDirection()
     {
-        return startColliderHit && middleColliderHit && endColliderHit;
+        if(uses5ColliderGroups) return startColliderHit && middleColliderHit && middleColliderHit2 && middleColliderHit3 && endColliderHit;
+        else                    return startColliderHit && middleColliderHit && endColliderHit;
     }
 
     public int getAvgAccuracy()
     {
-        return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3;
+        if (uses5ColliderGroups) return (actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd) / 5;
+        else                     return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3;
     }
 
     public float getAvgAccuracyPercent()
     {
-        return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3.0f * 0.1f;
+        if (uses5ColliderGroups) return (actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd) / 5.0f * 0.1f;
+        else                     return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3.0f * 0.1f;
     }
 
     private void assignAccuracyFor(string colliderName, ref int accAttribute)

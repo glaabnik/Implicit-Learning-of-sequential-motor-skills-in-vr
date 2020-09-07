@@ -64,10 +64,10 @@
     <Compile Include="Assets\Scripts\Data\LoadFixedSequenceOfSpawns.cs" />
     <Compile Include="Assets\Scripts\Data\SerializeData.cs" />
     <Compile Include="Assets\Scripts\DifficultyManager.cs" />
+    <Compile Include="Assets\Scripts\EditorScripts\LevelEditorWindow.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPoint.cs" />
-    <Compile Include="Assets\Scripts\EditorScripts\LookAtPointEditor.cs" />
-    <Compile Include="Assets\Scripts\EditorScripts\MyWindow.cs" />
     <Compile Include="Assets\Scripts\HitInteractable.cs" />
+    <Compile Include="Assets\Scripts\LookAtPointEditor.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\SpawnedInteractable.cs" />

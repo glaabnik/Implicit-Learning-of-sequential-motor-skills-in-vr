@@ -9,7 +9,7 @@ public class LookAtPoint : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(transform.position.x, 1.6f, transform.position.z); 
+        transform.position = new Vector3(transform.position.x, 1.6f, transform.position.z);
     }
 
     // Update is called once per frame

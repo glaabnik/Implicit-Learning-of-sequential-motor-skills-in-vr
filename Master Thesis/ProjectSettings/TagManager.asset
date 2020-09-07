@@ -17,6 +17,8 @@ TagManager:
   - blue
   - red
   - precisionReset
+  - directionFourth
+  - directionFith
   layers:
   - Default
   - TransparentFX
