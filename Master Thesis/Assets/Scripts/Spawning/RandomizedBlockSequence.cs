@@ -22,7 +22,10 @@ public class RandomizedBlockSequence : BlockSequence
     public override void Start()
     {
         sequenceOfSpawns = new List<SphereCoordinates>();
-        generateRandomizedSphereCoordinates();
+        for (int i = 0; i < countSphereCoordinatesOneIteration; ++i)
+        {
+            generateRandomizedSphereCoordinates();
+        } 
     }
 
     public override bool hasNextSphereCoordinates()

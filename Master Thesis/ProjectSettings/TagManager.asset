@@ -19,6 +19,7 @@ TagManager:
   - precisionReset
   - directionFourth
   - directionFith
+  - VRTK_Model
   layers:
   - Default
   - TransparentFX

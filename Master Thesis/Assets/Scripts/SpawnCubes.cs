@@ -34,8 +34,8 @@ public class SphereCoordinates
 public class SpawnCubes : MonoBehaviour
 {
     public Transform hmd_transform;
-    public HitInteractable leftHand;
-    public HitInteractable rightHand;
+    public GameObject leftHandController;
+    public GameObject rightHandController;
     public GameObject rightHandGameObject;
     public GameObject leftHandGameObject;
     public float sphereRadius;
@@ -51,6 +51,8 @@ public class SpawnCubes : MonoBehaviour
     // Debug Variables
     public Vector3 forwardVectorTest;
 
+    private HitInteractable leftHand;
+    private HitInteractable rightHand;
     private int blockSequenceIndex = 0;
     private float timeCounter;
     private float instantiateTimeCounter;
@@ -59,6 +61,7 @@ public class SpawnCubes : MonoBehaviour
     private SpawnedInteractable lastRightHandTarget;
     private int objectsSpawned = 0;
     private int roundGenerated = 0;
+    private bool fileWritten = false;
     void Start()
     {
         timeCounter = 0;
@@ -67,17 +70,17 @@ public class SpawnCubes : MonoBehaviour
         spawnCubesForBothHandsInSightOfCameraDirection();
         instantiated = true;
         if (playBackgroundMusic) SoundManager.Instance.PlayBackgroundMusic();
-        
+        findReferencesToHitInteractables();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length)
+        if (fileWritten) return;
+        if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length && !fileWritten)
         {
             serializeSportGameData();
-            Object.Destroy(this);
+            fileWritten = true;
         }
 
         float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f;
@@ -106,6 +109,22 @@ public class SpawnCubes : MonoBehaviour
             timeCounter = -timeToWaitBetween;
             instantiateTimeCounter = 0;
             instantiated = false;
+        }
+    }
+
+    private void findReferencesToHitInteractables()
+    {
+        HitInteractable[] lefts = leftHandController.GetComponentsInChildren<HitInteractable>(false);
+        Debug.Log(lefts.Length);
+        foreach(HitInteractable hi in lefts)
+        {
+            if (!hi.CompareTag("VRTK_Model")) leftHand = hi;
+        }
+        HitInteractable[] rights = rightHandController.GetComponentsInChildren<HitInteractable>(false);
+        Debug.Log(rights.Length);
+        foreach (HitInteractable hi in rights)
+        {
+            if (!hi.CompareTag("VRTK_Model")) rightHand = hi;
         }
     }
 
@@ -148,7 +167,8 @@ public class SpawnCubes : MonoBehaviour
         }
         else                                                          // spawning of blocks in points defined in BlockSequencesArray
         {
-            if(!blockSequences[blockSequenceIndex].hasNextSphereCoordinates()) ++blockSequenceIndex;
+            if (blockSequenceIndex >= blockSequences.Length) return;
+            if (!blockSequences[blockSequenceIndex].hasNextSphereCoordinates()) ++blockSequenceIndex;
             if (blockSequenceIndex >= blockSequences.Length) return;
 
             if (!turnLoadedSequenceTowardsPlayer && blockSequences[blockSequenceIndex].GetType() == typeof(BlockSequenceFromFile)) phiOffset = 0;

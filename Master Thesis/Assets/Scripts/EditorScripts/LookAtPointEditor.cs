@@ -6,20 +6,16 @@ using UnityEditor;
 public class LookAtPointEditor : Editor
 {
     SerializedProperty lookAtPoint;
-    SerializedProperty id;
 
     void OnEnable()
     {
         lookAtPoint = serializedObject.FindProperty("lookAtPoint");
-        id = serializedObject.FindProperty("id");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         EditorGUILayout.PropertyField(lookAtPoint);
-        serializedObject.ApplyModifiedProperties();
-        EditorGUILayout.PropertyField(id);
         serializedObject.ApplyModifiedProperties();
         if (lookAtPoint.vector3Value.y < (target as LookAtPoint).transform.position.y)
         {
