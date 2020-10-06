@@ -38,6 +38,8 @@ public class SpawnCubes : MonoBehaviour
     public GameObject rightHandController;
     public GameObject rightHandGameObject;
     public GameObject leftHandGameObject;
+    public GameObject rightHandGameObjectDiagonal;
+    public GameObject leftHandGameObjectDiagonal;
     public float sphereRadius;
     public float timeToHitGameObjects;
     public float timeToWaitBetween;
@@ -148,6 +150,7 @@ public class SpawnCubes : MonoBehaviour
         float radiusLeft, radiusRight;
         Vector3 rotationLeft, rotationRight;
         Vector3 scaleLeft, scaleRight;
+        GameObject leftToSpawn = leftHandGameObject, rightToSpawn = rightHandGameObject;
         int phiOffset = calculatePhiOffset();
         Debug.Log(phiOffset);
         if (blockSequences == null || blockSequences.Length == 0) // no list of spawn points => randomized spawning of cubes
@@ -164,6 +167,8 @@ public class SpawnCubes : MonoBehaviour
             rotationRight = new Vector3(0, 0, 0);
             scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
             scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+            leftToSpawn = leftHandGameObject;
+            rightToSpawn = rightHandGameObject;
         }
         else                                                          // spawning of blocks in points defined in BlockSequencesArray
         {
@@ -178,6 +183,28 @@ public class SpawnCubes : MonoBehaviour
             degLeftTheta = sc.theta;
             radiusLeft = sc.radius;
             rotationLeft = new Vector3(0, 0, sc.rotationZ);
+
+            if(sc.rotationZ == 0 || sc.rotationZ == 90 || sc.rotationZ == 180 || sc.rotationZ == 270 || sc.rotationZ == 360
+                || sc.rotationZ == -90 || sc.rotationZ == -180 || sc.rotationZ == -270)
+            {
+                leftToSpawn = leftHandGameObject;
+            }
+            if (sc.rotationZ == 45 || sc.rotationZ == 135 || sc.rotationZ == 225 || sc.rotationZ == 315 || sc.rotationZ == -45
+                || sc.rotationZ == -135 || sc.rotationZ == -225 || sc.rotationZ == -315)
+            {
+                leftToSpawn = leftHandGameObjectDiagonal;
+            }
+
+            if (sc.rotationZ2 == 0 || sc.rotationZ2 == 90 || sc.rotationZ2 == 180 || sc.rotationZ2 == 270 || sc.rotationZ2 == 360
+                || sc.rotationZ2 == -90 || sc.rotationZ2 == -180 || sc.rotationZ2 == -270)
+            {
+                rightToSpawn = rightHandGameObject;
+            }
+            if (sc.rotationZ2 == 45 || sc.rotationZ2 == 135 || sc.rotationZ2 == 225 || sc.rotationZ2 == 315 || sc.rotationZ2 == -45
+                || sc.rotationZ2 == -135 || sc.rotationZ2 == -225 || sc.rotationZ2 == -315)
+            {
+                rightToSpawn = rightHandGameObjectDiagonal;
+            }
 
             degRightPhi = sc.phi2 + phiOffset;
             degRightTheta = sc.theta2;
@@ -199,8 +226,8 @@ public class SpawnCubes : MonoBehaviour
             //Debug.Log("DegRightTheta: "+degRightTheta);
         }
         ++roundGenerated;
-        spawnGameObject(true, sphereToCartesianCoordinate(degLeftTheta, degLeftPhi, radiusLeft), rotationLeft, scaleLeft, leftHandGameObject);
-        spawnGameObject(false, sphereToCartesianCoordinate(degRightTheta, degRightPhi, radiusRight), rotationRight, scaleRight, rightHandGameObject);
+        spawnGameObject(true, sphereToCartesianCoordinate(degLeftTheta, degLeftPhi, radiusLeft), rotationLeft, scaleLeft, leftToSpawn);
+        spawnGameObject(false, sphereToCartesianCoordinate(degRightTheta, degRightPhi, radiusRight), rotationRight, scaleRight, rightToSpawn);
         objectsSpawned += 2;
     }
 

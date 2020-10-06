@@ -246,7 +246,7 @@ public class SpawnedInteractable : MonoBehaviour
                 //Vector3 direction = rb.transform.position - positionVector;
                 //rb.AddForceAtPosition(direction * 50.0f, piece.transform.position);
             }
-            Object.Destroy(piece, 7.0f);
+            Object.Destroy(piece, 0.3f);
         }
 
     }
