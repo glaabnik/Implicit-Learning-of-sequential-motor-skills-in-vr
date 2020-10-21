@@ -5,15 +5,23 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - m_PersistentViewDataDictionary: {instanceID: 0}
-  - tex1: {fileID: 2800000, guid: 45c84f765e3ac474c819c936d0323ba4, type: 3}
-  - tex2: {fileID: 2800000, guid: 0427c2572ab86464aa33a1b2efb718f3, type: 3}
-  - tex3: {fileID: 2800000, guid: b1c1e70154966714baefc5e1289d2ece, type: 3}
-  - tex4: {fileID: 2800000, guid: c1165ca324e57384093c2572054b2fe7, type: 3}
-  - tex5: {fileID: 2800000, guid: 66eef8991fe384e41806e57d0a37cdec, type: 3}
-  - tex6: {fileID: 2800000, guid: b9ff6d5bd98dbf947a21c6d3e59d731d, type: 3}
-  - tex7: {fileID: 2800000, guid: 4c0c9dff59e4fb5449d5a58be2f45d4c, type: 3}
-  - tex8: {fileID: 2800000, guid: 1042172473a354248b34a9022fd97482, type: 3}
+  - tex1: {fileID: 2800000, guid: 9be06a037b8968f4aa8a71efd45656a3, type: 3}
+  - tex2: {fileID: 2800000, guid: bcd8dbe56cf9d6844b7168f41b10109c, type: 3}
+  - tex3: {fileID: 2800000, guid: b3e8a26b8b6e62b468352f6bcbe27aee, type: 3}
+  - tex4: {fileID: 2800000, guid: 2680db7c5c1b2194d993cbb31f314bc7, type: 3}
+  - tex5: {fileID: 2800000, guid: 70f2a45c7c506734bb11817e5e9ac7a2, type: 3}
+  - tex6: {fileID: 2800000, guid: 8b2d61db10dddf04ebb8fc5e13dc8d68, type: 3}
+  - tex7: {fileID: 2800000, guid: 245adb0057f0b0743b4bc2c3a7006792, type: 3}
+  - tex8: {fileID: 2800000, guid: 2efe38e2689b06241abd11eb278be6bc, type: 3}
   - texBackgroundSelected: {fileID: 2800000, guid: 5e0ae66f306508342bd71d55c2dc207b,
+      type: 3}
+  - cubeNormalBlue: {fileID: 6318931682605342790, guid: 840d198befad5754aa34e65960aed42c,
+      type: 3}
+  - cubeNormalRed: {fileID: 603042587020635366, guid: 8f9f00a44abc7e7438ef7a6abbe157d3,
+      type: 3}
+  - cubeDiagonalBlue: {fileID: 6318931682605342790, guid: f899636d56acf9c48b8107cdda33b194,
+      type: 3}
+  - cubeDiagonalRed: {fileID: 6318931682605342790, guid: 914754bf29566ff4fbff82df6a67019b,
       type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

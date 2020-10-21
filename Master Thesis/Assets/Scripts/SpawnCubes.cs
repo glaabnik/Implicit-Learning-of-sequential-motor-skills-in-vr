@@ -184,7 +184,12 @@ public class SpawnCubes : MonoBehaviour
             radiusLeft = sc.radius;
             rotationLeft = new Vector3(0, 0, sc.rotationZ);
 
-            if(sc.rotationZ == 0 || sc.rotationZ == 90 || sc.rotationZ == 180 || sc.rotationZ == 270 || sc.rotationZ == 360
+            degRightPhi = sc.phi2 + phiOffset;
+            degRightTheta = sc.theta2;
+            radiusRight = sc.radius2;
+            rotationRight = new Vector3(0, 0, sc.rotationZ2);
+
+            if (sc.rotationZ == 0 || sc.rotationZ == 90 || sc.rotationZ == 180 || sc.rotationZ == 270 || sc.rotationZ == 360
                 || sc.rotationZ == -90 || sc.rotationZ == -180 || sc.rotationZ == -270)
             {
                 leftToSpawn = leftHandGameObject;
@@ -193,6 +198,7 @@ public class SpawnCubes : MonoBehaviour
                 || sc.rotationZ == -135 || sc.rotationZ == -225 || sc.rotationZ == -315)
             {
                 leftToSpawn = leftHandGameObjectDiagonal;
+                rotationLeft = new Vector3(0, 0, sc.rotationZ - 45);
             }
 
             if (sc.rotationZ2 == 0 || sc.rotationZ2 == 90 || sc.rotationZ2 == 180 || sc.rotationZ2 == 270 || sc.rotationZ2 == 360
@@ -204,12 +210,8 @@ public class SpawnCubes : MonoBehaviour
                 || sc.rotationZ2 == -135 || sc.rotationZ2 == -225 || sc.rotationZ2 == -315)
             {
                 rightToSpawn = rightHandGameObjectDiagonal;
+                rotationRight = new Vector3(0, 0, sc.rotationZ2 - 45);
             }
-
-            degRightPhi = sc.phi2 + phiOffset;
-            degRightTheta = sc.theta2;
-            radiusRight = sc.radius2;
-            rotationRight = new Vector3(0, 0, sc.rotationZ2);
 
             if (useScaleFromSphereCoordinates)
             {

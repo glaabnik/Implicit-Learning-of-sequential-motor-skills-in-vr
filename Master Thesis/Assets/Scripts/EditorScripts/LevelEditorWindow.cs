@@ -16,6 +16,8 @@ public class LevelEditorWindow : EditorWindow
     public Texture tex8;
 
     public Texture2D texBackgroundSelected;
+    public GameObject cubeNormalBlue, cubeNormalRed;
+    public GameObject cubeDiagonalBlue, cubeDiagonalRed;
     public Vector3 lookAtPoint = new Vector3(0, 1.6f, 0);
 
     private static GUIStyle ToggleButtonStyleNormal = null;
@@ -28,14 +30,43 @@ public class LevelEditorWindow : EditorWindow
     bool toggle5, toggle6, toggle7, toggle8;
     float radiusDesired = 3.7f;
     float heightToPlaceCubes = 1.5f;
+    int customId = 0;
     float minHeight = 0.5f;
     float maxHeight = 2.0f;
 
-    float rotationZ;
+    int rotationZ;
     int buttonSizeDirections = 70;
 
+    private bool idInitialised = false;
     static int idCounterRed = 0;
     static int idCounterBlue = 0;
+
+    private void initialiseIdCounters()
+    {
+        Scene level_editor_scene = SceneManager.GetActiveScene();
+        if (level_editor_scene.name.CompareTo("LevelEditor") != 0)
+        {
+            Debug.Log("Level Editor scene isn`t active. First open the Level Editor scene");
+            return;
+        }
+        GameObject[] redCubes = GameObject.FindGameObjectsWithTag("red");
+        GameObject[] blueCubes = GameObject.FindGameObjectsWithTag("blue");
+        int idMaxRed= 0, idMaxBlue=0;
+        foreach(GameObject go in redCubes)
+        {
+            SpawnedInteractable si = go.GetComponent<SpawnedInteractable>();
+            if (si.getId() > idMaxRed) idMaxRed = si.getId();
+        }
+        foreach (GameObject go in blueCubes)
+        {
+            SpawnedInteractable si = go.GetComponent<SpawnedInteractable>();
+            if (si.getId() > idMaxBlue) idMaxBlue = si.getId();
+        }
+        idCounterRed = idMaxRed;
+        idCounterBlue = idMaxBlue;
+        idInitialised = true;
+        Debug.Log("Id counters initialised!");
+    }
 
     // Add menu item named "Level Editor Window" to the Window menu
     [MenuItem("Window/Level Editor Window")]
@@ -58,10 +89,12 @@ public class LevelEditorWindow : EditorWindow
         {
             if(go.CompareTag("blue") || go.CompareTag("red")) GameObject.DestroyImmediate(go);
         }
+        idCounterBlue = 1;
+        idCounterRed = 1;
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
 
-    private void setRotationZ(float n)
+    private void setRotationZ(int n)
     {
         rotationZ = n;
         Debug.Log("Rotation" + n + " was successfully saved!");
@@ -80,9 +113,81 @@ public class LevelEditorWindow : EditorWindow
             GameObject go = Selection.transforms[i].gameObject;
             if (go.CompareTag("blue") || go.CompareTag("red"))
             {
-                go.transform.localEulerAngles = new Vector3(go.transform.localEulerAngles.x, go.transform.localEulerAngles.y, rotationZ);
+                SpawnedInteractable si = go.GetComponent<SpawnedInteractable>();
+                GameObject diagonalReplacement = go.CompareTag("red") ? cubeDiagonalRed : cubeDiagonalBlue;
+                GameObject normalReplacement = go.CompareTag("red") ? cubeNormalRed : cubeNormalBlue;
+                if (si.uses5ColliderGroups && (rotationZ == 0 || rotationZ == 90 || rotationZ == 180 || rotationZ == 270))
+                {
+                    Vector3 old_pos = go.transform.position;
+                    Vector3 old_scale = go.transform.localScale;
+                    Vector3 old_rotation = go.transform.eulerAngles;
+                    GameObject replacement = Instantiate(normalReplacement, old_pos, Quaternion.identity);
+                    //Selection.activeObject = PrefabUtility.InstantiatePrefab(normalReplacement);
+                    //GameObject replacementTest = Selection.activeGameObject;
+                    StageUtility.PlaceGameObjectInCurrentStage(replacement);
+                    replacement.transform.localScale = old_scale;
+                    replacement.transform.localEulerAngles = new Vector3(old_rotation.x, old_rotation.y, rotationZ);
+                    replacement.GetComponent<SpawnedInteractable>().setId(si.getId());
+                    Selection.activeGameObject = replacement;
+                    GameObject.DestroyImmediate(go);
+                }
+                else if (!si.uses5ColliderGroups && (rotationZ == 45 || rotationZ == 135 || rotationZ == 225 || rotationZ == 315))
+                {
+                    Vector3 old_pos = go.transform.position;
+                    Vector3 old_scale = go.transform.localScale;
+                    Vector3 old_rotation = go.transform.eulerAngles;
+                    GameObject replacement = Instantiate(diagonalReplacement, old_pos, Quaternion.identity);
+                    StageUtility.PlaceGameObjectInCurrentStage(replacement);
+                    replacement.transform.localScale = old_scale;
+                    replacement.transform.localEulerAngles = new Vector3(old_rotation.x, old_rotation.y, rotationZ -45);
+                    replacement.GetComponent<SpawnedInteractable>().setId(si.getId());
+                    Selection.activeGameObject = replacement;
+                    Object.DestroyImmediate(go);
+                }
+                else
+                {
+                    int diagonalOffset = 0;
+                    if (si.uses5ColliderGroups) diagonalOffset = 45;
+                    go.transform.localEulerAngles = new Vector3(go.transform.localEulerAngles.x, go.transform.localEulerAngles.y, rotationZ - diagonalOffset);
+                }
             }
         }
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+    }
+
+    private void spawnCube(string color)
+    {
+        GameObject toSpawn = null;
+        Vector3 rotation = new Vector3(0, 0, rotationZ);
+        if (color == "red")
+        {
+            if(rotationZ == 0 || rotationZ == 90 || rotationZ == 180 || rotationZ == 270)
+            {
+                toSpawn = cubeNormalRed;
+            }
+            if(rotationZ == 45 || rotationZ == 135 || rotationZ == 225 || rotationZ == 315)
+            {
+                toSpawn = cubeDiagonalRed;
+                rotation = new Vector3(0, 0, rotationZ - 45);
+            }
+        }
+        if(color == "blue")
+        {
+            if (rotationZ == 0 || rotationZ == 90 || rotationZ == 180 || rotationZ == 270)
+            {
+                toSpawn = cubeNormalBlue;
+            }
+            if (rotationZ == 45 || rotationZ == 135 || rotationZ == 225 || rotationZ == 315)
+            {
+                toSpawn = cubeDiagonalBlue;
+                rotation = new Vector3(0, 0, rotationZ - 45);
+            }
+        }
+        GameObject newSpawn = Instantiate(toSpawn, new Vector3(2.0f, heightToPlaceCubes, 2.0f), Quaternion.identity);
+        newSpawn.transform.localEulerAngles = rotation;
+        StageUtility.PlaceGameObjectInCurrentStage(newSpawn);
+        Selection.activeGameObject = newSpawn;
+        assignUniqueId();
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
 
@@ -201,6 +306,10 @@ public class LevelEditorWindow : EditorWindow
             Debug.Log("Level Editor scene isn`t active. First open the Level Editor scene");
             return;
         }
+        if(!idInitialised)
+        {
+            initialiseIdCounters();
+        }
         for (int i = 0; i < Selection.transforms.Length; i++)
         {
             GameObject go = Selection.transforms[i].gameObject;
@@ -217,6 +326,23 @@ public class LevelEditorWindow : EditorWindow
             }
         }
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+    }
+
+    private bool checkIsCustomIdAvailable(GameObject gameObject, int newId)
+    {
+        Scene level_editor_scene = SceneManager.GetActiveScene();
+        if (level_editor_scene.name.CompareTo("LevelEditor") != 0)
+        {
+            Debug.Log("Level Editor scene isn`t active. First open the Level Editor scene");
+            return false;
+        }
+        GameObject[] matchingCubes = GameObject.FindGameObjectsWithTag(gameObject.tag);
+        foreach (GameObject go in matchingCubes)
+        {
+            SpawnedInteractable si = go.GetComponent<SpawnedInteractable>();
+            if (si.getId() == newId) return false;
+        }
+        return true;
     }
 
     private void setSelection(string tag)
@@ -244,6 +370,16 @@ public class LevelEditorWindow : EditorWindow
         ToggleButtonStyleNormal = "Button";
         ToggleButtonStyleToggled = new GUIStyle(ToggleButtonStyleNormal);
         ToggleButtonStyleToggled.normal.background = texBackgroundSelected;
+
+        if(GUILayout.Button("Spawn Red Cube"))
+        {
+            spawnCube("red");
+        }
+
+        if(GUILayout.Button("Spawn Blue Cube"))
+        {
+            spawnCube("blue");
+        }
 
         heightToPlaceCubes = EditorGUILayout.FloatField("Height to place Cubes", heightToPlaceCubes);
         radiusDesired = EditorGUILayout.FloatField("Radius", radiusDesired);
@@ -323,7 +459,31 @@ public class LevelEditorWindow : EditorWindow
             forceRadiusOnAllCubes();
         }
 
-        if(GUILayout.Button("Assign Unique Id"))
+        GUILayout.BeginHorizontal();
+
+        customId = EditorGUILayout.IntField("Enter Custom Id: ", customId);
+        if(GUILayout.Button("Assign Custom Id"))
+        {
+            if(Selection.gameObjects.Length == 1)
+            {
+                if(checkIsCustomIdAvailable(Selection.activeGameObject,customId))
+                {
+                    Selection.activeGameObject.GetComponent<SpawnedInteractable>().setId(customId);
+                }
+                else
+                {
+                    bool result = EditorUtility.DisplayDialog("Warning", "Your Custom Id is already used by another cube", "Assign this id anyway", "Cancel");
+                    if(result)
+                    {
+                        Selection.activeGameObject.GetComponent<SpawnedInteractable>().setId(customId);
+                    }
+                }
+            }
+        }
+
+        GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Assign Generated Id"))
         {
             assignUniqueId();
         }

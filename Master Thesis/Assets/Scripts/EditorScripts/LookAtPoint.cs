@@ -9,12 +9,14 @@ public class LookAtPoint : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(transform.position.x, 1.6f, transform.position.z);
+
     }
 
     // Update is called once per frame
     public void Update()
     {
+        float zRotation = transform.localEulerAngles.z;
         transform.LookAt(lookAtPoint);
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, zRotation);
     }
 }

@@ -67,10 +67,12 @@ public class LoadFixedSequenceOfSpawns : MonoBehaviour
                 float rotationX = listCubeRed[i].transform.localEulerAngles.x;
                 float rotationY = listCubeRed[i].transform.localEulerAngles.y;
                 float rotationZ = listCubeRed[i].transform.localEulerAngles.z;
+                if (listCubeRed[i].GetComponent<SpawnedInteractable>().uses5ColliderGroups) rotationZ += 45;
 
                 float rotationX2 = listCubeBlue[i].transform.localEulerAngles.x;
                 float rotationY2 = listCubeBlue[i].transform.localEulerAngles.y;
                 float rotationZ2 = listCubeBlue[i].transform.localEulerAngles.z;
+                if (listCubeBlue[i].GetComponent<SpawnedInteractable>().uses5ColliderGroups) rotationZ2 += 45;
 
                 float scaleX = listCubeRed[i].transform.localScale.x;
                 float scaleY = listCubeRed[i].transform.localScale.y;
