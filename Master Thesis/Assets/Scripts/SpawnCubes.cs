@@ -69,8 +69,6 @@ public class SpawnCubes : MonoBehaviour
         timeCounter = 0;
         instantiateTimeCounter = timeToWaitBetween + 1;
         forwardVectorTest = hmd_transform.forward;
-        spawnCubesForBothHandsInSightOfCameraDirection();
-        instantiated = true;
         if (playBackgroundMusic) SoundManager.Instance.PlayBackgroundMusic();
         findReferencesToHitInteractables();
     }
@@ -78,7 +76,7 @@ public class SpawnCubes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fileWritten) return;
+        if (fileWritten || DifficultyManager.Instance.gamePaused) return;
         if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length && !fileWritten) // check if there is a valid blockSequenceArrray and all elements of the block array
                                                                                                                                 // were allready spawned, then write the gathered sportgamedata to file
                                                                                                                                 // from now on there will nothing happen here anymore

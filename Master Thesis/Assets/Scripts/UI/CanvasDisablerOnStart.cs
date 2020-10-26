@@ -25,12 +25,12 @@ public class CanvasDisablerOnStart : MonoBehaviour
 
     public void pauseGame()
     {
-        Time.timeScale = 0;
+       DifficultyManager.Instance.pauseGame();
     }
 
     public void resumeGame()
     {
-        Time.timeScale = 1;
+        DifficultyManager.Instance.resumeGame();
     }
 
     // Update is called once per frame

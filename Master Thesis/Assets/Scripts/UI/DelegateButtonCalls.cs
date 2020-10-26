@@ -34,6 +34,11 @@ public class DelegateButtonCalls : MonoBehaviour
     {
         cdos.resumeGame();
         cdos.disableCanvas();
+        if(reaction.value != DifficultyManager.Instance.getTimeToHitObjects()
+            || scale.value != DifficultyManager.Instance.getScaleObjects())
+        {
+            button_Custom();
+        }
     }
 
     public void button_Just_Fun()

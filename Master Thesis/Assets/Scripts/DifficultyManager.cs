@@ -17,6 +17,7 @@ public class DifficultyManager : MonoBehaviour
 {
     public static DifficultyManager Instance = null;
     public Difficulty difficulty = Difficulty.Middle;
+    public bool gamePaused = false;
     private void Awake()
     {
         // If there is not already an instance of SoundManager, set it to this.
@@ -32,6 +33,16 @@ public class DifficultyManager : MonoBehaviour
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void pauseGame()
+    {
+        gamePaused = true;
+    }
+
+    public void resumeGame()
+    {
+        gamePaused = false;
     }
 
     public void setDifficulty(Difficulty difficultyN)
