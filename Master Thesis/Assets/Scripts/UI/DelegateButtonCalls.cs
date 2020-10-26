@@ -7,11 +7,33 @@ public class DelegateButtonCalls : MonoBehaviour
 {
     public SpawnCubes sc;
     public Slider reaction, sphere, scale, pointsMultiplicator;
+    public Dropdown dropdownDifficulty;
+    public CanvasDisablerOnStart cdos;
     private DifficultyManager dm;
 
     public void Start()
     {
         dm = DifficultyManager.Instance;
+    }
+
+    public void delegate_Difficulty_Dropdown()
+    {
+        switch(dropdownDifficulty.value)
+        {
+            case 0: button_Just_Fun(); break;
+            case 1: button_Easy(); break;
+            case 2: button_Middle(); break;
+            case 3: button_Hard(); break;
+            case 4: button_Very_Hard(); break;
+            case 5: button_Extreme(); break;
+            default: break;
+        }
+    }
+
+    public void startOrResumeGame()
+    {
+        cdos.resumeGame();
+        cdos.disableCanvas();
     }
 
     public void button_Just_Fun()
@@ -59,15 +81,19 @@ public class DelegateButtonCalls : MonoBehaviour
     private void updateSliderValues()
     {
         reaction.value = dm.getTimeToHitObjects();
-        sphere.value = dm.getSphereRadius();
         scale.value = dm.getScaleObjects();
         pointsMultiplicator.value = dm.getPointModifier();
+    }
+
+    public void updateSphereRadius()
+    {
+        sc.updateSphereRadius(sphere.value);
     }
 
     public void button_Custom()
     {
         dm.setDifficulty(Difficulty.Custom);
         pointsMultiplicator.value = dm.getPointModifier();
-        sc.updateDifficultyParameters(reaction.value, scale.value, sphere.value);
+        sc.updateDifficultyParameters(reaction.value, scale.value);
     }
 }

@@ -79,27 +79,34 @@ public class SpawnCubes : MonoBehaviour
     void Update()
     {
         if (fileWritten) return;
-        if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length && !fileWritten)
+        if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length && !fileWritten) // check if there is a valid blockSequenceArrray and all elements of the block array
+                                                                                                                                // were allready spawned, then write the gathered sportgamedata to file
+                                                                                                                                // from now on there will nothing happen here anymore
         {
             serializeSportGameData();
             fileWritten = true;
         }
 
-        float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f;
+        float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f; // if the option animated spawning is active the cubes need exactly 2 seconds to fly to their destination were they can be hit
+                                                                   // so this has be taken into calculation when measuring the time a player needed or has to hit the cubes
 
-        if(instantiated && (lastLeftHandTarget ==  null || lastLeftHandTarget.getPointsRewarded()) && (lastRightHandTarget == null || lastRightHandTarget.getPointsRewarded()) )
+        if(instantiated && (lastLeftHandTarget ==  null || lastLeftHandTarget.getPointsRewarded()) && (lastRightHandTarget == null || lastRightHandTarget.getPointsRewarded()) ) 
+            // if there is currently one instantiated cube pair, then check if the references to the cubes are already destroyed or if points were rewarded for hitting the cubes
+            // so the timer is set over the limit time to hit the cubes, so that the spawning of the next cube pair can immediatly start in this call of update
         {
             timeCounter = timeToHitGameObjects + animationTimeBonus;
         }
         forwardVectorTest = hmd_transform.forward;
         timeCounter += Time.deltaTime;
         instantiateTimeCounter += Time.deltaTime;
-        if(instantiateTimeCounter >= timeToWaitBetween && !instantiated)
+
+        if(instantiateTimeCounter >= timeToWaitBetween && !instantiated) // check if instantiation time has passed and the current cube pair was not already instantiated
         {
-            spawnCubesForBothHandsInSightOfCameraDirection();
+            spawnCubesForBothHandsInSightOfCameraDirection(); // spawns one cube pair
             instantiated = true;
         }
-        if(timeCounter >= timeToHitGameObjects + animationTimeBonus)
+
+        if(timeCounter >= timeToHitGameObjects + animationTimeBonus) // Clean up remaining not hit cubes, if the time to hit the cubes passed, then reinitialise relevant variables
         {
             float destroyTimeLeft = 0;
             float destroyTimeRight = 0;
@@ -108,13 +115,14 @@ public class SpawnCubes : MonoBehaviour
 
             if(lastLeftHandTarget != null) Object.Destroy(lastLeftHandTarget.gameObject, destroyTimeLeft);
             if(lastRightHandTarget != null) Object.Destroy(lastRightHandTarget.gameObject, destroyTimeRight);
-            timeCounter = -timeToWaitBetween;
+            timeCounter = -timeToWaitBetween;   // when timeToWaitBetween has passed for spawning the next pair, the timeCounter will be exactly zero
             instantiateTimeCounter = 0;
             instantiated = false;
         }
     }
 
-    private void findReferencesToHitInteractables()
+    private void findReferencesToHitInteractables() // assign the correct references to the hitInteractables of controller gameobject elements,
+                                                    // this is necessary in order to later write the sport game data
     {
         HitInteractable[] lefts = leftHandController.GetComponentsInChildren<HitInteractable>(false);
         Debug.Log(lefts.Length);
@@ -130,14 +138,14 @@ public class SpawnCubes : MonoBehaviour
         }
     }
 
-    private void serializeSportGameData()
+    private void serializeSportGameData() // write sport game data to xml file
     {
         SerializeData.SerializeSportGameData("sportGameData", leftHand.listTimeNeededToHitObject, leftHand.listPrecisionWithThatObjectWasHit, leftHand.listEarnedPoints,
               rightHand.listTimeNeededToHitObject, rightHand.listPrecisionWithThatObjectWasHit, rightHand.listEarnedPoints, objectsSpawned, leftHand.countObjectsHit, rightHand.countObjectsHit,
               leftHand.listBlockPairNumber, rightHand.listBlockPairNumber, leftHand.listDifficulty, rightHand.listDifficulty);
     }
 
-    void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected() // draws sphere radius of where the cubes will spawn around the player in editor mode
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
@@ -170,7 +178,7 @@ public class SpawnCubes : MonoBehaviour
             leftToSpawn = leftHandGameObject;
             rightToSpawn = rightHandGameObject;
         }
-        else                                                          // spawning of blocks in points defined in BlockSequencesArray
+        else                                                          // spawning of elements in the current blockelement from blockarray ( => blockArray[blockCurrentIndex].getNextSphereCoordinates())
         {
             if (blockSequenceIndex >= blockSequences.Length) return;
             if (!blockSequences[blockSequenceIndex].hasNextSphereCoordinates()) ++blockSequenceIndex;
@@ -312,14 +320,17 @@ public class SpawnCubes : MonoBehaviour
     {
         DifficultyManager inst = DifficultyManager.Instance;
         timeToHitGameObjects = inst.getTimeToHitObjects();
-        sphereRadius = inst.getSphereRadius();
         scaleSpawnedGameObjects = inst.getScaleObjects();
     }
 
-    public void updateDifficultyParameters(float time, float scale, float sphere)
+    public void updateDifficultyParameters(float time, float scale)
     {
         timeToHitGameObjects = time;
-        sphereRadius = sphere;
         scaleSpawnedGameObjects = scale;
+    }
+
+    public void updateSphereRadius(float sphereRadiusN)
+    {
+        sphereRadius = sphereRadiusN;
     }
 }
