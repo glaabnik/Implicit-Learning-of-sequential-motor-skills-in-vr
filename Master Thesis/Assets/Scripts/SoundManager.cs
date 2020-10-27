@@ -9,6 +9,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource backgroundSource;
     public AudioClip[] hitSoundsAccuracy;
     public AudioClip backgroundMusic;
+    public AudioClip backgroundMusic2;
+    public AudioClip backgroundMusic3;
     public float volumeBackGroundMusic = 0.1f;
 
     // Random pitch adjustment range.
@@ -36,6 +38,14 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void Update()
+    {
+        if(!backgroundSource.isPlaying)
+        {
+            playRandomBackgroundMusic();
+        }
+    }
+
     // Play a single clip through the sound effects source.
     public void PlayHitSound(int number, float volume)
     {
@@ -45,8 +55,21 @@ public class SoundManager : MonoBehaviour
     // Play a single clip through the music source.
     public void PlayBackgroundMusic()
     {
-        backgroundSource.PlayOneShot(backgroundMusic, volumeBackGroundMusic);
+        //backgroundSource.PlayOneShot(backgroundMusic, volumeBackGroundMusic);
+        playRandomBackgroundMusic();
     }
+
+    private void playRandomBackgroundMusic()
+    {
+        int z = Random.Range(0, 2);
+        AudioClip nextBackgrondMusic = null;
+        if (z == 0) nextBackgrondMusic = backgroundMusic;
+        if (z == 1) nextBackgrondMusic = backgroundMusic2;
+        if (z == 2) nextBackgrondMusic = backgroundMusic3;
+
+        backgroundSource.PlayOneShot(nextBackgrondMusic, volumeBackGroundMusic);
+    }
+
 
     // Play a random clip from an array, and randomize the pitch slightly.
     public void RandomHitEffect()

@@ -220,6 +220,11 @@ public class SpawnedInteractable : MonoBehaviour
         return renderer.bounds.center;
     }
 
+    public Vector3[] getVertices()
+    {
+        return GetComponent<MeshFilter>().mesh.vertices;
+    }
+
     public void ExplodeIntoPieces(Vector3 positionVector, int pointsRewarded)
     {
         //make object disappear
@@ -246,7 +251,7 @@ public class SpawnedInteractable : MonoBehaviour
                 //Vector3 direction = rb.transform.position - positionVector;
                 //rb.AddForceAtPosition(direction * 50.0f, piece.transform.position);
             }
-            Object.Destroy(piece, 0.3f);
+            Object.Destroy(piece, 5.0f);
         }
 
     }

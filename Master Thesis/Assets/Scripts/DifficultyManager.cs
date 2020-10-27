@@ -68,8 +68,8 @@ public class DifficultyManager : MonoBehaviour
     {
         switch (difficulty)
         {
-            case Difficulty.Just_Fun: return 50f;
-            case Difficulty.Easy: return 20f;
+            case Difficulty.Just_Fun: return 30f;
+            case Difficulty.Easy: return 15f;
             case Difficulty.Middle: return 10f;
             case Difficulty.Hard: return 7f;
             case Difficulty.Very_Hard: return 4f;
@@ -82,8 +82,8 @@ public class DifficultyManager : MonoBehaviour
     {
         switch (difficulty)
         {
-            case Difficulty.Just_Fun: return 1.0f;
-            case Difficulty.Easy: return 0.7f;
+            case Difficulty.Just_Fun: return 0.7f;
+            case Difficulty.Easy: return 0.5f;
             case Difficulty.Middle: return 0.4f;
             case Difficulty.Hard: return 0.3f;
             case Difficulty.Very_Hard: return 0.2f;

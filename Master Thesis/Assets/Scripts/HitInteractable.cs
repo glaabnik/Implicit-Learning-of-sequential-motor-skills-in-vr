@@ -129,12 +129,19 @@ public class HitInteractable : MonoBehaviour
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
         bool pointsRewarded = si.getPointsRewarded();
-        Debug.Log("War der Schlag gedacht?: " + hitOnObjectWasIntended(si));
+        Debug.Log("War der Schlag gedacht?: " + hitOnObjectWasIntended(positionInitialColliderLeft, si));
         Debug.Log("Position Collider verlassen: " + positionInitialColliderLeft);
         Debug.Log("Position Collider betreten: " + positionInitialColliderEntered);
         Debug.Log("Länge des Vektors: " + (positionInitialColliderLeft - positionInitialColliderEntered).magnitude);
         Debug.Log("Scale des Würfels: " + si.gameObject.transform.localScale.x);
-        if (!pointsRewarded && hitOnObjectWasIntended(si))
+
+        if (!hitOnObjectWasIntended(positionInitialColliderLeft, si))
+        {
+            SoundManager.Instance.PlayHitSound(12, 0.5f);
+            //findContactPointsBetweenTwoColliders(si);
+        }
+
+        if (!pointsRewarded && hitOnObjectWasIntended(positionInitialColliderLeft, si))
         {
             int precision = 0;
             float precisionPercent = 0.0f;
@@ -193,6 +200,26 @@ public class HitInteractable : MonoBehaviour
         }
     }
 
+    private  void findContactPointsBetweenTwoColliders(SpawnedInteractable si)
+    {
+        Vector3[] edges = si.getVertices();
+        Transform tr = si.gameObject.transform;
+
+        for (int i = 0; i < edges.Length; ++i) // transform local space edges coordinates to world space
+        {
+            edges[i] = tr.TransformPoint(edges[i]);
+        }
+        
+        foreach (Vector3 edge in edges)
+        {
+            Debug.Log("Edge: " + edge);
+            Debug.Log("Closest Point to this edge: " + gameObject.GetComponent<Collider>().ClosestPoint(edge));
+            Debug.Log("Schlag gedacht for this edge: " + hitOnObjectWasIntended(edge, si));
+        }
+        positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+        Debug.Log("Closest Point to center of renderer: " + positionInitialColliderLeft);
+    }
+
     private void resetColliderGroups()
     {
         if (resetHasToBeDone && !interactionLocked)
@@ -203,9 +230,9 @@ public class HitInteractable : MonoBehaviour
         }
     }
 
-    private bool hitOnObjectWasIntended(SpawnedInteractable si)
+    private bool hitOnObjectWasIntended(Vector3 positionCubeColliderLeft, SpawnedInteractable si)
     {
-        return (positionInitialColliderLeft - positionInitialColliderEntered).magnitude >= 0.9 * si.gameObject.transform.localScale.x;
+        return (positionCubeColliderLeft - positionInitialColliderEntered).magnitude >= 0.9 * si.gameObject.transform.localScale.x;
     }
 
     private void destroyEffect(SpawnedInteractable si, int pointsEarned)
