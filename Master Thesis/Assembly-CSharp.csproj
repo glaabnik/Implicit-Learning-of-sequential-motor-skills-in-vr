@@ -66,6 +66,8 @@
     <Compile Include="Assets\Scripts\Data\BuildSequenceFromLevel.cs" />
     <Compile Include="Assets\Scripts\Data\LoadFixedSequenceOfSpawns.cs" />
     <Compile Include="Assets\Scripts\Data\SerializeData.cs" />
+    <Compile Include="Assets\Scripts\Debug\DebugHitInteractable.cs" />
+    <Compile Include="Assets\Scripts\Debug\DebugSpawnedInteractable.cs" />
     <Compile Include="Assets\Scripts\DifficultyManager.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LevelEditorWindow.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPoint.cs" />
@@ -548,6 +550,7 @@
     <None Include="Assets\Fantasy Arcade RPG Freedom World Sounds - Free Package\assetexplain.txt" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-LightSaber.shader" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\UIOverlay.shader" />
+    <None Include="Assets\xml\sportGameData7.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\VRTK_OutlineBasic.shader" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\AdaptiveQualityDebugVisualization.shader" />

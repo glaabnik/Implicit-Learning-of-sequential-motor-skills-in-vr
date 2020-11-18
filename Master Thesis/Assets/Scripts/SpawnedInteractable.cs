@@ -67,9 +67,13 @@ public class SpawnedInteractable : MonoBehaviour
     {
         startColliderHit = false;
         middleColliderHit = false;
+        middleColliderHit2 = false;
+        middleColliderHit3 = false;
         endColliderHit = false;
         actAccuracyStart = 0;
         actAccuracyMiddle = 0;
+        actAccuracyMiddle2 = 0;
+        actAccuracyMiddle3 = 0;
         actAccuracyEnd = 0;
     }
 
