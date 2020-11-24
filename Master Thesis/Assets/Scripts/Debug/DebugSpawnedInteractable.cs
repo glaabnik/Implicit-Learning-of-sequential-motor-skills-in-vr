@@ -75,11 +75,13 @@ public class DebugSpawnedInteractable : MonoBehaviour
 
     public void changeColorColliderGroup(Collider other)
     {
-        GameObject child = other.GetComponentInChildren<GameObject>();
-        if (child == null) return;
+        Transform child_transform = other.transform.GetChild(0);
+        if (child_transform == null) return;
+        GameObject child = child_transform.gameObject;
         MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
         listToReset.Add(meshRenderer);
         //int countColliderGroupsHit = countColliderGroupsHitGroups();
+        Debug.Log("Collider Group Number: " + countColliderGroupsHit + " Collider Group Tag: " + other.gameObject.tag);
         if (countColliderGroupsHit == 1) meshRenderer.material.color = colorAfterHitGroup;
         if (countColliderGroupsHit == 2) meshRenderer.material.color = colorAfterHitGroup2;
         if (countColliderGroupsHit == 3) meshRenderer.material.color = colorAfterHitGroup3;
@@ -88,7 +90,7 @@ public class DebugSpawnedInteractable : MonoBehaviour
 
     }
 
-    public void incrementColliderGroupsHit()
+    public void incrementColliderGroupsHit(Collider other)
     {
         countColliderGroupsHit++;
     }
@@ -254,8 +256,8 @@ public class DebugSpawnedInteractable : MonoBehaviour
 
     private void changeColor(int pointsGained)
     {
-        if (pointsGained > 35 && pointsGained <= 70) meshRenderer.material.color = colorAfterHit;
-        else if (pointsGained > 70 && pointsGained <= 100) meshRenderer.material.color = colorAfterHit2;
+        /*if (pointsGained > 35 && pointsGained <= 70) meshRenderer.material.color = new Color(colorAfterHit.r, colorAfterHit.g, colorAfterHit.b, 0.25f);
+        else if (pointsGained > 70 && pointsGained <= 100) meshRenderer.material.color = new Color(colorAfterHit2.r, colorAfterHit2.g, colorAfterHit2.b, 0.25f);*/
     }
 
     public Color getColor(int pointsGained)

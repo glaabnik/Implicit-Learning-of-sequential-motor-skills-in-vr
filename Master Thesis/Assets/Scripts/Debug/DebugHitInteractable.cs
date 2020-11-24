@@ -64,18 +64,32 @@ public class DebugHitInteractable : MonoBehaviour
         }
     }
 
+   
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.collider.gameObject.CompareTag("precisionOne")) positionInitialColliderLeft = collision.GetContact(0).point;
     }*/
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("On trigger enter entered???");
+        Debug.Log("On Collision Enter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Collider other = collision.collider;
+        if(other.gameObject.CompareTag("precisionOne"))
+        {
+            Vector3 contact_point = collision.GetContact(0).point;
+            Debug.Log("Collision Enter: Position Collider betreten: " + contact_point);
+        }
+    }
+
+        private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.name);
         DebugSpawnedInteractable si = other.gameObject.transform.parent.GetComponent<DebugSpawnedInteractable>();
         if (other.gameObject.CompareTag("precisionOne"))
         {
             interactionLocked = true;
+            si.resetColorOfColliderGroupHits();
             //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             relevantPositionToAddForce = gameObject.transform.position;
             positionInitialColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
@@ -107,7 +121,7 @@ public class DebugHitInteractable : MonoBehaviour
             si.startColliderGroupHit(other.gameObject.name);
             if (other.gameObject.name.EndsWith("One"))
             {
-                si.incrementColliderGroupsHit();
+                si.incrementColliderGroupsHit(other);
                 si.changeColorColliderGroup(other);
             }
         }
@@ -116,7 +130,7 @@ public class DebugHitInteractable : MonoBehaviour
             si.middleColliderGroupHit(other.gameObject.name);
             if (other.gameObject.name.EndsWith("One"))
             {
-                si.incrementColliderGroupsHit();
+                si.incrementColliderGroupsHit(other);
                 si.changeColorColliderGroup(other);
             }
         }
@@ -127,7 +141,7 @@ public class DebugHitInteractable : MonoBehaviour
 
             if (other.gameObject.name.EndsWith("One"))
             {
-                si.incrementColliderGroupsHit();
+                si.incrementColliderGroupsHit(other);
                 si.changeColorColliderGroup(other);
             }
         }
@@ -136,7 +150,7 @@ public class DebugHitInteractable : MonoBehaviour
             si.middleColliderGroupHit3(other.gameObject.name);
             if (other.gameObject.name.EndsWith("One"))
             {
-                si.incrementColliderGroupsHit();
+                si.incrementColliderGroupsHit(other);
                 si.changeColorColliderGroup(other);
             }
         }
@@ -145,7 +159,7 @@ public class DebugHitInteractable : MonoBehaviour
             si.endColliderGroupHit(other.gameObject.name);
             if (other.gameObject.name.EndsWith("One"))
             {
-                si.incrementColliderGroupsHit();
+                si.incrementColliderGroupsHit(other);
                 si.changeColorColliderGroup(other);
             }
         }
@@ -225,7 +239,6 @@ public class DebugHitInteractable : MonoBehaviour
             siToReset = si;
             resetHasToBeDone = true;
             resetColliderGroups();
-            if (precision > 0) si.resetColorOfColliderGroupHits();
 
             if (precision == 0 && !oneTryForHittingCubesCorrectly) return;
 
