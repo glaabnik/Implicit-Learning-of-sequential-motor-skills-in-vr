@@ -11,6 +11,14 @@ public class DebugSpawnedInteractable : MonoBehaviour
     public Color colorAfterHit;
     public Color colorAfterHit2;
     public Color colorAfterHit3;
+
+    public Color colorAfterHitGroup;
+    public Color colorAfterHitGroup2;
+    public Color colorAfterHitGroup3;
+    public Color colorAfterHitGroup4;
+    public Color colorAfterHitGroup5;
+    public Color originalColor;
+
     public int id;
     public bool uses5ColliderGroups = false;
     private MeshRenderer meshRenderer;
@@ -48,9 +56,11 @@ public class DebugSpawnedInteractable : MonoBehaviour
     private float fadeSpeed = 1.0f;
     private SpriteRenderer spriteRenderer;
     private new Renderer renderer;
-
+    private int countColliderGroupsHit = 0;
+    private List<MeshRenderer> listToReset;
     void Start()
     {
+        listToReset = new List<MeshRenderer>();
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
         rigidBody = gameObject.GetComponent<Rigidbody>();
 
@@ -63,8 +73,49 @@ public class DebugSpawnedInteractable : MonoBehaviour
         renderer = this.GetComponent<Renderer>();
     }
 
+    public void changeColorColliderGroup(Collider other)
+    {
+        GameObject child = other.GetComponentInChildren<GameObject>();
+        if (child == null) return;
+        MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
+        listToReset.Add(meshRenderer);
+        //int countColliderGroupsHit = countColliderGroupsHitGroups();
+        if (countColliderGroupsHit == 1) meshRenderer.material.color = colorAfterHitGroup;
+        if (countColliderGroupsHit == 2) meshRenderer.material.color = colorAfterHitGroup2;
+        if (countColliderGroupsHit == 3) meshRenderer.material.color = colorAfterHitGroup3;
+        if (countColliderGroupsHit == 4) meshRenderer.material.color = colorAfterHitGroup4;
+        if (countColliderGroupsHit == 5) meshRenderer.material.color = colorAfterHitGroup5;
+
+    }
+
+    public void incrementColliderGroupsHit()
+    {
+        countColliderGroupsHit++;
+    }
+
+    public void resetColorOfColliderGroupHits()
+    {
+        foreach(MeshRenderer renderer in listToReset)
+        {
+            renderer.material.color = originalColor;
+        }
+        listToReset.Clear();
+    }
+
+    /*private int countColliderGroupsHitGroups()
+    {
+        int result = 0;
+        if (startColliderHit) result += 1;
+        if (middleColliderHit) result += 1;
+        if (middleColliderHit2) result += 1;
+        if (middleColliderHit3) result += 1;
+        if (endColliderHit) result += 1;
+        return result;
+    }*/
+
     public void resetColliderGroupsHit()
     {
+        countColliderGroupsHit = 0;
         startColliderHit = false;
         middleColliderHit = false;
         middleColliderHit2 = false;
@@ -79,9 +130,6 @@ public class DebugSpawnedInteractable : MonoBehaviour
 
     public void startColliderGroupHit(string colliderName)
     {
-        actAccuracyStart = 0;
-        actAccuracyMiddle = 0;
-        actAccuracyEnd = 0;
         if (!middleColliderHit && !endColliderHit)
         {
             startColliderHit = true;

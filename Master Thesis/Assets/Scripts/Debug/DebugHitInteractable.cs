@@ -105,29 +105,55 @@ public class DebugHitInteractable : MonoBehaviour
         if (other.gameObject.CompareTag("directionFirst"))
         {
             si.startColliderGroupHit(other.gameObject.name);
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                si.incrementColliderGroupsHit();
+                si.changeColorColliderGroup(other);
+            }
         }
         if (other.gameObject.CompareTag("directionSecond"))
         {
             si.middleColliderGroupHit(other.gameObject.name);
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                si.incrementColliderGroupsHit();
+                si.changeColorColliderGroup(other);
+            }
         }
         if (other.gameObject.CompareTag("directionThird"))
         {
             if (si.uses5ColliderGroups) si.middleColliderGroupHit2(other.gameObject.name);
             else si.endColliderGroupHit(other.gameObject.name);
+
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                si.incrementColliderGroupsHit();
+                si.changeColorColliderGroup(other);
+            }
         }
         if (other.gameObject.CompareTag("directionFourth"))
         {
             si.middleColliderGroupHit3(other.gameObject.name);
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                si.incrementColliderGroupsHit();
+                si.changeColorColliderGroup(other);
+            }
         }
         if (other.gameObject.CompareTag("directionFith"))
         {
             si.endColliderGroupHit(other.gameObject.name);
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                si.incrementColliderGroupsHit();
+                si.changeColorColliderGroup(other);
+            }
         }
         /*SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
         si.addForceToRigidBody(gameObject.transform.position);*/
     }
 
-   
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -198,6 +224,9 @@ public class DebugHitInteractable : MonoBehaviour
             interactionLocked = false;
             siToReset = si;
             resetHasToBeDone = true;
+            resetColliderGroups();
+            if (precision > 0) si.resetColorOfColliderGroupHits();
+
             if (precision == 0 && !oneTryForHittingCubesCorrectly) return;
 
             si.setPointsRewarded(pointsEarned);

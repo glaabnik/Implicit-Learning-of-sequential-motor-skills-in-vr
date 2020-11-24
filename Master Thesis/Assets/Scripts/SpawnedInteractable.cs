@@ -79,9 +79,9 @@ public class SpawnedInteractable : MonoBehaviour
 
     public void startColliderGroupHit(string colliderName)
     {
-        actAccuracyStart = 0;
+        /*actAccuracyStart = 0;
         actAccuracyMiddle = 0;
-        actAccuracyEnd = 0;
+        actAccuracyEnd = 0;*/
         if (!middleColliderHit && !endColliderHit)
         {
             startColliderHit = true;
