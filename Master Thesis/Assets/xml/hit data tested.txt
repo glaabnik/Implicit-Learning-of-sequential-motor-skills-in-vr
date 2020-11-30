@@ -1,0 +1,26 @@
+Sphären-Collider
+Position betreten: (-1.2, 1.6, -0.2)
+Position erste Collidergruppe verlassen: (-1.2, 1.7, -0.5)
+Position zweite Collidergruppe verlassen: (-0.9, 1.7, -0.5)
+Position dritte Collidergruppe verlassen: (-1.0,1.7,-0.7)
+Position verlassen: (-0.9, 1.8, -0.8)
+
+Sphären-Collider
+Position betreten: (-1.0, 1.7, -0.2)
+Position erste Collidergruppe betreten: (-1.0, 1.7, -0.3)
+Position zweite Collidergruppe betreten: (-1.0, 1.7, -0.4)
+Position dritte Collidergruppe betreten: (-0.9,1.7,-0.5)
+Position erste Collidergruppe verlassen: (-1.3, 1.7, -0.6)
+Position zweite Collidergruppe verlassen: (-1.3, 1.6, -0.7)
+Position dritte Collidergruppe verlassen: (-0.8,1.7,-0.8)
+Position verlassen: (-0.9, 1.7, -0.8)
+
+Box-Collider
+Position betreten: (-1.0, 1.8, -0.3)
+Position erste Collidergruppe betreten: (-1.0, 1.8, -0.3)
+Position zweite Collidergruppe betreten: (-1.0, 1.8, -0.5)
+Position dritte Collidergruppe betreten: (-0.9,1.8,-0.5)
+Position erste Collidergruppe verlassen: (-1.3, 1.8, -0.6)
+Position zweite Collidergruppe verlassen: (-1.3, 1.8, -0.7)
+Position dritte Collidergruppe verlassen: (-1.2,1.7,-0.8)
+Position verlassen: (-1.2, 1.7, -0.8) (avg: -1.0, 1.7, -0.7)

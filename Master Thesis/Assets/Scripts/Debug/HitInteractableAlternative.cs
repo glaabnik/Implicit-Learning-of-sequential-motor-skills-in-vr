@@ -19,12 +19,12 @@ public class HitInteractableAlternative : MonoBehaviour
     private bool interactionLocked = false;
     private Vector3 relevantPositionToAddForce;
     private Vector3 positionInitialColliderEntered;
-    private Vector3 positionInitialColliderLeft;
+    private Vector3 positionInitialColliderLeft, positionInitialColliderLeft_Avg;
     private Vector3 positionColliderGroupStartEntered, positionColliderGroupStartLeft;
     private Vector3 positionColliderGroupMiddleEntered, positionColliderGroupMiddleLeft;
     private Vector3 positionColliderGroupEndEntered, positionColliderGroupEndLeft;
     private bool resetHasToBeDone = false;
-    private DebugSpawnedInteractable siToReset;
+    private SpawnedInteractableAlternative siToReset;
     public int destroyVariant = 0;
 
     void Start()
@@ -66,13 +66,17 @@ public class HitInteractableAlternative : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("On Collision Enter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Debug.Log("On Collision Enter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + collision.collider.name);
         Collider other = collision.collider;
         if(other.gameObject.CompareTag("precisionOne"))
         {
             Vector3 contact_point = collision.GetContact(0).point;
+            ContactPoint[] contacts = new ContactPoint[collision.contactCount];
+            collision.GetContacts(contacts);
+            Vector3 avg_contact_point = getAvgContactPoint(contacts);
+            positionInitialColliderEntered = contact_point;
             Debug.Log("Collision Enter: Position Collider betreten: " + contact_point);
-            //positionInitialColliderEntered = contact_point;
+            Debug.Log("Collision Enter: Position Collider betreten (Avg): " + avg_contact_point);
         }
         if (other.gameObject.CompareTag("directionFirst"))
         {
@@ -80,6 +84,7 @@ public class HitInteractableAlternative : MonoBehaviour
             {
                 positionColliderGroupStartEntered = collision.GetContact(0).point;
                 Debug.Log("direction First Collider collision enter event");
+                Debug.Log("Collision Enter: direction-First-Collider betreten: " + positionColliderGroupStartEntered);
             }
         }
         if (other.gameObject.CompareTag("directionSecond"))
@@ -88,6 +93,7 @@ public class HitInteractableAlternative : MonoBehaviour
             {
                 positionColliderGroupMiddleEntered = collision.GetContact(0).point;
                 Debug.Log("direction Second Collider collision enter event");
+                Debug.Log("Collision Enter: direction-Second-Collider betreten: " + positionColliderGroupMiddleEntered);
             }
         }
         if (other.gameObject.CompareTag("directionThird"))
@@ -96,6 +102,57 @@ public class HitInteractableAlternative : MonoBehaviour
             {
                 positionColliderGroupEndEntered = collision.GetContact(0).point;
                 Debug.Log("direction Third Collider collision enter event");
+                Debug.Log("Collision Enter: direction-Third-Collider betreten: " + positionColliderGroupEndEntered);
+            }
+        }
+        if (other.gameObject.CompareTag("directionFourth"))
+        {
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                Debug.Log("direction Fourth Collider collision enter event");
+            }
+        }
+        if (other.gameObject.CompareTag("directionFith"))
+        {
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                Debug.Log("direction Fith Collider collision enter event");
+            }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        Collider other = collision.collider;
+        if (other.gameObject.CompareTag("precisionOne"))
+        {
+            Vector3 contact_point = collision.GetContact(0).point;
+            ContactPoint[] contacts = new ContactPoint[collision.contactCount];
+            collision.GetContacts(contacts);
+            Vector3 avg_contact_point = getAvgContactPoint(contacts);
+            positionInitialColliderLeft = contact_point;
+            positionInitialColliderLeft_Avg = avg_contact_point;
+            //positionInitialColliderEntered = contact_point;
+        }
+        if (other.gameObject.CompareTag("directionFirst"))
+        {
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                positionColliderGroupStartLeft = collision.GetContact(0).point;
+            }
+        }
+        if (other.gameObject.CompareTag("directionSecond"))
+        {
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                positionColliderGroupMiddleLeft = collision.GetContact(0).point;
+            }
+        }
+        if (other.gameObject.CompareTag("directionThird"))
+        {
+            if (other.gameObject.name.EndsWith("One"))
+            {
+                positionColliderGroupEndLeft = collision.GetContact(0).point;
             }
         }
         if (other.gameObject.CompareTag("directionFourth"))
@@ -116,36 +173,42 @@ public class HitInteractableAlternative : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
+        Debug.Log("On Collision Exit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + collision.collider.name);
         Collider other = collision.collider;
+        
         if (other.gameObject.CompareTag("precisionOne"))
         {
-            Vector3 contact_point = collision.GetContact(0).point;
-            Debug.Log("Collision Exit: Position Haupt-Collider verlassen: " + contact_point);
+            SpawnedInteractableAlternative si = other.gameObject.transform.parent.GetComponent<SpawnedInteractableAlternative>();
+            Debug.Log("Collision Exit: Position Haupt-Collider verlassen: " + positionInitialColliderLeft);
+            Debug.Log("Collision Exit: Position Haupt-Collider verlassen (avg): " + positionInitialColliderLeft_Avg);
             //positionInitialColliderLeft = collision.GetContact(0).point;
+            Debug.Log("Ideal Vector from Arrow Direction: " + si.getIdealVector());
+            Vector3 calc_Vector = positionInitialColliderLeft - positionInitialColliderEntered;
+            Debug.Log("Calculated Vector from Collider contact points: " + calc_Vector);
         }
 
         if (other.gameObject.CompareTag("directionFirst"))
         {
             if (other.gameObject.name.EndsWith("One"))
             {
-                positionColliderGroupStartLeft = collision.GetContact(0).point;
                 Debug.Log("direction First Collider collision exit event");
+                Debug.Log("Collision Exit: direction-First-Collider verlassen: " + positionColliderGroupStartLeft);
             }
         }
         if (other.gameObject.CompareTag("directionSecond"))
         {
             if (other.gameObject.name.EndsWith("One"))
             {
-                positionColliderGroupMiddleLeft = collision.GetContact(0).point;
                 Debug.Log("direction Second Collider collision exit event");
+                Debug.Log("Collision Exit: direction-Second-Collider verlassen: " + positionColliderGroupMiddleLeft);
             }
         }
         if (other.gameObject.CompareTag("directionThird"))
         {
             if (other.gameObject.name.EndsWith("One"))
             {
-                positionColliderGroupEndLeft = collision.GetContact(0).point;
                 Debug.Log("direction Third Collider collision exit event");
+                Debug.Log("Collision Exit: direction-Third-Collider verlassen: " + positionColliderGroupEndLeft);
             }
         }
         if (other.gameObject.CompareTag("directionFourth"))
@@ -181,7 +244,7 @@ public class HitInteractableAlternative : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
+        //Debug.Log(other.gameObject.name);
         SpawnedInteractableAlternative si = other.gameObject.transform.parent.GetComponent<SpawnedInteractableAlternative>();
         if (other.gameObject.CompareTag("precisionOne"))
         {
@@ -269,7 +332,7 @@ public class HitInteractableAlternative : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("precisionOne")) return;
 
-        DebugSpawnedInteractable si = other.gameObject.transform.parent.GetComponent<DebugSpawnedInteractable>();
+        SpawnedInteractableAlternative si = other.gameObject.transform.parent.GetComponent<SpawnedInteractableAlternative>();
         positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
         GameObject sphere = Instantiate(sphereToSpawn2);
         sphere.transform.position = positionInitialColliderLeft;
@@ -278,7 +341,7 @@ public class HitInteractableAlternative : MonoBehaviour
         bool pointsRewarded = si.getPointsRewarded();
         if(!hitOnObjectWasIntended(positionInitialColliderLeft, si))
         {
-            Debug.Log("Schlag fehlgeschlagen!");
+            //Debug.Log("Schlag fehlgeschlagen!");
             Debug.Log("War der Schlag gedacht?: " + hitOnObjectWasIntended(positionInitialColliderLeft, si));
             Debug.Log("Position Collider verlassen: " + positionInitialColliderLeft);
             Debug.Log("Position Collider betreten: " + positionInitialColliderEntered);
@@ -355,26 +418,6 @@ public class HitInteractableAlternative : MonoBehaviour
         }
     }
 
-    private  void findContactPointsBetweenTwoColliders(DebugSpawnedInteractable si)
-    {
-        Vector3[] edges = si.getVertices();
-        Transform tr = si.gameObject.transform;
-
-        for (int i = 0; i < edges.Length; ++i) // transform local space edges coordinates to world space
-        {
-            edges[i] = tr.TransformPoint(edges[i]);
-        }
-        
-        foreach (Vector3 edge in edges)
-        {
-            Debug.Log("Edge: " + edge);
-            Debug.Log("Closest Point to this edge: " + gameObject.GetComponent<Collider>().ClosestPoint(edge));
-            Debug.Log("Schlag gedacht for this edge: " + hitOnObjectWasIntended(edge, si));
-        }
-        positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
-        Debug.Log("Closest Point to center of renderer: " + positionInitialColliderLeft);
-    }
-
     private void resetColliderGroups()
     {
         if (resetHasToBeDone && !interactionLocked)
@@ -385,12 +428,12 @@ public class HitInteractableAlternative : MonoBehaviour
         }
     }
 
-    private bool hitOnObjectWasIntended(Vector3 positionCubeColliderLeft, DebugSpawnedInteractable si)
+    private bool hitOnObjectWasIntended(Vector3 positionCubeColliderLeft, SpawnedInteractableAlternative si)
     {
         return (positionCubeColliderLeft - positionInitialColliderEntered).magnitude >= 0.7 * si.gameObject.transform.localScale.x;
     }
 
-    private void destroyEffect(DebugSpawnedInteractable si, int pointsEarned)
+    private void destroyEffect(SpawnedInteractableAlternative si, int pointsEarned)
     {
         /*if(pointsEarned == 0) si.fadeOutEffect();
         else if(destroyVariant == 0) si.addForceToRigidBody(relevantPositionToAddForce);

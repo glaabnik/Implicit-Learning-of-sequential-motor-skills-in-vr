@@ -84,7 +84,7 @@ public class DebugHitInteractable : MonoBehaviour
 
         private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
+        //Debug.Log(other.gameObject.name);
         DebugSpawnedInteractable si = other.gameObject.transform.parent.GetComponent<DebugSpawnedInteractable>();
         if (other.gameObject.CompareTag("precisionOne"))
         {

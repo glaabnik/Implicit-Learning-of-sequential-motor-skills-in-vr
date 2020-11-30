@@ -22,6 +22,9 @@ TagManager:
   - VRTK_Model
   - Start_Point
   - End_Point
+  - Plane
+  - blueController
+  - redController
   layers:
   - Default
   - TransparentFX

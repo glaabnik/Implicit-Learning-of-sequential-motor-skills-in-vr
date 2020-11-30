@@ -60,6 +60,8 @@ public class SpawnedInteractableAlternative : MonoBehaviour
     private int countColliderGroupsHit = 0;
     private List<MeshRenderer> listToReset;
     private bool isCoroutineExecuting = false;
+    private GameObject start_point;
+    private GameObject end_point;
     void Start()
     {
         listToReset = new List<MeshRenderer>();
@@ -73,6 +75,21 @@ public class SpawnedInteractableAlternative : MonoBehaviour
         spawnedPieces = new List<GameObject>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         renderer = this.GetComponent<Renderer>();
+        assignStartAndEndPoint();
+    }
+
+    private void assignStartAndEndPoint()
+    {
+        for(int i= 0;  i < transform.childCount; ++i)
+        {
+            if (transform.GetChild(i).CompareTag("Start_Point")) start_point = transform.GetChild(i).gameObject;
+            if (transform.GetChild(i).CompareTag("End_Point")) end_point = transform.GetChild(i).gameObject;
+        }
+    }
+
+    public Vector3 getIdealVector()
+    {
+        return end_point.transform.position - start_point.transform.position;
     }
 
     public void changeColorColliderGroup(Collider other)

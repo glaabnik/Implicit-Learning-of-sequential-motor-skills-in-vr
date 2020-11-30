@@ -79,7 +79,7 @@ public class DebugSpawnedInteractable : MonoBehaviour
         if (child_transform == null) return;
         GameObject child = child_transform.gameObject;
         MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
-        listToReset.Add(meshRenderer);
+        if(meshRenderer != null) listToReset.Add(meshRenderer);
         //int countColliderGroupsHit = countColliderGroupsHitGroups();
         Debug.Log("Collider Group Number: " + countColliderGroupsHit + " Collider Group Tag: " + other.gameObject.tag);
         if (countColliderGroupsHit == 1) meshRenderer.material.color = colorAfterHitGroup;
