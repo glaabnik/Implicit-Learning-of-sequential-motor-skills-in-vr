@@ -251,7 +251,7 @@ public class HitInteractableAlternative : MonoBehaviour
             interactionLocked = true;
             //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             relevantPositionToAddForce = gameObject.transform.position;
-            positionInitialColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            //positionInitialColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             GameObject sphere = Instantiate(sphereToSpawn);
             sphere.transform.position = positionInitialColliderEntered;
             sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -333,7 +333,7 @@ public class HitInteractableAlternative : MonoBehaviour
         if (!other.gameObject.CompareTag("precisionOne")) return;
 
         SpawnedInteractableAlternative si = other.gameObject.transform.parent.GetComponent<SpawnedInteractableAlternative>();
-        positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+        //positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
         GameObject sphere = Instantiate(sphereToSpawn2);
         sphere.transform.position = positionInitialColliderLeft;
         sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -362,7 +362,7 @@ public class HitInteractableAlternative : MonoBehaviour
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
-            if (si.wasHitInRightDirection())
+            if (si.wasHitInRightDirection() || vectorHitDirectionEqualsIdealVector(si))
             {
                 precision = si.getAvgAccuracy();
                 precisionPercent = si.getAvgAccuracyPercent();
@@ -416,6 +416,21 @@ public class HitInteractableAlternative : MonoBehaviour
            
            
         }
+    }
+
+    private bool vectorHitDirectionEqualsIdealVector(SpawnedInteractableAlternative si)
+    {
+        Vector3 idealVector = si.getIdealVector();
+        Vector3 calc_Vector = positionInitialColliderLeft - positionInitialColliderEntered;
+        Vector3 diff = idealVector - calc_Vector;
+        float magnitude = diff.magnitude;
+
+        // calculate angle between vectors
+        float dot_product = idealVector.x * calc_Vector.x + idealVector.y * calc_Vector.y + idealVector.z * calc_Vector.z;
+        float alpha = Mathf.Acos(dot_product / (idealVector.magnitude * calc_Vector.magnitude));
+        Debug.Log("angle between two vectors: " + alpha * Mathf.Rad2Deg);
+
+        return magnitude <= (idealVector.magnitude / 2.0);
     }
 
     private void resetColliderGroups()
