@@ -94,6 +94,7 @@ public class SpawnedInteractableAlternative : MonoBehaviour
 
     public Vector3 getIdealVectorLocal()
     {
+        //return transform.InverseTransformPoint(end_point.transform.position) - transform.InverseTransformPoint(start_point.transform.position);
         return end_point.transform.localPosition - start_point.transform.localPosition;
     }
 
@@ -121,6 +122,15 @@ public class SpawnedInteractableAlternative : MonoBehaviour
 
     public void resetColorOfColliderGroupHits()
     {
+        foreach (MeshRenderer renderer in listToReset)
+        {
+            renderer.material.color = originalColor;
+        }
+        listToReset.Clear();
+    }
+
+    /*public void resetColorOfColliderGroupHits()
+    {
         StartCoroutine("resetColorOfColliderGroupHitsCoroutine");
     }
 
@@ -132,7 +142,7 @@ public class SpawnedInteractableAlternative : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
         listToReset.Clear();
-    }
+    }*/
 
     /*private int countColliderGroupsHitGroups()
     {
@@ -214,14 +224,32 @@ public class SpawnedInteractableAlternative : MonoBehaviour
 
     public int getAvgAccuracy()
     {
-        if (uses5ColliderGroups) return (actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd) / 5;
-        else                     return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3;
+        int colliderGroupsGreaterZero = 0;
+        int accuracySumColliderGroups;
+        if (uses5ColliderGroups)
+        {
+            accuracySumColliderGroups = actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd;
+            if (actAccuracyStart > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle2 > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle3 > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyEnd > 0) colliderGroupsGreaterZero++;
+        }
+        else
+        {
+            accuracySumColliderGroups = actAccuracyStart + actAccuracyMiddle + actAccuracyEnd;
+            if (actAccuracyStart > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyEnd > 0) colliderGroupsGreaterZero++;
+        }
+
+        if (colliderGroupsGreaterZero > 0) return (int)(accuracySumColliderGroups / (float)colliderGroupsGreaterZero);
+        else return 1;
     }
 
     public float getAvgAccuracyPercent()
     {
-        if (uses5ColliderGroups) return (actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd) / 5.0f * 0.1f;
-        else                     return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3.0f * 0.1f;
+        return getAvgAccuracy() * 0.1f;
     }
 
     private void assignAccuracyFor(string colliderName, ref int accAttribute)
@@ -397,7 +425,7 @@ public class SpawnedInteractableAlternative : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DifficultyManager.Instance.gamePaused) return;
+        if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
 
         if(isAnimating)
         {
