@@ -66,7 +66,7 @@ public class HitInteractableAlternative : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("On Collision Enter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + collision.collider.name);
+        //Debug.Log("On Collision Enter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + collision.collider.name);
         Collider other = collision.collider;
         if(other.gameObject.CompareTag("precisionOne"))
         {
@@ -173,7 +173,7 @@ public class HitInteractableAlternative : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        Debug.Log("On Collision Exit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + collision.collider.name);
+        //Debug.Log("On Collision Exit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + collision.collider.name);
         Collider other = collision.collider;
         
         if (other.gameObject.CompareTag("precisionOne"))
@@ -183,6 +183,7 @@ public class HitInteractableAlternative : MonoBehaviour
             Debug.Log("Collision Exit: Position Haupt-Collider verlassen (avg): " + positionInitialColliderLeft_Avg);
             //positionInitialColliderLeft = collision.GetContact(0).point;
             Debug.Log("Ideal Vector from Arrow Direction: " + si.getIdealVector());
+            Debug.Log("Ideal Vector local from Arrow Direction: " + si.getIdealVectorLocal());
             Vector3 calc_Vector = positionInitialColliderLeft - positionInitialColliderEntered;
             Debug.Log("Calculated Vector from Collider contact points: " + calc_Vector);
         }
@@ -339,7 +340,8 @@ public class HitInteractableAlternative : MonoBehaviour
         sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         Object.Destroy(sphere, 10f);
         bool pointsRewarded = si.getPointsRewarded();
-        if(!hitOnObjectWasIntended(positionInitialColliderLeft, si))
+
+        /*if(!hitOnObjectWasIntended(positionInitialColliderLeft, si))
         {
             //Debug.Log("Schlag fehlgeschlagen!");
             Debug.Log("War der Schlag gedacht?: " + hitOnObjectWasIntended(positionInitialColliderLeft, si));
@@ -347,22 +349,25 @@ public class HitInteractableAlternative : MonoBehaviour
             Debug.Log("Position Collider betreten: " + positionInitialColliderEntered);
             Debug.Log("Länge des Vektors: " + (positionInitialColliderLeft - positionInitialColliderEntered).magnitude);
             Debug.Log("Scale des Würfels: " + si.gameObject.transform.localScale.x);
-        }
-       
+        }*/
 
-        if (!hitOnObjectWasIntended(positionInitialColliderLeft, si))
+
+        /*if (!hitOnObjectWasIntended(positionInitialColliderLeft, si))
         {
             SoundManager.Instance.PlayHitSound(12, 0.5f);
             //findContactPointsBetweenTwoColliders(si);
-        }
+        }*/
 
-        if (!pointsRewarded && hitOnObjectWasIntended(positionInitialColliderLeft, si))
+        // && hitOnObjectWasIntended(positionInitialColliderLeft, si)
+        if (!pointsRewarded)
         {
             int precision = 0;
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
-            if (si.wasHitInRightDirection() || vectorHitDirectionEqualsIdealVector(si))
+            bool b = vectorHitDirectionEqualsIdealVector(si);
+            //si.wasHitInRightDirection() ||
+            if (b)
             {
                 precision = si.getAvgAccuracy();
                 precisionPercent = si.getAvgAccuracyPercent();
@@ -425,12 +430,24 @@ public class HitInteractableAlternative : MonoBehaviour
         Vector3 diff = idealVector - calc_Vector;
         float magnitude = diff.magnitude;
 
+        Vector3 idealVectorlocal = si.getIdealVectorLocal();
+        Vector3 calc_Vector_local = si.gameObject.transform.InverseTransformDirection(calc_Vector);
+        Debug.Log("Ideal Vector local: " + idealVectorlocal);
+        Debug.Log("Calc Vector local: " + calc_Vector_local);
+
+        Vector2 idealVectorlocal2D = new Vector2(idealVectorlocal.x, idealVectorlocal.y);
+        Vector2 calc_Vector_local2D = new Vector2(calc_Vector_local.x, calc_Vector_local.y);
+
+        float dot_product_2D = idealVectorlocal2D.x * calc_Vector_local2D.x + idealVectorlocal2D.y * calc_Vector_local2D.y;
+        float alpha_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
+        Debug.Log("angle between two 2D local vectors: " + alpha_2D * Mathf.Rad2Deg);
+
         // calculate angle between vectors
         float dot_product = idealVector.x * calc_Vector.x + idealVector.y * calc_Vector.y + idealVector.z * calc_Vector.z;
         float alpha = Mathf.Acos(dot_product / (idealVector.magnitude * calc_Vector.magnitude));
         Debug.Log("angle between two vectors: " + alpha * Mathf.Rad2Deg);
 
-        return magnitude <= (idealVector.magnitude / 2.0);
+        return (alpha_2D * Mathf.Rad2Deg) <= 40;
     }
 
     private void resetColliderGroups()

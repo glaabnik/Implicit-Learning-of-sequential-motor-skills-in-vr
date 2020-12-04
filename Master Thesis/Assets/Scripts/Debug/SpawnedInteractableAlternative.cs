@@ -92,6 +92,11 @@ public class SpawnedInteractableAlternative : MonoBehaviour
         return end_point.transform.position - start_point.transform.position;
     }
 
+    public Vector3 getIdealVectorLocal()
+    {
+        return end_point.transform.localPosition - start_point.transform.localPosition;
+    }
+
     public void changeColorColliderGroup(Collider other)
     {
         Transform child_transform = other.transform.GetChild(0);
