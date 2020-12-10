@@ -192,7 +192,7 @@ public class HitInteractable : MonoBehaviour
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
-            if (si.wasHitInRightDirection() || (vectorHitDirectionEqualsIdealVector(si) && hitWasThroughWholeCube(positionInitialColliderLeftSphere, si)) )
+            if (si.wasHitInRightDirection() || (vectorHitDirectionEqualsIdealVector(si) /*&& hitWasThroughWholeCube(positionInitialColliderLeftSphere, si)*/) )
             {
                 precision = si.getAvgAccuracy();
                 precisionPercent = si.getAvgAccuracyPercent();

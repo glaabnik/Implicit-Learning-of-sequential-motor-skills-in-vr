@@ -184,13 +184,15 @@ public class HitInteractableAlternative : MonoBehaviour
             Debug.Log("Collision Exit: Position Haupt-Collider verlassen: " + positionInitialColliderLeft);
             Debug.Log("Collision Exit: Position Haupt-Collider verlassen (avg): " + positionInitialColliderLeft_Avg);
             //positionInitialColliderLeft = collision.GetContact(0).point;
-            Debug.Log("Ideal Vector from Arrow Direction: " + si.getIdealVector());
+            /*Debug.Log("Ideal Vector from Arrow Direction: " + si.getIdealVector());
             Debug.Log("Ideal Vector local from Arrow Direction: " + si.getIdealVectorLocal());
             Vector3 calc_Vector = positionInitialColliderLeft - positionInitialColliderEntered;
-            Debug.Log("Calculated Vector from Collider contact points: " + calc_Vector);
+            Debug.Log("Calculated Vector from Collider contact points: " + calc_Vector);*/
+            vectorHitDirectionEqualsIdealVector(si);
+
         }
 
-        if (other.gameObject.CompareTag("directionFirst"))
+            if (other.gameObject.CompareTag("directionFirst"))
         {
             if (other.gameObject.name.EndsWith("One"))
             {
@@ -259,7 +261,7 @@ public class HitInteractableAlternative : MonoBehaviour
             GameObject sphere = Instantiate(sphereToSpawn);
             sphere.transform.position = positionInitialColliderEntered;
             sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            Object.Destroy(sphere, 10f);
+            Object.Destroy(sphere, 2f);
             //Debug.Log("First collider entered");
         }
         if (other.gameObject.CompareTag("precisionTwo"))
@@ -341,7 +343,7 @@ public class HitInteractableAlternative : MonoBehaviour
         GameObject sphere = Instantiate(sphereToSpawn2);
         sphere.transform.position = positionInitialColliderLeft;
         sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        Object.Destroy(sphere, 10f);
+        Object.Destroy(sphere, 2f);
         bool pointsRewarded = si.getPointsRewarded();
 
         if(!hitOnObjectWasIntended(positionInitialColliderLeftSphere, si))
@@ -434,22 +436,30 @@ public class HitInteractableAlternative : MonoBehaviour
         Vector3 idealVectorlocal = si.getIdealVectorLocal();
         Vector3 calc_Vector_local = si.gameObject.transform.InverseTransformPoint(positionInitialColliderLeft) - 
                                     si.gameObject.transform.InverseTransformPoint(positionInitialColliderEntered);
+        Vector3 calc_Vector_local_avg = si.gameObject.transform.InverseTransformPoint(positionInitialColliderLeft_Avg) -
+                                        si.gameObject.transform.InverseTransformPoint(positionInitialColliderEntered);
         Debug.Log("Ideal Vector local: " + idealVectorlocal);
         Debug.Log("Calc Vector local: " + calc_Vector_local);
+        Debug.Log("Calc Vector local: " + calc_Vector_local_avg);
 
         Vector2 idealVectorlocal2D = new Vector2(idealVectorlocal.x, idealVectorlocal.y);
         Vector2 calc_Vector_local2D = new Vector2(calc_Vector_local.x, calc_Vector_local.y);
+        Vector2 calc_Vector_Avg_local2D = new Vector2(calc_Vector_local_avg.x, calc_Vector_local_avg.y);
+        float ideal_magnitude = calc_Vector_local2D.magnitude > 0.1 ? calc_Vector_local2D.magnitude : 1;
+        float ideal_magnitude_avg = calc_Vector_Avg_local2D.magnitude > 0.1 ? calc_Vector_Avg_local2D.magnitude : 1;
 
         float dot_product_2D = idealVectorlocal2D.x * calc_Vector_local2D.x + idealVectorlocal2D.y * calc_Vector_local2D.y;
         float alpha_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
         Debug.Log("angle between two 2D local vectors: " + alpha_2D * Mathf.Rad2Deg);
-        Debug.Log("cosine similiary for 2D vectors: " + dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
+        Debug.Log("cosine similiary for 2D vectors: " + dot_product_2D / (idealVectorlocal2D.magnitude * ideal_magnitude));
 
-        if(alpha_2D * Mathf.Rad2Deg > 40)
-        {
-            Debug.Log("PositionInitialColliderEntered Local Space: " + si.gameObject.transform.InverseTransformPoint(positionInitialColliderLeft));
-            Debug.Log("PositionInitialColliderLeft Local Space: " + si.gameObject.transform.InverseTransformPoint(positionInitialColliderEntered));
-        }
+        float dot_product2_2D = idealVectorlocal2D.x * calc_Vector_Avg_local2D.x + idealVectorlocal2D.y * calc_Vector_Avg_local2D.y;
+        float alpha2_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_Avg_local2D.magnitude));
+        Debug.Log("angle between two 2D local vectors (Avg): " + alpha2_2D * Mathf.Rad2Deg);
+        Debug.Log("cosine similiary for 2D vectors (Avg): " + dot_product2_2D / (idealVectorlocal2D.magnitude * ideal_magnitude_avg));
+
+        Debug.Log("PositionInitialColliderEntered Local Space: " + si.gameObject.transform.InverseTransformPoint(positionInitialColliderLeft));
+        Debug.Log("PositionInitialColliderLeft Local Space: " + si.gameObject.transform.InverseTransformPoint(positionInitialColliderEntered));
 
         // calculate angle between vectors
         float dot_product = idealVector.x * calc_Vector.x + idealVector.y * calc_Vector.y + idealVector.z * calc_Vector.z;

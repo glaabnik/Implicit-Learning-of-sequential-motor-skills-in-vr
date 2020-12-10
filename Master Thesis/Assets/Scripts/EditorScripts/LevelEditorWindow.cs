@@ -102,6 +102,11 @@ public class LevelEditorWindow : EditorWindow
 
     private void applyChangeToRotation()
     {
+        applyChangeToRotation(rotationZ);
+    }
+
+    private void applyChangeToRotation(int rotationZ)
+    {
         Scene level_editor_scene = SceneManager.GetActiveScene();
         if (level_editor_scene.name.CompareTo("LevelEditor") != 0)
         {
@@ -154,6 +159,8 @@ public class LevelEditorWindow : EditorWindow
         }
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
+
+
 
     private void spawnCube(string color)
     {
@@ -231,9 +238,9 @@ public class LevelEditorWindow : EditorWindow
                     if (z == 6) rZ = 135;
                     if (z == 7) rZ = 225;
                     if (z == 8) rZ = 315;
-                    go.transform.localEulerAngles = new Vector3(go.transform.localEulerAngles.x, go.transform.localEulerAngles.y, rZ);
+                    applyChangeToRotation(rZ);
                 }
-                else go.transform.localEulerAngles = new Vector3(go.transform.localEulerAngles.x, go.transform.localEulerAngles.y, rotationZ);
+                else if (oneToggleActive()) applyChangeToRotation();
 
                 transformPositionToMatchRadius(go);
                 lookAtCenter(go);
@@ -363,6 +370,11 @@ public class LevelEditorWindow : EditorWindow
         toggle7 = false;
         toggle8 = false;
         toggleC = !original;
+    }
+
+    private bool oneToggleActive()
+    {
+        return toggle1 || toggle2 || toggle3 || toggle4 || toggle5 || toggle6 || toggle7 || toggle8;
     }
 
     void OnGUI()

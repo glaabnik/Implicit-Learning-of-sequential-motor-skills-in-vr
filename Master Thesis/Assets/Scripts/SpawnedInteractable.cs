@@ -355,7 +355,7 @@ public class SpawnedInteractable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (DifficultyManager.Instance.gamePaused) return;
+        if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
 
         if(isAnimating)
         {
