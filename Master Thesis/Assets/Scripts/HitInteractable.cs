@@ -16,8 +16,11 @@ public class HitInteractable : MonoBehaviour
     public string tagCube;
     private bool interactionLocked = false;
     private Vector3 relevantPositionToAddForce;
+    private Vector3 positionInitialColliderEnteredSphere;
+    private Vector3 positionInitialColliderLeftSphere;
     private Vector3 positionInitialColliderEntered;
     private Vector3 positionInitialColliderLeft;
+    private Vector3 positionInitialColliderLeft_Avg;
     private bool resetHasToBeDone = false;
     private SpawnedInteractable siToReset;
     public int destroyVariant = 0;
@@ -47,25 +50,72 @@ public class HitInteractable : MonoBehaviour
         return new Vector3(0, 0, 0);
     }
 
-    /*void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
-        ContactPoint[] contacts = new ContactPoint[20];
-        collision.GetContacts(contacts);
-        foreach (ContactPoint contact in contacts)
+        Collider other = collision.collider;
+        if (other.gameObject.CompareTag("precisionOne"))
         {
-            Debug.DrawRay(contact.point, contact.normal, Color.white);
-        }
-        if (collision.collider.gameObject.CompareTag("precisionOne"))
-        {
-            positionInitialColliderEntered = collision.GetContact(0).point;
-            relevantPositionToAddForce = positionInitialColliderEntered;
+            Vector3 contact_point = collision.GetContact(0).point;
+            ContactPoint[] contacts = new ContactPoint[collision.contactCount];
+            collision.GetContacts(contacts);
+            Vector3 avg_contact_point = getAvgContactPoint(contacts);
+            positionInitialColliderEntered = contact_point;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        if (collision.collider.gameObject.CompareTag("precisionOne")) positionInitialColliderLeft = collision.GetContact(0).point;
-    }*/
+        Collider other = collision.collider;
+        if (other.gameObject.CompareTag("precisionOne"))
+        {
+            Vector3 contact_point = collision.GetContact(0).point;
+            ContactPoint[] contacts = new ContactPoint[collision.contactCount];
+            collision.GetContacts(contacts);
+            Vector3 avg_contact_point = getAvgContactPoint(contacts);
+            positionInitialColliderLeft = contact_point;
+            positionInitialColliderLeft_Avg = avg_contact_point;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        Collider other = collision.collider;
+
+        if (other.gameObject.CompareTag("precisionOne"))
+        {
+            SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+        }
+    }
+
+    private Vector3 getAvgContactPoint(ContactPoint[] contact_points)
+    {
+        float x_sum = 0, y_sum = 0, z_sum = 0;
+        foreach (ContactPoint contact in contact_points)
+        {
+            x_sum += contact.point.x;
+            y_sum += contact.point.y;
+            z_sum += contact.point.z;
+        }
+        x_sum = x_sum / (float)contact_points.Length;
+        y_sum = y_sum / (float)contact_points.Length;
+        z_sum = z_sum / (float)contact_points.Length;
+        return new Vector3(x_sum, y_sum, z_sum);
+    }
+
+    private bool vectorHitDirectionEqualsIdealVector(SpawnedInteractable si)
+    {
+        Vector3 idealVectorlocal = si.getIdealVectorLocal();
+        Vector3 calc_Vector_local = si.gameObject.transform.InverseTransformPoint(positionInitialColliderLeft) -
+                                    si.gameObject.transform.InverseTransformPoint(positionInitialColliderEntered);
+
+        Vector2 idealVectorlocal2D = new Vector2(idealVectorlocal.x, idealVectorlocal.y);
+        Vector2 calc_Vector_local2D = new Vector2(calc_Vector_local.x, calc_Vector_local.y);
+
+        float dot_product_2D = idealVectorlocal2D.x * calc_Vector_local2D.x + idealVectorlocal2D.y * calc_Vector_local2D.y;
+        float alpha_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
+
+        return (alpha_2D * Mathf.Rad2Deg) <= 45;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -75,7 +125,7 @@ public class HitInteractable : MonoBehaviour
             interactionLocked = true;
             //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             relevantPositionToAddForce = gameObject.transform.position;
-            positionInitialColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            positionInitialColliderEnteredSphere = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             //Debug.Log("First collider entered");
         }
         if (other.gameObject.CompareTag("precisionTwo"))
@@ -120,6 +170,7 @@ public class HitInteractable : MonoBehaviour
         si.addForceToRigidBody(gameObject.transform.position);*/
     }
 
+
    
 
     private void OnTriggerExit(Collider other)
@@ -127,27 +178,21 @@ public class HitInteractable : MonoBehaviour
         if (!other.gameObject.CompareTag("precisionOne")) return;
 
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
-        positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+        positionInitialColliderLeftSphere = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
         bool pointsRewarded = si.getPointsRewarded();
-        Debug.Log("War der Schlag gedacht?: " + hitOnObjectWasIntended(positionInitialColliderLeft, si));
-        Debug.Log("Position Collider verlassen: " + positionInitialColliderLeft);
-        Debug.Log("Position Collider betreten: " + positionInitialColliderEntered);
-        Debug.Log("Länge des Vektors: " + (positionInitialColliderLeft - positionInitialColliderEntered).magnitude);
-        Debug.Log("Scale des Würfels: " + si.gameObject.transform.localScale.x);
 
-        if (!hitOnObjectWasIntended(positionInitialColliderLeft, si))
+        if (!hitOnObjectWasIntended(positionInitialColliderLeftSphere, si))
         {
             SoundManager.Instance.PlayHitSound(12, 0.5f);
-            //findContactPointsBetweenTwoColliders(si);
         }
 
-        if (!pointsRewarded && hitOnObjectWasIntended(positionInitialColliderLeft, si))
+        if (!pointsRewarded && hitOnObjectWasIntended(positionInitialColliderLeftSphere, si))
         {
             int precision = 0;
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
-            if (si.wasHitInRightDirection())
+            if (si.wasHitInRightDirection() || (vectorHitDirectionEqualsIdealVector(si) && hitWasThroughWholeCube(positionInitialColliderLeftSphere, si)) )
             {
                 precision = si.getAvgAccuracy();
                 precisionPercent = si.getAvgAccuracyPercent();
@@ -200,26 +245,6 @@ public class HitInteractable : MonoBehaviour
         }
     }
 
-    private  void findContactPointsBetweenTwoColliders(SpawnedInteractable si)
-    {
-        Vector3[] edges = si.getVertices();
-        Transform tr = si.gameObject.transform;
-
-        for (int i = 0; i < edges.Length; ++i) // transform local space edges coordinates to world space
-        {
-            edges[i] = tr.TransformPoint(edges[i]);
-        }
-        
-        foreach (Vector3 edge in edges)
-        {
-            Debug.Log("Edge: " + edge);
-            Debug.Log("Closest Point to this edge: " + gameObject.GetComponent<Collider>().ClosestPoint(edge));
-            Debug.Log("Schlag gedacht for this edge: " + hitOnObjectWasIntended(edge, si));
-        }
-        positionInitialColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
-        Debug.Log("Closest Point to center of renderer: " + positionInitialColliderLeft);
-    }
-
     private void resetColliderGroups()
     {
         if (resetHasToBeDone && !interactionLocked)
@@ -232,7 +257,12 @@ public class HitInteractable : MonoBehaviour
 
     private bool hitOnObjectWasIntended(Vector3 positionCubeColliderLeft, SpawnedInteractable si)
     {
-        return (positionCubeColliderLeft - positionInitialColliderEntered).magnitude >= 0.9 * si.gameObject.transform.localScale.x;
+        return (positionCubeColliderLeft - positionInitialColliderEnteredSphere).magnitude >= 0.7 * si.gameObject.transform.localScale.x;
+    }
+
+    private bool hitWasThroughWholeCube(Vector3 positionCubeColliderLeft, SpawnedInteractable si)
+    {
+        return (positionCubeColliderLeft - positionInitialColliderEnteredSphere).magnitude >= 1.2 * si.gameObject.transform.localScale.x;
     }
 
     private void destroyEffect(SpawnedInteractable si, int pointsEarned)

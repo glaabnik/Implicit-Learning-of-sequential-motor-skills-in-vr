@@ -358,7 +358,6 @@ public class HitInteractableAlternative : MonoBehaviour
         if (!hitOnObjectWasIntended(positionInitialColliderLeftSphere, si))
         {
             SoundManager.Instance.PlayHitSound(12, 0.5f);
-            //findContactPointsBetweenTwoColliders(si);
         }
 
         if (!pointsRewarded && hitOnObjectWasIntended(positionInitialColliderLeft, si))

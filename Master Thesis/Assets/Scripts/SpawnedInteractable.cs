@@ -48,6 +48,8 @@ public class SpawnedInteractable : MonoBehaviour
     private float fadeSpeed = 1.0f;
     private SpriteRenderer spriteRenderer;
     private new Renderer renderer;
+    private GameObject start_point;
+    private GameObject end_point;
 
     void Start()
     {
@@ -61,6 +63,26 @@ public class SpawnedInteractable : MonoBehaviour
         spawnedPieces = new List<GameObject>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         renderer = this.GetComponent<Renderer>();
+        assignStartAndEndPoint();
+    }
+
+    private void assignStartAndEndPoint()
+    {
+        for (int i = 0; i < transform.childCount; ++i)
+        {
+            if (transform.GetChild(i).CompareTag("Start_Point")) start_point = transform.GetChild(i).gameObject;
+            if (transform.GetChild(i).CompareTag("End_Point")) end_point = transform.GetChild(i).gameObject;
+        }
+    }
+
+    public Vector3 getIdealVector()
+    {
+        return end_point.transform.position - start_point.transform.position;
+    }
+
+    public Vector3 getIdealVectorLocal()
+    {
+        return end_point.transform.localPosition - start_point.transform.localPosition;
     }
 
     public void resetColliderGroupsHit()
@@ -79,9 +101,6 @@ public class SpawnedInteractable : MonoBehaviour
 
     public void startColliderGroupHit(string colliderName)
     {
-        /*actAccuracyStart = 0;
-        actAccuracyMiddle = 0;
-        actAccuracyEnd = 0;*/
         if (!middleColliderHit && !endColliderHit)
         {
             startColliderHit = true;
@@ -134,14 +153,32 @@ public class SpawnedInteractable : MonoBehaviour
 
     public int getAvgAccuracy()
     {
-        if (uses5ColliderGroups) return (actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd) / 5;
-        else                     return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3;
+        int colliderGroupsGreaterZero = 0;
+        int accuracySumColliderGroups;
+        if (uses5ColliderGroups)
+        {
+            accuracySumColliderGroups = actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd;
+            if (actAccuracyStart > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle2 > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle3 > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyEnd > 0) colliderGroupsGreaterZero++;
+        }
+        else
+        {
+            accuracySumColliderGroups = actAccuracyStart + actAccuracyMiddle + actAccuracyEnd;
+            if (actAccuracyStart > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyMiddle > 0) colliderGroupsGreaterZero++;
+            if (actAccuracyEnd > 0) colliderGroupsGreaterZero++;
+        }
+
+        if (colliderGroupsGreaterZero > 0) return (int)(accuracySumColliderGroups / (float)colliderGroupsGreaterZero);
+        else return 1;
     }
 
     public float getAvgAccuracyPercent()
     {
-        if (uses5ColliderGroups) return (actAccuracyStart + actAccuracyMiddle + actAccuracyMiddle2 + actAccuracyMiddle3 + actAccuracyEnd) / 5.0f * 0.1f;
-        else                     return (actAccuracyStart + actAccuracyMiddle + actAccuracyEnd) / 3.0f * 0.1f;
+        return getAvgAccuracy() * 0.1f;
     }
 
     private void assignAccuracyFor(string colliderName, ref int accAttribute)

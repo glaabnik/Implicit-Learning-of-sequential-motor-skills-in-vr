@@ -55,12 +55,16 @@ public class RandomizedBlockSequence : BlockSequence
         }
         radiusLeft = sphereRadius;
         radiusRight = sphereRadius;
+
         rotationZLeft = getRandomRotationZ();
+        while (rotationZLeft == getLastRotationZ()) rotationZLeft = getRandomRotationZ();
         rotationZRight = getRandomRotationZ();
+        while (rotationZRight == getLastRotationZ2()) rotationZRight = getRandomRotationZ();
+
         scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
         scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
         SphereCoordinates sc = new SphereCoordinates();
-        sc.phi = degLeftPhi;
+        sc.phi = checkPhi(degLeftPhi, degRightPhi);
         sc.phi2 = degRightPhi;
         sc.theta = degLeftTheta;
         sc.theta2 = degRightTheta;
@@ -71,6 +75,25 @@ public class RandomizedBlockSequence : BlockSequence
         sc.rotationZ = rotationZLeft;
         sc.rotationZ2 = rotationZRight;
         sequenceOfSpawns.Add(sc);
+    }
+
+    private float checkPhi(float phi, float phi2)
+    {
+        if (Mathf.Abs((phi - phi2)) < 40)
+            return phi2 + 50;
+        else return phi;
+    }
+
+    private float getLastRotationZ()
+    {
+        if (sequenceOfSpawns.Count > 0) return sequenceOfSpawns[sequenceOfSpawns.Count - 1].rotationZ;
+        else return -1;
+    }
+
+    private float getLastRotationZ2()
+    {
+        if (sequenceOfSpawns.Count > 0) return sequenceOfSpawns[sequenceOfSpawns.Count - 1].rotationZ2;
+        else return -1;
     }
 
     private int getRandomRotationZ()
