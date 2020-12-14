@@ -22,7 +22,7 @@ public class BlockSequenceFromFile : BlockSequence
 
     public override SphereCoordinates[] twoRandomSphereCoordinatesPairsForWholeSequence()
     {
-        SphereCoordinates[] result = new SphereCoordinates[sequenceOfSpawns.Count];
+        SphereCoordinates[] result = new SphereCoordinates[sequenceOfSpawns.Count * 2];
         List<int> usedIndexes = new List<int>();
         int resultIndex = 0;
         for(int i = 0; i < sequenceOfSpawns.Count; ++i)
