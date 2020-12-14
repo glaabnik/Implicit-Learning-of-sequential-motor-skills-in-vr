@@ -52,6 +52,8 @@ namespace VRTK
 
         protected Vector3 cursorOriginalScale = Vector3.one;
 
+        public Vector3 positionRayHit;
+
         /// <summary>
         /// The UpdateRenderer method is used to run an Update routine on the pointer.
         /// </summary>
@@ -208,6 +210,7 @@ namespace VRTK
             float actualLength = maximumLength;
             if (rayHit && pointerCollidedWith.distance < maximumLength)
             {
+                positionRayHit = pointerCollidedWith.point;
                 actualLength = pointerCollidedWith.distance;
             }
 

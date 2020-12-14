@@ -32,6 +32,23 @@ public class BlockSequenceOneHandRandom : BlockSequence
         return sequenceOfSpawns[actIndexInList++ % sequenceOfSpawns.Count];
     }
 
+    public override SphereCoordinates[] twoRandomSphereCoordinatesPairsForWholeSequence()
+    {
+        SphereCoordinates[] result = new SphereCoordinates[sequenceOfSpawns.Count];
+        List<int> usedIndexes = new List<int>();
+        int resultIndex = 0;
+        for (int i = 0; i < sequenceOfSpawns.Count; ++i)
+        {
+            int z = Random.Range(0, sequenceOfSpawns.Count);
+            while (usedIndexes.Contains(z)) z = Random.Range(0, sequenceOfSpawns.Count);
+
+            usedIndexes.Add(z);
+            result[resultIndex++] = sequenceOfSpawns[z];
+            result[resultIndex++] = sequenceOfSpawns[(z == sequenceOfSpawns.Count - 1 ? 0 : z + 1)];
+        }
+        return result;
+    }
+
     public override void Start()
     {
         sequenceOfSpawns = new List<SphereCoordinates>();

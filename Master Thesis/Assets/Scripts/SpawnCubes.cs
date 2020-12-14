@@ -48,6 +48,7 @@ public class SpawnCubes : MonoBehaviour
     public bool useScaleFromSphereCoordinates = false;
     public bool turnLoadedSequenceTowardsPlayer = false;
     public bool playBackgroundMusic = true;
+    public bool noAutomatedSpawning = false;
     public BlockSequence[] blockSequences;
 
     // Debug Variables
@@ -76,7 +77,8 @@ public class SpawnCubes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fileWritten || DifficultyManager.Instance.gamePaused) return;
+        if (noAutomatedSpawning || fileWritten || DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
+
         if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length && !fileWritten) // check if there is a valid blockSequenceArrray and all elements of the block array
                                                                                                                                 // were allready spawned, then write the gathered sportgamedata to file
                                                                                                                                 // from now on there will nothing happen here anymore
@@ -88,7 +90,7 @@ public class SpawnCubes : MonoBehaviour
         float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f; // if the option animated spawning is active the cubes need exactly 2 seconds to fly to their destination were they can be hit
                                                                    // so this has be taken into calculation when measuring the time a player needed or has to hit the cubes
 
-        if(instantiated && (lastLeftHandTarget ==  null || lastLeftHandTarget.getPointsRewarded()) && (lastRightHandTarget == null || lastRightHandTarget.getPointsRewarded()) ) 
+        if(instantiated && bothCubesDestroyedOrHit() ) 
             // if there is currently one instantiated cube pair, then check if the references to the cubes are already destroyed or if points were rewarded for hitting the cubes
             // so the timer is set over the limit time to hit the cubes, so that the spawning of the next cube pair can immediatly start in this call of update
         {
@@ -150,7 +152,28 @@ public class SpawnCubes : MonoBehaviour
         Gizmos.DrawSphere(transform.position, sphereRadius);
     }
 
+    public bool bothCubesDestroyedOrHit()
+    {
+        return (lastLeftHandTarget == null || lastLeftHandTarget.getPointsRewarded()) && (lastRightHandTarget == null || lastRightHandTarget.getPointsRewarded());
+    }
+
     private void spawnCubesForBothHandsInSightOfCameraDirection()
+    {
+        if (blockSequences == null || blockSequences.Length == 0) // no list of spawn points => randomized spawning of cubes
+        {
+            spawnRandomCubesForBothHands();
+        }
+        else                                                       // spawning of elements in the current blockelement from blockarray ( => blockArray[blockCurrentIndex].getNextSphereCoordinates())
+        {
+            if (blockSequenceIndex >= blockSequences.Length) return;
+            if (!blockSequences[blockSequenceIndex].hasNextSphereCoordinates()) ++blockSequenceIndex;
+            if (blockSequenceIndex >= blockSequences.Length) return;
+            SphereCoordinates sc = blockSequences[blockSequenceIndex].nextSphereCoordinates();
+            spawnCubesForSphereCoordinates(sc);
+        }
+    }
+
+    public void spawnCubesForSphereCoordinates(SphereCoordinates sc)
     {
         float degLeftPhi, degRightPhi, degLeftTheta, degRightTheta;
         float radiusLeft, radiusRight;
@@ -159,80 +182,88 @@ public class SpawnCubes : MonoBehaviour
         GameObject leftToSpawn = leftHandGameObject, rightToSpawn = rightHandGameObject;
         int phiOffset = calculatePhiOffset();
         Debug.Log(phiOffset);
-        if (blockSequences == null || blockSequences.Length == 0) // no list of spawn points => randomized spawning of cubes
+
+
+        if (!turnLoadedSequenceTowardsPlayer) phiOffset = 0;
+
+        degLeftPhi = sc.phi + phiOffset;
+        degLeftTheta = sc.theta;
+        radiusLeft = sc.radius;
+        rotationLeft = new Vector3(0, 0, sc.rotationZ);
+
+        degRightPhi = sc.phi2 + phiOffset;
+        degRightTheta = sc.theta2;
+        radiusRight = sc.radius2;
+        rotationRight = new Vector3(0, 0, sc.rotationZ2);
+
+        if (sc.rotationZ == 0 || sc.rotationZ == 90 || sc.rotationZ == 180 || sc.rotationZ == 270 || sc.rotationZ == 360
+                || sc.rotationZ == -90 || sc.rotationZ == -180 || sc.rotationZ == -270)
         {
-            degLeftPhi = Random.Range(15, 40);
-            degRightPhi = Random.Range(-40, -15);
-            degLeftPhi += phiOffset;
-            degRightPhi += phiOffset;
-            degLeftTheta = 90;
-            degRightTheta = 90;
-            radiusLeft = sphereRadius;
-            radiusRight = sphereRadius;
-            rotationLeft = new Vector3(0, 0, 0);
-            rotationRight = new Vector3(0, 0, 0);
-            scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
-            scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
             leftToSpawn = leftHandGameObject;
+        }
+        if (sc.rotationZ == 45 || sc.rotationZ == 135 || sc.rotationZ == 225 || sc.rotationZ == 315 || sc.rotationZ == -45
+                || sc.rotationZ == -135 || sc.rotationZ == -225 || sc.rotationZ == -315)
+        {
+            leftToSpawn = leftHandGameObjectDiagonal;
+            rotationLeft = new Vector3(0, 0, sc.rotationZ - 45);
+        }
+
+        if (sc.rotationZ2 == 0 || sc.rotationZ2 == 90 || sc.rotationZ2 == 180 || sc.rotationZ2 == 270 || sc.rotationZ2 == 360
+                || sc.rotationZ2 == -90 || sc.rotationZ2 == -180 || sc.rotationZ2 == -270)
+        {
             rightToSpawn = rightHandGameObject;
         }
-        else                                                          // spawning of elements in the current blockelement from blockarray ( => blockArray[blockCurrentIndex].getNextSphereCoordinates())
-        {
-            if (blockSequenceIndex >= blockSequences.Length) return;
-            if (!blockSequences[blockSequenceIndex].hasNextSphereCoordinates()) ++blockSequenceIndex;
-            if (blockSequenceIndex >= blockSequences.Length) return;
-
-            if (!turnLoadedSequenceTowardsPlayer && blockSequences[blockSequenceIndex].GetType() == typeof(BlockSequenceFromFile)) phiOffset = 0;
-            SphereCoordinates sc = blockSequences[blockSequenceIndex].nextSphereCoordinates();
-
-            degLeftPhi = sc.phi + phiOffset;
-            degLeftTheta = sc.theta;
-            radiusLeft = sc.radius;
-            rotationLeft = new Vector3(0, 0, sc.rotationZ);
-
-            degRightPhi = sc.phi2 + phiOffset;
-            degRightTheta = sc.theta2;
-            radiusRight = sc.radius2;
-            rotationRight = new Vector3(0, 0, sc.rotationZ2);
-
-            if (sc.rotationZ == 0 || sc.rotationZ == 90 || sc.rotationZ == 180 || sc.rotationZ == 270 || sc.rotationZ == 360
-                || sc.rotationZ == -90 || sc.rotationZ == -180 || sc.rotationZ == -270)
-            {
-                leftToSpawn = leftHandGameObject;
-            }
-            if (sc.rotationZ == 45 || sc.rotationZ == 135 || sc.rotationZ == 225 || sc.rotationZ == 315 || sc.rotationZ == -45
-                || sc.rotationZ == -135 || sc.rotationZ == -225 || sc.rotationZ == -315)
-            {
-                leftToSpawn = leftHandGameObjectDiagonal;
-                rotationLeft = new Vector3(0, 0, sc.rotationZ - 45);
-            }
-
-            if (sc.rotationZ2 == 0 || sc.rotationZ2 == 90 || sc.rotationZ2 == 180 || sc.rotationZ2 == 270 || sc.rotationZ2 == 360
-                || sc.rotationZ2 == -90 || sc.rotationZ2 == -180 || sc.rotationZ2 == -270)
-            {
-                rightToSpawn = rightHandGameObject;
-            }
-            if (sc.rotationZ2 == 45 || sc.rotationZ2 == 135 || sc.rotationZ2 == 225 || sc.rotationZ2 == 315 || sc.rotationZ2 == -45
+        if (sc.rotationZ2 == 45 || sc.rotationZ2 == 135 || sc.rotationZ2 == 225 || sc.rotationZ2 == 315 || sc.rotationZ2 == -45
                 || sc.rotationZ2 == -135 || sc.rotationZ2 == -225 || sc.rotationZ2 == -315)
-            {
-                rightToSpawn = rightHandGameObjectDiagonal;
-                rotationRight = new Vector3(0, 0, sc.rotationZ2 - 45);
-            }
+        {
+            rightToSpawn = rightHandGameObjectDiagonal;
+            rotationRight = new Vector3(0, 0, sc.rotationZ2 - 45);
+        }
 
-            if (useScaleFromSphereCoordinates)
-            {
-                scaleLeft = sc.scale;
-                scaleRight = sc.scale2;
-            }
-            else
-            {
-                scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
-                scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
-            }
+        if (useScaleFromSphereCoordinates)
+        {
+            scaleLeft = sc.scale;
+            scaleRight = sc.scale2;
+        }
+        else
+        {
+            scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+            scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+        }
 
             //Debug.Log("DegLeftTheta: "+degLeftTheta);
             //Debug.Log("DegRightTheta: "+degRightTheta);
-        }
+        ++roundGenerated;
+        spawnGameObject(true, sphereToCartesianCoordinate(degLeftTheta, degLeftPhi, radiusLeft), rotationLeft, scaleLeft, leftToSpawn);
+        spawnGameObject(false, sphereToCartesianCoordinate(degRightTheta, degRightPhi, radiusRight), rotationRight, scaleRight, rightToSpawn);
+        objectsSpawned += 2;
+    }
+
+    private void spawnRandomCubesForBothHands()
+    {
+        float degLeftPhi, degRightPhi, degLeftTheta, degRightTheta;
+        float radiusLeft, radiusRight;
+        Vector3 rotationLeft, rotationRight;
+        Vector3 scaleLeft, scaleRight;
+        GameObject leftToSpawn = leftHandGameObject, rightToSpawn = rightHandGameObject;
+        int phiOffset = calculatePhiOffset();
+        Debug.Log(phiOffset);
+
+        degLeftPhi = Random.Range(15, 40);
+        degRightPhi = Random.Range(-40, -15);
+        degLeftPhi += phiOffset;
+        degRightPhi += phiOffset;
+        degLeftTheta = 90;
+        degRightTheta = 90;
+        radiusLeft = sphereRadius;
+        radiusRight = sphereRadius;
+        rotationLeft = new Vector3(0, 0, 0);
+        rotationRight = new Vector3(0, 0, 0);
+        scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+        scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+        leftToSpawn = leftHandGameObject;
+        rightToSpawn = rightHandGameObject;
+        
         ++roundGenerated;
         spawnGameObject(true, sphereToCartesianCoordinate(degLeftTheta, degLeftPhi, radiusLeft), rotationLeft, scaleLeft, leftToSpawn);
         spawnGameObject(false, sphereToCartesianCoordinate(degRightTheta, degRightPhi, radiusRight), rotationRight, scaleRight, rightToSpawn);
@@ -287,7 +318,7 @@ public class SpawnCubes : MonoBehaviour
         return degree * Mathf.PI / 180;
     }
 
-    private void spawnGameObject(bool leftHand, Vector3 position, Vector3 rotationVector, Vector3 scaleVector, GameObject objectToSpawn)
+    public void spawnGameObject(bool leftHand, Vector3 position, Vector3 rotationVector, Vector3 scaleVector, GameObject objectToSpawn)
     {
         Vector3 normalizedOffset = new Vector3(0, 0, 0);
         if(animatedSpawning)
