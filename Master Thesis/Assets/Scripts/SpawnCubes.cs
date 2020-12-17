@@ -318,6 +318,47 @@ public class SpawnCubes : MonoBehaviour
         return degree * Mathf.PI / 180;
     }
 
+    public void spawnGameObject(bool leftHand, SphereCoordinates sc, GameObject objectToSpawn) // used for spawning of neutral red and blue cube (without arrows) in order to show the real positions where the cubes would spawn
+    {
+        Vector3 scale, position, rotation;
+        float radius;
+        float degPhi, degTheta;
+        int phiOffset = calculatePhiOffset();
+        if (!turnLoadedSequenceTowardsPlayer) phiOffset = 0;
+        if (leftHand)
+        {
+            degPhi = sc.phi2 + phiOffset;
+            degTheta = sc.theta2;
+            radius = sc.radius2;
+            if (useScaleFromSphereCoordinates)
+            {
+                scale = sc.scale2;
+            }
+            else
+            {
+                scale= new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+            }
+            rotation = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            degPhi = sc.phi;
+            degTheta = sc.theta;
+            radius = sc.radius;
+            if (useScaleFromSphereCoordinates)
+            {
+                scale = sc.scale;
+            }
+            else
+            {
+                scale = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
+            }
+            rotation = new Vector3(0, 0, 0);
+        }
+        position = sphereToCartesianCoordinate(degTheta, degPhi, radius);
+        spawnGameObject(leftHand, position, rotation, scale, objectToSpawn);
+    }
+
     public void spawnGameObject(bool leftHand, Vector3 position, Vector3 rotationVector, Vector3 scaleVector, GameObject objectToSpawn)
     {
         Vector3 normalizedOffset = new Vector3(0, 0, 0);

@@ -7,6 +7,8 @@ public class AnticipitationScript : MonoBehaviour
     public BlockSequence sequenceToUse;
     public SpawnCubes spawnCubes;
     public SphereToSpawnGreyCube sphere;
+    public DelegateButtonCallsChoiceMenu menu;
+    public GameObject cubeRedNeutral, cubeBlueNeutral;
     // Start is called before the first frame update
     private SphereCoordinates[] sphereCoordinates;
     private bool sphereCoordinatesLoad = false;
@@ -14,6 +16,7 @@ public class AnticipitationScript : MonoBehaviour
     private int sphereCoordinatesIndex = 0;
     private bool cubePairPointedSpawned = true;
     private bool choiceDialogeMade = true;
+    float timer = 0f;
     
     public void Start()
     {
@@ -34,6 +37,7 @@ public class AnticipitationScript : MonoBehaviour
     public void Update()
     {
         if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
+
         getLoadedSphereCoordinates();
         if (!cubePairSpawned && cubePairPointedSpawned && choiceDialogeMade)
         {
@@ -52,18 +56,24 @@ public class AnticipitationScript : MonoBehaviour
         }
         if(!choiceDialogeMade && sphere.bothCubesSpawned())
         {
-            deactivatePointer();
+            deactivateUIPointer();
+            spawnCubes.spawnGameObject(false, sphereCoordinates[sphereCoordinatesIndex], cubeRedNeutral);
+            spawnCubes.spawnGameObject(true, sphereCoordinates[sphereCoordinatesIndex], cubeBlueNeutral);
             activateChoiceUI(sphereCoordinates[sphereCoordinatesIndex++]);
             choiceDialogeMade = true;
         }
-        /* if(choiceDialogeFinished)
-         * {
-         *     sphere.reset();
-         *     cubePairSpawned = false;
-         *     cubePairPointedSpawned = false;
-         *     choiceDialogeMade = false;
-         *     }
-         *     */
+        if(menu.choiceWasMade())
+        {
+            timer += Time.deltaTime;
+        }
+        if(timer > 3.5)
+        {
+            menu.Reset();
+            menu.toggleUI();
+            sphere.reset();
+            cubePairSpawned = false;
+            timer = 0f;
+        }
     }
 
     private void activateUIPointer()
@@ -71,13 +81,15 @@ public class AnticipitationScript : MonoBehaviour
         sphere.activatePointer();
     }
 
-    private void deactivatePointer()
+    private void deactivateUIPointer()
     {
         sphere.deactivatePointer();
     }
 
     private void activateChoiceUI(SphereCoordinates sc)
     {
-
+        menu.toggleUI();
+        menu.setRotationZRed(sc.rotationZ);
+        menu.setRotationZBlue(sc.rotationZ2);
     }
 }
