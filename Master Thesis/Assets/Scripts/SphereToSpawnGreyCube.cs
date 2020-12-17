@@ -5,7 +5,7 @@ using VRTK;
 
 public class SphereToSpawnGreyCube : VRTK_InteractableObject
 {
-    public VRTK_Pointer pointer_one, pointer_two;
+    public VRTK_Pointer pointer_left, pointer_right;
     public GameObject cubeGrey;
     public SpawnCubes spawnCubes;
     private bool canSpawnCube = false;
@@ -20,6 +20,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
 
     public void activateSpawningAbility()
     {
+        activatePointer(false);
         canSpawnCube = true;
     }
 
@@ -33,14 +34,16 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
         zRotationRight = n;
     }
 
-    public void activatePointer()
+    public void activatePointer(bool leftHand)
     {
-        pointer_one.Toggle(true);
+        if (leftHand) pointer_left.Toggle(true);
+        else pointer_right.Toggle(true);
     }
 
-    public void deactivatePointer()
+    public void deactivatePointer(bool leftHand)
     {
-        pointer_one.Toggle(false);
+        if (leftHand) pointer_left.Toggle(false);
+        else pointer_right.Toggle(false);
     }
 
     public bool bothCubesSpawned()
@@ -63,33 +66,33 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         Debug.Log("Collision occured!");
         Debug.Log("collision contact point: " + collision.GetContact(0).point);
-        Debug.Log("IsActive One: " + pointer_one.IsPointerActive());
-        Debug.Log("Selection Button pressed: " + pointer_one.IsSelectionButtonPressed());
+        Debug.Log("IsActive One: " + pointer_left.IsPointerActive());
+        Debug.Log("Selection Button pressed: " + pointer_left.IsSelectionButtonPressed());
 
-        Debug.Log("IsActive One2: " + pointer_two.IsPointerActive());
-        Debug.Log("Selection Button pressed2: " + pointer_two.IsSelectionButtonPressed());
-        if (oneSelectionButtonPressed() && !cubeSpawnedOne)
+        Debug.Log("IsActive One2: " + pointer_right.IsPointerActive());
+        Debug.Log("Selection Button pressed2: " + pointer_right.IsSelectionButtonPressed());
+        /*if (oneSelectionButtonPressed() && !cubeSpawnedOne)
         {
             spawnCubes.spawnGameObject(false, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
             cubeSpawnedOne = true;
-        }
+        }*/
     }
 
     private bool oneSelectionButtonPressed()
     {
-        return (pointer_one.IsSelectionButtonPressed() && pointer_one.IsPointerActive()) || (pointer_two.IsSelectionButtonPressed() && pointer_two.IsPointerActive());
+        return (pointer_left.IsSelectionButtonPressed() && pointer_left.IsPointerActive()) || (pointer_right.IsSelectionButtonPressed() && pointer_right.IsPointerActive());
     }
 
     private Vector3 getRelevantSpawnPosition()
     {
-        if(pointer_one.IsPointerActive())
+        if(pointer_left.IsPointerActive())
         {
-            VRTK_StraightPointerRenderer spr = pointer_one.pointerRenderer as VRTK_StraightPointerRenderer;
+            VRTK_StraightPointerRenderer spr = pointer_left.pointerRenderer as VRTK_StraightPointerRenderer;
             return spr.positionRayHit;
         }
-        if(pointer_two.IsPointerActive())
+        if(pointer_right.IsPointerActive())
         {
-            VRTK_StraightPointerRenderer spr = pointer_two.pointerRenderer as VRTK_StraightPointerRenderer;
+            VRTK_StraightPointerRenderer spr = pointer_right.pointerRenderer as VRTK_StraightPointerRenderer;
             return spr.positionRayHit;
         }
         return new Vector3(0, 0, 0);
@@ -105,12 +108,14 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
             spawnCubes.spawnGameObject(true, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationLeft), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
             cubeSpawnedTwo = true;
             canSpawnCube = false;
+            deactivatePointer(true);
         }
         if (canSpawnCube && !cubeSpawnedOne)
         {
             spawnCubes.spawnGameObject(false, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
             cubeSpawnedOne = true;
-           
+            deactivatePointer(false);
+            activatePointer(true);
         }
     }
 

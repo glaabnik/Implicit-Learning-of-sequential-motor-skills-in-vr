@@ -55,6 +55,7 @@ public class HitInteractable : MonoBehaviour
         Collider other = collision.collider;
         if (other.gameObject.CompareTag("precisionOne"))
         {
+            Debug.Log("On Collision Enter working!");
             Vector3 contact_point = collision.GetContact(0).point;
             ContactPoint[] contacts = new ContactPoint[collision.contactCount];
             collision.GetContacts(contacts);
@@ -68,6 +69,7 @@ public class HitInteractable : MonoBehaviour
         Collider other = collision.collider;
         if (other.gameObject.CompareTag("precisionOne"))
         {
+            Debug.Log("On Collision Stay working!");
             Vector3 contact_point = collision.GetContact(0).point;
             ContactPoint[] contacts = new ContactPoint[collision.contactCount];
             collision.GetContacts(contacts);
@@ -83,7 +85,9 @@ public class HitInteractable : MonoBehaviour
 
         if (other.gameObject.CompareTag("precisionOne"))
         {
+            Debug.Log("On Collision Exit working!");
             SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+            vectorHitDirectionEqualsIdealVector(si);
         }
     }
 
@@ -113,6 +117,8 @@ public class HitInteractable : MonoBehaviour
 
         float dot_product_2D = idealVectorlocal2D.x * calc_Vector_local2D.x + idealVectorlocal2D.y * calc_Vector_local2D.y;
         float alpha_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
+
+        Debug.Log("Angle calculated: " + alpha_2D * Mathf.Rad2Deg);
 
         return (alpha_2D * Mathf.Rad2Deg) <= 45;
     }

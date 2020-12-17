@@ -65,8 +65,10 @@ public class SpawnCubes : MonoBehaviour
     private int objectsSpawned = 0;
     private int roundGenerated = 0;
     private bool fileWritten = false;
+    private List<SpawnedInteractable> listOfSpawnedCubes;
     void Start()
     {
+        listOfSpawnedCubes = new List<SpawnedInteractable>();
         timeCounter = 0;
         instantiateTimeCounter = timeToWaitBetween + 1;
         forwardVectorTest = hmd_transform.forward;
@@ -196,25 +198,28 @@ public class SpawnCubes : MonoBehaviour
         radiusRight = sc.radius2;
         rotationRight = new Vector3(0, 0, sc.rotationZ2);
 
-        if (sc.rotationZ == 0 || sc.rotationZ == 90 || sc.rotationZ == 180 || sc.rotationZ == 270 || sc.rotationZ == 360
-                || sc.rotationZ == -90 || sc.rotationZ == -180 || sc.rotationZ == -270)
+        int rotZ = Mathf.RoundToInt(sc.rotationZ);
+        int rotZ2 = Mathf.RoundToInt(sc.rotationZ2);
+
+        if (rotZ == 0 || rotZ == 90 || rotZ == 180 || rotZ == 270 || rotZ == 360
+                || rotZ == -90 || rotZ == -180 || rotZ == -270)
         {
             leftToSpawn = leftHandGameObject;
         }
-        if (sc.rotationZ == 45 || sc.rotationZ == 135 || sc.rotationZ == 225 || sc.rotationZ == 315 || sc.rotationZ == -45
-                || sc.rotationZ == -135 || sc.rotationZ == -225 || sc.rotationZ == -315)
+        if (rotZ == 45 || rotZ == 135 || rotZ == 225 || rotZ == 315 || rotZ == -45
+                || rotZ == -135 || rotZ == -225 || rotZ == -315)
         {
             leftToSpawn = leftHandGameObjectDiagonal;
             rotationLeft = new Vector3(0, 0, sc.rotationZ - 45);
         }
 
-        if (sc.rotationZ2 == 0 || sc.rotationZ2 == 90 || sc.rotationZ2 == 180 || sc.rotationZ2 == 270 || sc.rotationZ2 == 360
-                || sc.rotationZ2 == -90 || sc.rotationZ2 == -180 || sc.rotationZ2 == -270)
+        if (rotZ2 == 0 || rotZ2 == 90 || rotZ2 == 180 || rotZ2 == 270 || rotZ2 == 360
+                || rotZ2 == -90 || rotZ2 == -180 || rotZ2 == -270)
         {
             rightToSpawn = rightHandGameObject;
         }
-        if (sc.rotationZ2 == 45 || sc.rotationZ2 == 135 || sc.rotationZ2 == 225 || sc.rotationZ2 == 315 || sc.rotationZ2 == -45
-                || sc.rotationZ2 == -135 || sc.rotationZ2 == -225 || sc.rotationZ2 == -315)
+        if (rotZ2 == 45 || rotZ2 == 135 || rotZ2 == 225 || rotZ2 == 315 || rotZ2 == -45
+                || rotZ2 == -135 || rotZ2 == -225 || rotZ2 == -315)
         {
             rightToSpawn = rightHandGameObjectDiagonal;
             rotationRight = new Vector3(0, 0, sc.rotationZ2 - 45);
@@ -382,8 +387,18 @@ public class SpawnCubes : MonoBehaviour
         si.roundGenerated = roundGenerated;
         si.setHmd_transform(hmd_transform);
         si.lookAt();
+        listOfSpawnedCubes.Add(si);
         if (leftHand) lastLeftHandTarget = si;
         else lastRightHandTarget = si;
+    }
+
+    public void deleteAllSpawnedCubes()
+    {
+        foreach(SpawnedInteractable si in listOfSpawnedCubes)
+        {
+            if (si != null) Object.Destroy(si.gameObject);
+        }
+        listOfSpawnedCubes.Clear();
     }
 
     public void updateDifficultyParameters()

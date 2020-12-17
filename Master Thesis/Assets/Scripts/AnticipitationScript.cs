@@ -48,7 +48,6 @@ public class AnticipitationScript : MonoBehaviour
         }
         if(cubePairSpawned && spawnCubes.bothCubesDestroyedOrHit() && !cubePairPointedSpawned)
         {
-            activateUIPointer();
             sphere.activateSpawningAbility();
             sphere.setZRotationRight( (int) sphereCoordinates[sphereCoordinatesIndex].rotationZ);
             sphere.setZRotationLeft((int)sphereCoordinates[sphereCoordinatesIndex].rotationZ2);
@@ -56,7 +55,6 @@ public class AnticipitationScript : MonoBehaviour
         }
         if(!choiceDialogeMade && sphere.bothCubesSpawned())
         {
-            deactivateUIPointer();
             spawnCubes.spawnGameObject(false, sphereCoordinates[sphereCoordinatesIndex], cubeRedNeutral);
             spawnCubes.spawnGameObject(true, sphereCoordinates[sphereCoordinatesIndex], cubeBlueNeutral);
             activateChoiceUI(sphereCoordinates[sphereCoordinatesIndex++]);
@@ -65,25 +63,18 @@ public class AnticipitationScript : MonoBehaviour
         if(menu.choiceWasMade())
         {
             timer += Time.deltaTime;
+            Debug.Log("Timer got increased: " + timer);
+            Debug.Log("Game Paused?: " + DifficultyManager.Instance.gamePaused);
         }
-        if(timer > 3.5)
+        if(timer > 3.5f)
         {
+            spawnCubes.deleteAllSpawnedCubes();
             menu.Reset();
             menu.toggleUI();
             sphere.reset();
             cubePairSpawned = false;
             timer = 0f;
         }
-    }
-
-    private void activateUIPointer()
-    {
-        sphere.activatePointer();
-    }
-
-    private void deactivateUIPointer()
-    {
-        sphere.deactivatePointer();
     }
 
     private void activateChoiceUI(SphereCoordinates sc)
