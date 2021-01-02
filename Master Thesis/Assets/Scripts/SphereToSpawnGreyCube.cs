@@ -8,6 +8,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     public VRTK_Pointer pointer_left, pointer_right;
     public GameObject cubeGrey;
     public SpawnCubes spawnCubes;
+    public RectTransform menuToSpawnTransform;
     private bool canSpawnCube = false;
     private bool cubeSpawnedOne = false;
     private bool cubeSpawnedTwo = false;
@@ -20,8 +21,17 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
 
     public void activateSpawningAbility()
     {
+        Vector3 local = menuToSpawnTransform.localPosition;
+        menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
         activatePointer(false);
         canSpawnCube = true;
+    }
+
+    public void deactivateSpawningAbility()
+    {
+        Vector3 local = menuToSpawnTransform.localPosition;
+        canSpawnCube = false;
+        menuToSpawnTransform.localPosition = local + new Vector3(0, 0, 1.5f);
     }
 
     public void setZRotationLeft(int n)

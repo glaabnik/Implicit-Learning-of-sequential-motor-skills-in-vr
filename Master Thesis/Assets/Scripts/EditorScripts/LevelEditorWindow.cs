@@ -36,6 +36,8 @@ public class LevelEditorWindow : EditorWindow
 
     int rotationZ;
     int buttonSizeDirections = 70;
+    int phiRed = -40, phiBlue = 40;
+    float phiRedSlider = 0, phiBlueSlider = 50;
 
     private bool idInitialised = false;
     static int idCounterRed = 0;
@@ -64,6 +66,8 @@ public class LevelEditorWindow : EditorWindow
         }
         idCounterRed = idMaxRed;
         idCounterBlue = idMaxBlue;
+        Debug.Log("IdCounterRed: " + idCounterRed);
+        Debug.Log("IdCounterBlue: " + idCounterBlue);
         idInitialised = true;
         Debug.Log("Id counters initialised!");
     }
@@ -160,14 +164,25 @@ public class LevelEditorWindow : EditorWindow
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
 
+    private Vector3 sphereToCartesianCoordinate(float phi, float radius)
+    {
+        float theta = Mathf.Acos((heightToPlaceCubes - 1.6f) / radius) * Mathf.Rad2Deg;
+        float x = radius * Mathf.Sin(DegToRadians(theta)) * Mathf.Cos(DegToRadians(phi));
+        float z = radius * Mathf.Sin(DegToRadians(theta)) * Mathf.Sin(DegToRadians(phi));
+        float y = heightToPlaceCubes;
+        //heightToPlaceCubes = radius * Mathf.Cos(DegToRadians(theta)) + 1.6f;
+        return new Vector3(x, y, z);
+    }
 
 
     private void spawnCube(string color)
     {
         GameObject toSpawn = null;
         Vector3 rotation = new Vector3(0, 0, rotationZ);
+        Vector3 pos= new Vector3(0, heightToPlaceCubes, 0);
         if (color == "red")
         {
+            pos = sphereToCartesianCoordinate(phiRedSlider, radiusDesired);
             if(rotationZ == 0 || rotationZ == 90 || rotationZ == 180 || rotationZ == 270)
             {
                 toSpawn = cubeNormalRed;
@@ -180,6 +195,7 @@ public class LevelEditorWindow : EditorWindow
         }
         if(color == "blue")
         {
+            pos = sphereToCartesianCoordinate(phiBlueSlider, radiusDesired);
             if (rotationZ == 0 || rotationZ == 90 || rotationZ == 180 || rotationZ == 270)
             {
                 toSpawn = cubeNormalBlue;
@@ -190,11 +206,12 @@ public class LevelEditorWindow : EditorWindow
                 rotation = new Vector3(0, 0, rotationZ - 45);
             }
         }
-        GameObject newSpawn = Instantiate(toSpawn, new Vector3(2.0f, heightToPlaceCubes, 2.0f), Quaternion.identity);
+        GameObject newSpawn = Instantiate(toSpawn, pos, Quaternion.identity);
         newSpawn.transform.localEulerAngles = rotation;
         StageUtility.PlaceGameObjectInCurrentStage(newSpawn);
         Selection.activeGameObject = newSpawn;
-        assignUniqueId();
+        assignUniqueId(newSpawn);
+        lookAtCenter(newSpawn);
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
 
@@ -305,6 +322,19 @@ public class LevelEditorWindow : EditorWindow
         return degree * Mathf.PI / 180;
     }
 
+    private void assignUniqueId(GameObject go)
+    {
+        if(go.CompareTag("red"))
+        {
+            if (!checkIsCustomIdAvailable(go, idCounterRed + 1)) idInitialised = false;
+        }
+        if(go.CompareTag("blue"))
+        {
+            if (!checkIsCustomIdAvailable(go, idCounterBlue + 1)) idInitialised = false;
+        }
+        assignUniqueId();
+    }
+
     private void assignUniqueId()
     {
         Scene level_editor_scene = SceneManager.GetActiveScene();
@@ -352,6 +382,23 @@ public class LevelEditorWindow : EditorWindow
         return true;
     }
 
+    private GameObject getGameObjectWithCustomId(GameObject gameObject, int customId)
+    {
+        Scene level_editor_scene = SceneManager.GetActiveScene();
+        if (level_editor_scene.name.CompareTo("LevelEditor") != 0)
+        {
+            Debug.Log("Level Editor scene isn`t active. First open the Level Editor scene");
+            return null;
+        }
+        GameObject[] matchingCubes = GameObject.FindGameObjectsWithTag(gameObject.tag);
+        foreach (GameObject go in matchingCubes)
+        {
+            SpawnedInteractable si = go.GetComponent<SpawnedInteractable>();
+            if (si.getId() == customId) return go;
+        }
+        return null;
+    }
+
     private void setSelection(string tag)
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
@@ -382,13 +429,15 @@ public class LevelEditorWindow : EditorWindow
         ToggleButtonStyleNormal = "Button";
         ToggleButtonStyleToggled = new GUIStyle(ToggleButtonStyleNormal);
         ToggleButtonStyleToggled.normal.background = texBackgroundSelected;
-
-        if(GUILayout.Button("Spawn Red Cube"))
+        //phiRed = EditorGUILayout.IntField("Angle to spawn cube: ", phiRed);
+        phiRedSlider = EditorGUILayout.Slider("Angle to spawn red cube", phiRedSlider, 0, 360);
+        if (GUILayout.Button("Spawn Red Cube"))
         {
             spawnCube("red");
         }
-
-        if(GUILayout.Button("Spawn Blue Cube"))
+        //phiBlue = EditorGUILayout.IntField("Angle to spawn cube: ", phiBlue);
+        phiBlueSlider = EditorGUILayout.Slider("Angle to spawn blue cube", phiBlueSlider, 0, 360);
+        if (GUILayout.Button("Spawn Blue Cube"))
         {
             spawnCube("blue");
         }
@@ -484,9 +533,12 @@ public class LevelEditorWindow : EditorWindow
                 }
                 else
                 {
-                    bool result = EditorUtility.DisplayDialog("Warning", "Your Custom Id is already used by another cube", "Assign this id anyway", "Cancel");
+                    bool result = EditorUtility.DisplayDialog("Warning", "Your Custom Id is already used by another cube", "Assign this id anyway (With Id Swap)", "Cancel");
                     if(result)
                     {
+                        int oldId = Selection.activeGameObject.GetComponent<SpawnedInteractable>().getId();
+                        GameObject go = getGameObjectWithCustomId(Selection.activeGameObject, customId);
+                        go.GetComponent<SpawnedInteractable>().setId(oldId);
                         Selection.activeGameObject.GetComponent<SpawnedInteractable>().setId(customId);
                     }
                 }
