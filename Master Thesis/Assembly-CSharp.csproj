@@ -60,7 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AnticipitationScript.cs" />
+    <Compile Include="Assets\Scripts\Anticipation Test\AnticipitationScript.cs" />
+    <Compile Include="Assets\Scripts\Anticipation Test\DelegateButtonCallsChoiceMenu.cs" />
+    <Compile Include="Assets\Scripts\Anticipation Test\SphereToSpawnGreyCube.cs" />
     <Compile Include="Assets\Scripts\Data\BuildSequenceFromLevel.cs" />
     <Compile Include="Assets\Scripts\Data\LoadFixedSequenceOfSpawns.cs" />
     <Compile Include="Assets\Scripts\Data\SerializeData.cs" />
@@ -68,20 +70,18 @@
     <Compile Include="Assets\Scripts\Debug\DebugSpawnedInteractable.cs" />
     <Compile Include="Assets\Scripts\Debug\HitInteractableAlternative.cs" />
     <Compile Include="Assets\Scripts\Debug\SpawnedInteractableAlternative.cs" />
-    <Compile Include="Assets\Scripts\DelegateButtonCallsChoiceMenu.cs" />
-    <Compile Include="Assets\Scripts\DifficultyManager.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LevelEditorWindow.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPoint.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPointEditor.cs" />
     <Compile Include="Assets\Scripts\HitInteractable.cs" />
-    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\DifficultyManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\SpawnCubes.cs" />
     <Compile Include="Assets\Scripts\SpawnedInteractable.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequence.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequenceFromFile.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequenceOneHandRandom.cs" />
     <Compile Include="Assets\Scripts\Spawning\RandomizedBlockSequence.cs" />
-    <Compile Include="Assets\Scripts\SphereToSpawnGreyCube.cs" />
     <Compile Include="Assets\Scripts\UI\CanvasDisablerOnStart.cs" />
     <Compile Include="Assets\Scripts\UI\DelegateButtonCalls.cs" />
     <Compile Include="Assets\Scripts\UI\HighScore.cs" />

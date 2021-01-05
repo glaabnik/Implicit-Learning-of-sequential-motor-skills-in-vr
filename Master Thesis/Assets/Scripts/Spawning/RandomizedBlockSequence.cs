@@ -15,12 +15,14 @@ public class RandomizedBlockSequence : BlockSequence
     public int offsetRightSideRangeMax = -15;
     public float scaleSpawnedGameObjects;
     public float sphereRadius;
+    public bool redAndBlueCubesCanBeInterchanged = false;
 
     private List<SphereCoordinates> sequenceOfSpawns;
     private int actIndexInList;
 
     public override void Start()
     {
+        base.Start();
         sequenceOfSpawns = new List<SphereCoordinates>();
         for (int i = 0; i < countSphereCoordinatesOneIteration; ++i)
         {
@@ -30,6 +32,12 @@ public class RandomizedBlockSequence : BlockSequence
 
     public override bool hasNextSphereCoordinates()
     {
+        if (actIndexInList % sequenceOfSpawns.Count == 0 && actIndexInList > 0)
+        {
+            if (pointScoreActIteration > maxPointScoreOneIteration) maxPointScoreOneIteration = pointScoreActIteration;
+            pointScoreAllIterations.Add(pointScoreActIteration);
+            pointScoreActIteration = 0;
+        }
         return actIndexInList < iterations * sequenceOfSpawns.Count;
     }
 
@@ -91,6 +99,30 @@ public class RandomizedBlockSequence : BlockSequence
         sc.scale2 = scaleRight;
         sc.rotationZ = rotationZLeft;
         sc.rotationZ2 = rotationZRight;
+        if (redAndBlueCubesCanBeInterchanged)
+        {
+            int z = Random.Range(0, 10);
+            if (z > 5) // interchange red and blue cube
+            {
+                float phiT = sc.phi;
+                float thetaT = sc.theta;
+                float radiusT = sc.radius;
+                Vector3 scaleT = sc.scale;
+                float rotationZT = sc.rotationZ;
+
+                sc.phi = sc.phi2;
+                sc.theta = sc.theta2;
+                sc.radius = sc.radius2;
+                sc.scale = sc.scale2;
+                sc.rotationZ = sc.rotationZ2;
+
+                sc.phi2 = phiT;
+                sc.theta2 = thetaT;
+                sc.radius2 = radiusT;
+                sc.scale2 = scaleT;
+                sc.rotationZ2 = rotationZT;
+            }
+        }
         sequenceOfSpawns.Add(sc);
     }
 

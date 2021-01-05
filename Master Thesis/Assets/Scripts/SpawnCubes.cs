@@ -76,6 +76,27 @@ public class SpawnCubes : MonoBehaviour
         findReferencesToHitInteractables();
     }
 
+    public BlockSequence getActBlockSequence()
+    {
+        if (blockSequences != null) return blockSequences[blockSequenceIndex];
+        return null;
+    }
+
+    public void addToPointScoreInBlockSequence(int val)
+    {
+        if (getActBlockSequence() != null) getActBlockSequence().addToPointScore(val);
+    }
+
+    public SpawnedInteractable getLastLeftHandTarget()
+    {
+        return lastLeftHandTarget;
+    }
+
+    public SpawnedInteractable getLastRightHandTarget()
+    {
+        return lastRightHandTarget;
+    }
+
     // Update is called once per frame
     void Update()
     {

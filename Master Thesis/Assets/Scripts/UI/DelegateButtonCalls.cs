@@ -26,6 +26,7 @@ public class DelegateButtonCalls : MonoBehaviour
             case 3: button_Hard(); break;
             case 4: button_Very_Hard(); break;
             case 5: button_Extreme(); break;
+            case 6: button_Extra_Extreme(); break;
             default: break;
         }
     }
@@ -79,6 +80,13 @@ public class DelegateButtonCalls : MonoBehaviour
     public void button_Extreme()
     {
         dm.setDifficulty(Difficulty.Extreme);
+        sc.updateDifficultyParameters();
+        updateSliderValues();
+    }
+
+    public void button_Extra_Extreme()
+    {
+        dm.setDifficulty(Difficulty.Extra_Extreme);
         sc.updateDifficultyParameters();
         updateSliderValues();
     }

@@ -12,6 +12,12 @@ public class BlockSequenceFromFile : BlockSequence
 
     public override bool hasNextSphereCoordinates()
     {
+        if (actIndexInList % sequenceOfSpawns.Count == 0 && actIndexInList > 0)
+        {
+            if (pointScoreActIteration > maxPointScoreOneIteration) maxPointScoreOneIteration = pointScoreActIteration;
+            pointScoreAllIterations.Add(pointScoreActIteration);
+            pointScoreActIteration = 0;
+        }
         return actIndexInList < iterations * sequenceOfSpawns.Count;
     }
 
@@ -39,6 +45,7 @@ public class BlockSequenceFromFile : BlockSequence
 
     public override void Start()
     {
+        base.Start();
         sequenceOfSpawns = new List<SphereCoordinates>();
         if (!string.IsNullOrEmpty(filenameCsv)) LoadFixedSequenceOfSpawns.loadSpawnSequence(ref sequenceOfSpawns, filenameCsv);
     }
