@@ -30,7 +30,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
         }
         else
         {
-            mr.material.color = new Color(255 /255.0f, 51 / 255.0f, 51 / 255.0f);
+            mr.material.color = new Color(120 /255.0f, 81 / 255.0f, 169 / 255.0f);
         }
     }
 
@@ -44,14 +44,14 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
         }
         else
         {
-            mr.material.color = new Color(255 / 255.0f, 51 / 255.0f, 51 / 255.0f);
+            mr.material.color = new Color(120 / 255.0f, 81 / 255.0f, 169 / 255.0f);
         }
     }
 
     public void activateSpawningAbility()
     {
         Vector3 local = menuToSpawnTransform.localPosition;
-        menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
+        //menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
         activatePointer(false);
         canSpawnCube = true;
     }
@@ -60,7 +60,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         Vector3 local = menuToSpawnTransform.localPosition;
         canSpawnCube = false;
-        menuToSpawnTransform.localPosition = local + new Vector3(0, 0, 1.5f);
+        //menuToSpawnTransform.localPosition = local + new Vector3(0, 0, 1.5f);
     }
 
     public void setZRotationLeft(int n)

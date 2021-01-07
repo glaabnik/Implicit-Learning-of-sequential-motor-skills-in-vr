@@ -19,6 +19,9 @@ public class SpawnedInteractable : MonoBehaviour
     private bool isAnimating = true;
     private float timeToAnimate = 0.0f;
     private Transform hmd_transform;
+    private Vector3 forceDirection;
+    private int forcePrecision;
+    private bool rigidbodyShouldBeMoving = false;
 
     private bool startColliderHit = false;
     private bool middleColliderHit = false;
@@ -316,10 +319,14 @@ public class SpawnedInteractable : MonoBehaviour
     }
 
 
-    public void addForceToRigidBody(Vector3 positionVector)
+    public void addForceToRigidBody(Vector3 positionVector, int precision)
     {
+        rigidBody.isKinematic = false;
+        rigidbodyShouldBeMoving = true;
         Vector3 direction = rigidBody.transform.position - positionVector;
-        rigidBody.AddForceAtPosition(direction * 200.0f, transform.position);
+        forceDirection = direction;
+        forcePrecision = precision;
+        rigidBody.AddForceAtPosition(direction * 20.0f * precision, transform.position);
         rigidBody.useGravity = true;
     }
 
@@ -382,5 +389,12 @@ public class SpawnedInteractable : MonoBehaviour
                 startFadingOut = false;
             }
         }
+        if(rigidbodyShouldBeMoving)
+        {
+            if (rigidBody.velocity.magnitude <= 0.0001f)
+                addForceToRigidBody(forceDirection, forcePrecision);
+            else rigidbodyShouldBeMoving = false;
+        }
+
     }
 }

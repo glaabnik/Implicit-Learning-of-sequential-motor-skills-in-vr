@@ -274,7 +274,7 @@ public class HitInteractable : MonoBehaviour
     private void destroyEffect(SpawnedInteractable si, int pointsEarned)
     {
         if(pointsEarned == 0) si.fadeOutEffect();
-        else if(destroyVariant == 0) si.addForceToRigidBody(relevantPositionToAddForce);
+        else if(destroyVariant == 0) si.addForceToRigidBody(relevantPositionToAddForce, (int) (pointsEarned / 10.0f));
         else if(destroyVariant == 1) si.ExplodeIntoPieces(relevantPositionToAddForce, pointsEarned);
     }
 }
