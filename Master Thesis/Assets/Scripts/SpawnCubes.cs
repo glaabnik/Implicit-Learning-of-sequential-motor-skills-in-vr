@@ -331,12 +331,36 @@ public class SpawnCubes : MonoBehaviour
         return sphereToCartesianCoordinate(theta, phi, sphereRadius);
     }
 
-    private Vector3 sphereToCartesianCoordinate(float theta, float phi, float radius)
+    public Vector3 sphereToCartesianCoordinate(float theta, float phi, float radius)
     {
         float x = sphereRadius * Mathf.Sin(DegToRadians(theta)) * Mathf.Cos(DegToRadians(phi)) + hmd_transform.position.x;
         float z = sphereRadius * Mathf.Sin(DegToRadians(theta)) * Mathf.Sin(DegToRadians(phi)) + hmd_transform.position.z;
         float y = radius * Mathf.Cos(DegToRadians(theta)) + hmd_transform.position.y;
         return new Vector3(x, y, z);
+    }
+
+    public Vector3 cartesianToSphereCoordinate(Vector3 position)
+    {
+        Vector3 result = new Vector3();
+        float radius = (position - hmd_transform.position).magnitude;
+        /*Debug.Log("Radius: " + radius);
+        if(position.x == 0)
+        {
+            result[0] = Mathf.Rad2Deg * Mathf.Atan(position.z / Mathf.Epsilon);
+        }
+        else result[0] = Mathf.Atan(position.z / position.x);
+        if(position.x < 0)
+        {
+            result[0] += Mathf.PI;
+        }
+       result[0] = Mathf.Rad2Deg * result[0];
+       result[1] = Mathf.Rad2Deg * Mathf.Asin(position.y - 1.6f / radius);*/
+        // working implementation
+
+        result[0] = Mathf.Rad2Deg * Mathf.Atan2(position.z - hmd_transform.position.z, position.x - hmd_transform.position.x);
+        result[1] = Mathf.Rad2Deg * Mathf.Acos((position.y - hmd_transform.position.y) / radius);
+        result[2] = radius;
+        return result;
     }
 
     private float DegToRadians(float degree)

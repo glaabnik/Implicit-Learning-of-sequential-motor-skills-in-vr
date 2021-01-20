@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using VRTK;
+
 
 public class SphereToSpawnGreyCube : VRTK_InteractableObject
 {
@@ -9,15 +11,19 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     public GameObject cubeGrey;
     public SpawnCubes spawnCubes;
     public RectTransform menuToSpawnTransform;
+    public Canvas notificationToSpawn;
+    public Text notification;
     private bool canSpawnCube = false;
     private bool cubeSpawnedOne = false;
     private bool cubeSpawnedTwo = false;
+    private bool pointerLeftUsedForSpawning = false;
+    private bool pointerRightUsedForSpawning = false;
     private int zRotationLeft, zRotationRight;
     private GameObject cubeNeutralLeft, cubeNeutralRight;
 
     void Start()
     {
-        
+        notificationToSpawn.enabled = false;
     }
 
     public void colorRightSpawnedCube(GameObject toCompare, float distanceAllowed)
@@ -52,6 +58,8 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         Vector3 local = menuToSpawnTransform.localPosition;
         //menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
+        notification.text = "Please spawn the right cube of next cube pair with the activated pointer with a trigger press";
+        notificationToSpawn.enabled = true;
         activatePointer(false);
         canSpawnCube = true;
     }
@@ -94,27 +102,13 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         cubeSpawnedOne = false;
         cubeSpawnedTwo = false;
+        pointerLeftUsedForSpawning = false;
+        pointerRightUsedForSpawning = false;
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision occured!");
-        Debug.Log("collision contact point: " + collision.GetContact(0).point);
-        Debug.Log("IsActive One: " + pointer_left.IsPointerActive());
-        Debug.Log("Selection Button pressed: " + pointer_left.IsSelectionButtonPressed());
-
-        Debug.Log("IsActive One2: " + pointer_right.IsPointerActive());
-        Debug.Log("Selection Button pressed2: " + pointer_right.IsSelectionButtonPressed());
-        /*if (oneSelectionButtonPressed() && !cubeSpawnedOne)
-        {
-            spawnCubes.spawnGameObject(false, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
-            cubeSpawnedOne = true;
-        }*/
     }
 
     private bool oneSelectionButtonPressed()
@@ -142,23 +136,47 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
         Debug.Log("Start Using called!!!");
 
         base.StartUsing(currentUsingObject);
-        if (canSpawnCube && cubeSpawnedOne && !cubeSpawnedTwo)
+        if (canSpawnCube && cubeSpawnedOne && !cubeSpawnedTwo && activePointerNotUsedForSpawning())
         {
-            spawnCubes.spawnGameObject(true, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationLeft), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
+            assignActivePointerUsedForSpawning();
+            Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
+            Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
+            spawnCubes.spawnGameObject(true, adjustedPosition, new Vector3(0, 0, zRotationLeft), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
             cubeNeutralLeft = spawnCubes.getLastLeftHandTarget().gameObject;
             cubeSpawnedTwo = true;
             canSpawnCube = false;
             deactivatePointer(true);
+            notificationToSpawn.enabled = false;
         }
-        if (canSpawnCube && !cubeSpawnedOne)
+        if (canSpawnCube && !cubeSpawnedOne && activePointerNotUsedForSpawning())
         {
-            spawnCubes.spawnGameObject(false, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
+            assignActivePointerUsedForSpawning();
+            Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
+            Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
+            spawnCubes.spawnGameObject(false, adjustedPosition, new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeGrey);
             cubeNeutralRight = spawnCubes.getLastRightHandTarget().gameObject;
             cubeSpawnedOne = true;
             deactivatePointer(false);
             activatePointer(true);
+            notification.text = "Please spawn the left cube of next cube pair with the activated pointer with a trigger press";
         }
     }
+
+    private bool activePointerNotUsedForSpawning()
+    {
+        if (pointer_left.IsPointerActive() && pointer_right.IsPointerActive()) return !pointerLeftUsedForSpawning && !pointerRightUsedForSpawning;
+        if (pointer_left.IsPointerActive()) return !pointerLeftUsedForSpawning;
+        if (pointer_right.IsPointerActive()) return !pointerRightUsedForSpawning;
+        return false;
+    }
+
+    private void assignActivePointerUsedForSpawning()
+    {
+        VRTK_StraightPointerRenderer spl = pointer_left.pointerRenderer as VRTK_StraightPointerRenderer;
+        VRTK_StraightPointerRenderer spr = pointer_right.pointerRenderer as VRTK_StraightPointerRenderer;
+        if (pointer_left.IsPointerActive() && spl.positionRayHit != Vector3.zero) pointerLeftUsedForSpawning = true;
+        if (pointer_right.IsPointerActive() && spr.positionRayHit != Vector3.zero) pointerRightUsedForSpawning = true;
+    } 
 
     public override void StopUsing(VRTK_InteractUse previousUsingObject = null, bool resetUsingObjectState = true)
     {

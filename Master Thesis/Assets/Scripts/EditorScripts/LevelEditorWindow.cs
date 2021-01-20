@@ -399,6 +399,34 @@ public class LevelEditorWindow : EditorWindow
         return null;
     }
 
+    private void selectOtherColoredMatchingCube()
+    {
+        Scene level_editor_scene = SceneManager.GetActiveScene();
+        if (level_editor_scene.name.CompareTo("LevelEditor") != 0)
+        {
+            Debug.Log("Level Editor scene isn`t active. First open the Level Editor scene");
+            return;
+        }
+        GameObject active = Selection.activeGameObject;
+        string tag = active.tag;
+        int id = active.GetComponent<SpawnedInteractable>().getId();
+        string otherTag = tag.Equals("red") ? "blue" : "red";
+        GameObject[] matchingCubes = GameObject.FindGameObjectsWithTag(otherTag);
+        GameObject match = null;
+        foreach (GameObject go in matchingCubes)
+        {
+            SpawnedInteractable si = go.GetComponent<SpawnedInteractable>();
+            if (si.getId() == id) match = go;
+        }
+        if(match != null)
+        {
+            GameObject[] arr = new GameObject[2];
+            arr[0] = active;
+            arr[1] = match;
+            Selection.objects = arr;
+        }
+    }
+
     private void setSelection(string tag)
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
@@ -499,6 +527,11 @@ public class LevelEditorWindow : EditorWindow
             applyChangeToRotation();
         }
         GUILayout.EndHorizontal();
+
+        if(GUILayout.Button("Select matching other colored Cube with Same Id"))
+        {
+            selectOtherColoredMatchingCube();
+        }
 
         if (GUILayout.Button("Select all Red Cubes in Level"))
         {

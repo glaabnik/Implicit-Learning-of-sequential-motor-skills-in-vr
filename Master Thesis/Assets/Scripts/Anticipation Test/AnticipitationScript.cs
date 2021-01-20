@@ -21,7 +21,7 @@ public class AnticipitationScript : MonoBehaviour
     
     public void Start()
     {
-        
+        notificationToSpawn.enabled = false;
     }
 
     private void getLoadedSphereCoordinates()

@@ -126,6 +126,8 @@ public class HitInteractable : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+        if (!si.isHittable()) return;
+
         if (other.gameObject.CompareTag("precisionOne"))
         {
             interactionLocked = true;
@@ -184,6 +186,9 @@ public class HitInteractable : MonoBehaviour
         if (!other.gameObject.CompareTag("precisionOne")) return;
 
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+
+        if (!si.isHittable()) return;
+
         positionInitialColliderLeftSphere = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
         bool pointsRewarded = si.getPointsRewarded();
 

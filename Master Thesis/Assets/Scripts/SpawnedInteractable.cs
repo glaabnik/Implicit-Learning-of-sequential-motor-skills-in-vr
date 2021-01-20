@@ -22,6 +22,7 @@ public class SpawnedInteractable : MonoBehaviour
     private Vector3 forceDirection;
     private int forcePrecision;
     private bool rigidbodyShouldBeMoving = false;
+    private bool isHittable = false;
 
     private bool startColliderHit = false;
     private bool middleColliderHit = false;
@@ -76,6 +77,11 @@ public class SpawnedInteractable : MonoBehaviour
             if (transform.GetChild(i).CompareTag("Start_Point")) start_point = transform.GetChild(i).gameObject;
             if (transform.GetChild(i).CompareTag("End_Point")) end_point = transform.GetChild(i).gameObject;
         }
+    }
+
+    public bool isHittable()
+    {
+        return isHittable;
     }
 
     public Vector3 getIdealVector()
@@ -364,14 +370,18 @@ public class SpawnedInteractable : MonoBehaviour
     {
         if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
 
-        if(isAnimating)
+        if (isAnimating)
         {
             transform.position -= movedOffset * (Time.deltaTime / 2.0f);
             timeToAnimate += Time.deltaTime;
             if (timeToAnimate >= 2.0f) isAnimating = false;
             lookAt();
         }
-        else remainingTime -= Time.deltaTime;
+        else
+        {
+            isHittable = true;
+            remainingTime -= Time.deltaTime;
+        }
        
         if(startFadingOut)
         {
