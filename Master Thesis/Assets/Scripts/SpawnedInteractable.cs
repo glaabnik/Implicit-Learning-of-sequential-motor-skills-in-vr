@@ -22,7 +22,7 @@ public class SpawnedInteractable : MonoBehaviour
     private Vector3 forceDirection;
     private int forcePrecision;
     private bool rigidbodyShouldBeMoving = false;
-    private bool isHittable = false;
+    private bool isHittableAttribute = false;
 
     private bool startColliderHit = false;
     private bool middleColliderHit = false;
@@ -81,7 +81,7 @@ public class SpawnedInteractable : MonoBehaviour
 
     public bool isHittable()
     {
-        return isHittable;
+        return isHittableAttribute;
     }
 
     public Vector3 getIdealVector()
@@ -379,7 +379,7 @@ public class SpawnedInteractable : MonoBehaviour
         }
         else
         {
-            isHittable = true;
+            isHittableAttribute = true;
             remainingTime -= Time.deltaTime;
         }
        

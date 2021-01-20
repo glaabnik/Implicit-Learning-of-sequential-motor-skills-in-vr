@@ -367,7 +367,7 @@ BoxCollider:
   m_GameObject: {fileID: 67362066}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1464,80 +1464,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 28}
   m_Pivot: {x: 0.5, y: 1}
---- !u!21 &350932701
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: SingleLine-LightSaber(Clone)
-  m_Shader: {fileID: 4800000, guid: 2d9a4ca4b2730b64e8aade7030f8caeb, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _BumpScale: 1
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _Glossiness: 0.5
-    - _LightSaberFactor: 0.8
-    - _LineScale: 1.0000002
-    - _LineWidth: 0.2
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _SrcBlend: 1
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 0.9137255, g: 0.27382314, b: 0.09019608, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &359372929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1873,6 +1799,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2878623148598470038, guid: 840d198befad5754aa34e65960aed42c,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4666749077100600989, guid: 840d198befad5754aa34e65960aed42c,
         type: 3}
       propertyPath: m_Enabled
@@ -1956,7 +1887,7 @@ PrefabInstance:
     - target: {fileID: 5787262792796065187, guid: 840d198befad5754aa34e65960aed42c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6318931682605342790, guid: 840d198befad5754aa34e65960aed42c,
         type: 3}
@@ -3235,80 +3166,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!21 &518171156
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: SingleLine-LightSaber(Clone)
-  m_Shader: {fileID: 4800000, guid: 2d9a4ca4b2730b64e8aade7030f8caeb, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _BumpScale: 1
-    - _Cutoff: 0.5
-    - _DetailNormalMapScale: 1
-    - _DstBlend: 0
-    - _Glossiness: 0.5
-    - _LightSaberFactor: 0.8
-    - _LineScale: 1.0000002
-    - _LineWidth: 0.2
-    - _Metallic: 0
-    - _Mode: 0
-    - _OcclusionStrength: 1
-    - _Parallax: 0.02
-    - _SrcBlend: 1
-    - _UVSec: 0
-    - _ZWrite: 1
-    m_Colors:
-    - _Color: {r: 0, g: 0.15004349, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &522344396
 GameObject:
   m_ObjectHideFlags: 0
@@ -4912,7 +4769,7 @@ PrefabInstance:
     - target: {fileID: 5787262792796065187, guid: 914754bf29566ff4fbff82df6a67019b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 6318931682605342790, guid: 914754bf29566ff4fbff82df6a67019b,
         type: 3}
@@ -7141,6 +6998,7 @@ MonoBehaviour:
   useScaleFromSphereCoordinates: 0
   turnLoadedSequenceTowardsPlayer: 0
   playBackgroundMusic: 1
+  noAutomatedSpawning: 0
   blockSequences:
   - {fileID: 1080044117}
   - {fileID: 1080044118}
@@ -7409,6 +7267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06b30a55f932294dac314b91ded8dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointScoreActIteration: 0
+  maxPointScoreOneIteration: 0
+  pointScoreAllIterations: 
   filenameCsv: nameSavedLevelDifferentRotations
   iterations: 3
 --- !u!114 &1080044118
@@ -7423,6 +7284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1ee15dca9e53549a662bc43cdad13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointScoreActIteration: 0
+  maxPointScoreOneIteration: 0
+  pointScoreAllIterations: 
   countSphereCoordinatesOneIteration: 10
   iterations: 3
   randomizeElevation: 1
@@ -7434,6 +7298,7 @@ MonoBehaviour:
   offsetRightSideRangeMax: -15
   scaleSpawnedGameObjects: 0.7
   sphereRadius: 1.5
+  redAndBlueCubesCanBeInterchanged: 0
 --- !u!21 &1088358277
 Material:
   serializedVersion: 6
@@ -9108,7 +8973,7 @@ PrefabInstance:
     - target: {fileID: 5787262792796065187, guid: f899636d56acf9c48b8107cdda33b194,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 5830680738756844587, guid: f899636d56acf9c48b8107cdda33b194,
         type: 3}
@@ -9985,7 +9850,11 @@ MonoBehaviour:
   - {fileID: 721754544}
   - {fileID: 622158894}
   - {fileID: 1860382643}
+  textActIteration: []
+  textBestIteration: []
+  textAvgIteration: []
   pgv: {fileID: 517673537}
+  spawnCubes: {fileID: 0}
 --- !u!114 &1433044706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10379,6 +10248,80 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!21 &1502105592
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SingleLine-LightSaber(Clone)
+  m_Shader: {fileID: 4800000, guid: 2d9a4ca4b2730b64e8aade7030f8caeb, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _Glossiness: 0.5
+    - _LightSaberFactor: 0.8
+    - _LineScale: 1.0000002
+    - _LineWidth: 0.2
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 0, g: 0.15004349, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &1505478581
 GameObject:
   m_ObjectHideFlags: 0
@@ -10770,7 +10713,7 @@ PrefabInstance:
     - target: {fileID: 1134720405884027139, guid: 8f9f00a44abc7e7438ef7a6abbe157d3,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.4
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2246369755623428669, guid: 8f9f00a44abc7e7438ef7a6abbe157d3,
         type: 3}
@@ -11841,6 +11784,7 @@ MonoBehaviour:
   maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
   customTracer: {fileID: 0}
   customCursor: {fileID: 0}
+  positionRayHit: {x: 0, y: 0, z: 0}
 --- !u!114 &1687154669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12211,6 +12155,7 @@ MonoBehaviour:
   useScaleFromSphereCoordinates: 0
   turnLoadedSequenceTowardsPlayer: 0
   playBackgroundMusic: 1
+  noAutomatedSpawning: 0
   blockSequences:
   - {fileID: 1703585530}
   - {fileID: 1703585528}
@@ -12481,6 +12426,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1ee15dca9e53549a662bc43cdad13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointScoreActIteration: 0
+  maxPointScoreOneIteration: 0
+  pointScoreAllIterations: 
   countSphereCoordinatesOneIteration: 30
   iterations: 1
   randomizeElevation: 1
@@ -12492,6 +12440,7 @@ MonoBehaviour:
   offsetRightSideRangeMax: -15
   scaleSpawnedGameObjects: 0.7
   sphereRadius: 1.5
+  redAndBlueCubesCanBeInterchanged: 0
 --- !u!114 &1703585529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12504,6 +12453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06b30a55f932294dac314b91ded8dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointScoreActIteration: 0
+  maxPointScoreOneIteration: 0
+  pointScoreAllIterations: 
   filenameCsv: nameSavedLevelDifferentRotations
   iterations: 3
 --- !u!114 &1703585530
@@ -12518,6 +12470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1ee15dca9e53549a662bc43cdad13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointScoreActIteration: 0
+  maxPointScoreOneIteration: 0
+  pointScoreAllIterations: 
   countSphereCoordinatesOneIteration: 30
   iterations: 1
   randomizeElevation: 1
@@ -12529,6 +12484,7 @@ MonoBehaviour:
   offsetRightSideRangeMax: 0
   scaleSpawnedGameObjects: 0.7
   sphereRadius: 1.7
+  redAndBlueCubesCanBeInterchanged: 0
 --- !u!1 &1703782258
 GameObject:
   m_ObjectHideFlags: 0
@@ -13378,6 +13334,7 @@ MonoBehaviour:
   maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
   customTracer: {fileID: 0}
   customCursor: {fileID: 0}
+  positionRayHit: {x: 0, y: 0, z: 0}
 --- !u!114 &1844926823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14476,6 +14433,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1986311358
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SingleLine-LightSaber(Clone)
+  m_Shader: {fileID: 4800000, guid: 2d9a4ca4b2730b64e8aade7030f8caeb, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _Glossiness: 0.5
+    - _LightSaberFactor: 0.8
+    - _LineScale: 1.0000002
+    - _LineWidth: 0.2
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _Color: {r: 0.9137255, g: 0.27382314, b: 0.09019608, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &2011787851
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,8 +11,11 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     public GameObject cubeGrey;
     public SpawnCubes spawnCubes;
     public RectTransform menuToSpawnTransform;
+    [SerializeField]
     public Canvas notificationToSpawn;
+    [SerializeField]
     public Text notification;
+    public string testString;
     private bool canSpawnCube = false;
     private bool cubeSpawnedOne = false;
     private bool cubeSpawnedTwo = false;

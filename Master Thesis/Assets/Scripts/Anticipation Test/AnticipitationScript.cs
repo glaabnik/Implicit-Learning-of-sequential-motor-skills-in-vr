@@ -9,6 +9,7 @@ public class AnticipitationScript : MonoBehaviour
     public SphereToSpawnGreyCube sphere;
     public DelegateButtonCallsChoiceMenu menu;
     public GameObject cubeRedNeutral, cubeBlueNeutral;
+    public Canvas notificationToSpawn;
     public float distanceTolerance = 1.0f;
     // Start is called before the first frame update
     private SphereCoordinates[] sphereCoordinates;

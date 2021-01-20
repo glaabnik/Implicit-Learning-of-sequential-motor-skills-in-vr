@@ -126,7 +126,7 @@ public class HitInteractable : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
-        if (!si.isHittable()) return;
+        if (si == null || !si.isHittable()) return;
 
         if (other.gameObject.CompareTag("precisionOne"))
         {
