@@ -244,7 +244,7 @@ public class DebugHitInteractable : MonoBehaviour
 
             si.setPointsRewarded(pointsEarned);
             Debug.Log("Earned Points: " + pointsEarned + " with precision: " + precisionPercent);
-            highScore.updateHighscore(pointsEarned, si.getColor(pointsEarned));
+            highScore.updateHighscore(pointsEarned, si.getColor(pointsEarned), tagCube);
             //destroyEffect(si, pointsEarned);
             listTimeNeededToHitObject.Add(si.getNeededTimeToHitObject());
             listPrecisionWithThatObjectWasHit.Add(precisionPercent);

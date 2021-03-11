@@ -9,17 +9,22 @@ public class HighScore : MonoBehaviour
     public Text[] textActIteration;
     public Text[] textBestIteration;
     public Text[] textAvgIteration;
-    public PointGainedVisualization pgv;
+    public PointGainedVisualization pgvRed;
+    public PointGainedVisualization pgvBlue;
     public SpawnCubes spawnCubes;
     private int highScore = 0;
 
-    public void updateHighscore(int pointsEarned, Color color)
+    public void updateHighscore(int pointsEarned, Color color, string tagCube)
     {
         highScore += pointsEarned;
         spawnCubes.addToPointScoreInBlockSequence(pointsEarned);
         updateText();
         if (spawnCubes.getActBlockSequence() != null) updateTextBlockSequence();
-        pgv.visualizePointsGained(pointsEarned, color);
+
+        if (pgvRed == null && pgvBlue == null) return;
+        else if (pgvRed != null && pgvBlue == null) pgvRed.visualizePointsGained(pointsEarned, color);
+        else if (tagCube.Equals("red")) pgvRed.visualizePointsGained(pointsEarned, color);
+        else if (tagCube.Equals("blue")) pgvBlue.visualizePointsGained(pointsEarned, color);
     }
 
     private void updateText()

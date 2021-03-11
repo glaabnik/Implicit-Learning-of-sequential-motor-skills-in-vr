@@ -61,7 +61,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         Vector3 local = menuToSpawnTransform.localPosition;
         //menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
-        notification.text = "Please spawn the right cube of next cube pair with the activated pointer with a trigger press";
+        notification.text = "Focus the activated pointer at ui window and press trigger button in order to spawn the right cube";
         notificationToSpawn.enabled = true;
         activatePointer(false);
         canSpawnCube = true;
@@ -161,7 +161,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
             cubeSpawnedOne = true;
             deactivatePointer(false);
             activatePointer(true);
-            notification.text = "Please spawn the left cube of next cube pair with the activated pointer with a trigger press";
+            notification.text = "Focus the activated pointer at ui window and press trigger button in order to spawn the right cube";
         }
     }
 

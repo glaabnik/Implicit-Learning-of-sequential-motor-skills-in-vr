@@ -6,14 +6,19 @@ using UnityEngine.UI;
 public class PointGainedVisualization : MonoBehaviour
 {
     public int initialFontSize;
+    public Text labelSword;
     private Text text;
     private int pointsGained = 0;
     private float frameCounter;
     private int frameCount;
+    private string labelString;
 
     void Start()
     {
         text = GetComponent<Text>();
+        labelString = labelSword.text;
+        labelSword.text = "";
+        text.text = "";
     }
 
     void Update()
@@ -30,7 +35,11 @@ public class PointGainedVisualization : MonoBehaviour
             }
             frameCounter -= Time.deltaTime;
             frameCount = frameCount + 1;
-            if (frameCounter <= 0) text.text = "";
+            if (frameCounter <= 0)
+            {
+                labelSword.text = "";
+                text.text = "";
+            }
         }
     }
     public void visualizePointsGained(int pointsEarned, Color color)
@@ -45,6 +54,7 @@ public class PointGainedVisualization : MonoBehaviour
 
     private void updateText()
     {
+        labelSword.text = labelString;
         text.text = "+ " + pointsGained;
     }
 
