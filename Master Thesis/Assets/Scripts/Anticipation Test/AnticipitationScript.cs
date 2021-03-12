@@ -19,6 +19,7 @@ public class AnticipitationScript : MonoBehaviour
     private bool cubePairPointedSpawned = true;
     private bool choiceDialogeMade = true;
     float timer = 0f;
+    float startTimer = 0f;
     
     public void Start()
     {
@@ -38,11 +39,14 @@ public class AnticipitationScript : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
+        startTimer += Time.deltaTime;
+        if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused || startTimer < 1.5f ) return;
 
         getLoadedSphereCoordinates();
         if (!cubePairSpawned && cubePairPointedSpawned && choiceDialogeMade)
         {
+            if (sphereCoordinatesIndex >= sphereCoordinates.Length) return;
+
             spawnCubes.spawnCubesForSphereCoordinates(sphereCoordinates[sphereCoordinatesIndex++]);
             cubePairSpawned = true;
             cubePairPointedSpawned = false;
@@ -69,8 +73,6 @@ public class AnticipitationScript : MonoBehaviour
         if(menu.choiceWasMade())
         {
             timer += Time.deltaTime;
-            Debug.Log("Timer got increased: " + timer);
-            Debug.Log("Game Paused?: " + DifficultyManager.Instance.gamePaused);
         }
         if(timer > 3.5f)
         {

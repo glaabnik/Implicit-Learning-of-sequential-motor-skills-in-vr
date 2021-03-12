@@ -11,13 +11,16 @@ public class PointGainedVisualization : MonoBehaviour
     private int pointsGained = 0;
     private float frameCounter;
     private int frameCount;
-    private string labelString;
+    private string labelString = "";
 
     void Start()
     {
         text = GetComponent<Text>();
-        labelString = labelSword.text;
-        labelSword.text = "";
+        if (labelSword != null)
+        {
+            labelString = labelSword.text;
+            labelSword.text = "";
+        }
         text.text = "";
     }
 
@@ -37,7 +40,7 @@ public class PointGainedVisualization : MonoBehaviour
             frameCount = frameCount + 1;
             if (frameCounter <= 0)
             {
-                labelSword.text = "";
+                if(labelSword != null) labelSword.text = "";
                 text.text = "";
             }
         }
@@ -54,7 +57,7 @@ public class PointGainedVisualization : MonoBehaviour
 
     private void updateText()
     {
-        labelSword.text = labelString;
+        if(labelSword != null) labelSword.text = labelString;
         text.text = "+ " + pointsGained;
     }
 

@@ -209,18 +209,18 @@ public class SpawnCubes : MonoBehaviour
 
         if (!turnLoadedSequenceTowardsPlayer) phiOffset = 0;
 
-        degLeftPhi = sc.phi + phiOffset;
-        degLeftTheta = sc.theta;
-        radiusLeft = sc.radius;
-        rotationLeft = new Vector3(0, 0, sc.rotationZ);
+        degLeftPhi = sc.phi2 + phiOffset;
+        degLeftTheta = sc.theta2;
+        radiusLeft = sc.radius2;
+        rotationLeft = new Vector3(0, 0, sc.rotationZ2);
 
-        degRightPhi = sc.phi2 + phiOffset;
-        degRightTheta = sc.theta2;
-        radiusRight = sc.radius2;
-        rotationRight = new Vector3(0, 0, sc.rotationZ2);
+        degRightPhi = sc.phi + phiOffset;
+        degRightTheta = sc.theta;
+        radiusRight = sc.radius;
+        rotationRight = new Vector3(0, 0, sc.rotationZ);
 
-        int rotZ = Mathf.RoundToInt(sc.rotationZ);
-        int rotZ2 = Mathf.RoundToInt(sc.rotationZ2);
+        int rotZ = Mathf.RoundToInt(sc.rotationZ2);
+        int rotZ2 = Mathf.RoundToInt(sc.rotationZ);
 
         if (rotZ == 0 || rotZ == 90 || rotZ == 180 || rotZ == 270 || rotZ == 360
                 || rotZ == -90 || rotZ == -180 || rotZ == -270)
@@ -231,7 +231,7 @@ public class SpawnCubes : MonoBehaviour
                 || rotZ == -135 || rotZ == -225 || rotZ == -315)
         {
             leftToSpawn = leftHandGameObjectDiagonal;
-            rotationLeft = new Vector3(0, 0, sc.rotationZ - 45);
+            rotationLeft = new Vector3(0, 0, sc.rotationZ2 - 45);
         }
 
         if (rotZ2 == 0 || rotZ2 == 90 || rotZ2 == 180 || rotZ2 == 270 || rotZ2 == 360
@@ -243,13 +243,13 @@ public class SpawnCubes : MonoBehaviour
                 || rotZ2 == -135 || rotZ2 == -225 || rotZ2 == -315)
         {
             rightToSpawn = rightHandGameObjectDiagonal;
-            rotationRight = new Vector3(0, 0, sc.rotationZ2 - 45);
+            rotationRight = new Vector3(0, 0, sc.rotationZ - 45);
         }
 
         if (useScaleFromSphereCoordinates)
         {
-            scaleLeft = sc.scale;
-            scaleRight = sc.scale2;
+            scaleLeft = sc.scale2;
+            scaleRight = sc.scale;
         }
         else
         {

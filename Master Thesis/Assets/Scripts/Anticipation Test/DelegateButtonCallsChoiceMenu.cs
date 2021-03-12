@@ -184,6 +184,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
 
     public void setRotationZBlue(float n)
     {
+        Debug.Log("RotationZ Blue: " + n);
         rotationZBlue = n;
     }
 
