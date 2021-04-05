@@ -16,13 +16,14 @@ public class HitInteractable : MonoBehaviour
     public string tagCube;
     private bool interactionLocked = false;
     private Vector3 relevantPositionToAddForce;
-    private Vector3 positionInitialColliderEnteredSphere;
-    private Vector3 positionInitialColliderLeftSphere;
+    private Vector3 positionInitialPhysicsColliderEntered;
+    private Vector3 positionInitialPhysicsColliderLeft;
     private Vector3 positionInitialColliderEntered;
     private Vector3 positionInitialColliderLeft;
     private Vector3 positionInitialColliderLeft_Avg;
     private bool resetHasToBeDone = false;
     private SpawnedInteractable siToReset;
+    private float angle;
     public int destroyVariant = 0;
 
     void Start()
@@ -119,6 +120,7 @@ public class HitInteractable : MonoBehaviour
         float alpha_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
 
         Debug.Log("Angle calculated: " + alpha_2D * Mathf.Rad2Deg);
+        angle = alpha_2D * Mathf.Rad2Deg;
 
         return (alpha_2D * Mathf.Rad2Deg) <= 45;
     }
@@ -133,7 +135,7 @@ public class HitInteractable : MonoBehaviour
             interactionLocked = true;
             //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             relevantPositionToAddForce = gameObject.transform.position;
-            positionInitialColliderEnteredSphere = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            positionInitialPhysicsColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             //Debug.Log("First collider entered");
         }
         if (other.gameObject.CompareTag("precisionTwo"))
@@ -189,23 +191,36 @@ public class HitInteractable : MonoBehaviour
 
         if (!si.isHittable()) return;
 
-        positionInitialColliderLeftSphere = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+        positionInitialPhysicsColliderLeft = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
         bool pointsRewarded = si.getPointsRewarded();
 
-        if (!hitOnObjectWasIntended(positionInitialColliderLeftSphere, si))
+        if (!hitOnObjectWasIntended(positionInitialPhysicsColliderLeft, si))
         {
             SoundManager.Instance.PlayHitSound(12, 0.5f);
         }
 
-        if (!pointsRewarded && hitOnObjectWasIntended(positionInitialColliderLeftSphere, si))
+        if (!pointsRewarded && hitOnObjectWasIntended(positionInitialPhysicsColliderLeft, si))
         {
             int precision = 0;
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
-            if (si.wasHitInRightDirection() || (vectorHitDirectionEqualsIdealVector(si) /*&& hitWasThroughWholeCube(positionInitialColliderLeftSphere, si)*/) )
+            if (si.wasHitInRightDirection() || (vectorHitDirectionEqualsIdealVector(si) && hitWasThroughWholeCube(positionInitialPhysicsColliderLeft, si)) )
             {
                 precision = si.getAvgAccuracy();
+                if(!si.wasHitInRightDirection())
+                {
+                    if (angle < 5) precision = 10;
+                    else if (angle < 10) precision = 9;
+                    else if (angle < 15) precision = 8;
+                    else if (angle < 20) precision = 7;
+                    else if (angle < 25) precision = 6;
+                    else if (angle < 30) precision = 5;
+                    else if (angle < 35) precision = 4;
+                    else if (angle < 40) precision = 3;
+                    else if (angle < 43) precision = 2;
+                    else if (angle <= 45) precision = 1;
+                }
                 precisionPercent = si.getAvgAccuracyPercent();
 
                 if (precision == 1) pointsEarned = (int)(percentRemainingTime * 10);
@@ -268,12 +283,12 @@ public class HitInteractable : MonoBehaviour
 
     private bool hitOnObjectWasIntended(Vector3 positionCubeColliderLeft, SpawnedInteractable si)
     {
-        return (positionCubeColliderLeft - positionInitialColliderEnteredSphere).magnitude >= 0.7 * si.gameObject.transform.localScale.x;
+        return (positionCubeColliderLeft - positionInitialPhysicsColliderEntered).magnitude >= 0.7 * si.gameObject.transform.localScale.x;
     }
 
     private bool hitWasThroughWholeCube(Vector3 positionCubeColliderLeft, SpawnedInteractable si)
     {
-        return (positionCubeColliderLeft - positionInitialColliderEnteredSphere).magnitude >= 1.2 * si.gameObject.transform.localScale.x;
+        return (positionCubeColliderLeft - positionInitialPhysicsColliderEntered).magnitude >= 0.7 * si.gameObject.transform.localScale.x;
     }
 
     private void destroyEffect(SpawnedInteractable si, int pointsEarned)
