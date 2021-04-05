@@ -74,6 +74,9 @@ public class SpawnCubes : MonoBehaviour
         forwardVectorTest = hmd_transform.forward;
         if (playBackgroundMusic) SoundManager.Instance.PlayBackgroundMusic();
         findReferencesToHitInteractables();
+        updateDifficultyParameters();
+        DifficultyManager dm = DifficultyManager.Instance;
+        updateSphereRadius(dm.getSphereRadius());
     }
 
     public BlockSequence getActBlockSequence()

@@ -34,6 +34,7 @@ public class SpawnedInteractable : MonoBehaviour
     private int actAccuracyMiddle2 = 0;
     private int actAccuracyMiddle3 = 0;
     private int actAccuracyEnd = 0;
+    private int innerAccuracy = 0;
 
 
     public GameObject pieceToSpawn;
@@ -52,8 +53,8 @@ public class SpawnedInteractable : MonoBehaviour
     private float fadeSpeed = 1.0f;
     private SpriteRenderer spriteRenderer;
     private new Renderer renderer;
-    private GameObject start_point;
-    private GameObject end_point;
+    private GameObject start_point, start_point_front;
+    private GameObject end_point, end_point_front;
 
     void Start()
     {
@@ -76,6 +77,8 @@ public class SpawnedInteractable : MonoBehaviour
         {
             if (transform.GetChild(i).CompareTag("Start_Point")) start_point = transform.GetChild(i).gameObject;
             if (transform.GetChild(i).CompareTag("End_Point")) end_point = transform.GetChild(i).gameObject;
+            if (transform.GetChild(i).CompareTag("Start_Point_Two")) start_point_front = transform.GetChild(i).gameObject;
+            if (transform.GetChild(i).CompareTag("End_Point_Two")) end_point_front = transform.GetChild(i).gameObject;
         }
     }
 
@@ -94,6 +97,11 @@ public class SpawnedInteractable : MonoBehaviour
         return end_point.transform.localPosition - start_point.transform.localPosition;
     }
 
+    public Vector3 getFrontIdealVectorLocal()
+    {
+        return end_point_front.transform.localPosition - start_point_front.transform.localPosition;
+    }
+
     public void resetColliderGroupsHit()
     {
         startColliderHit = false;
@@ -106,6 +114,11 @@ public class SpawnedInteractable : MonoBehaviour
         actAccuracyMiddle2 = 0;
         actAccuracyMiddle3 = 0;
         actAccuracyEnd = 0;
+    }
+
+    public void setInnerAccuracy(int acc)
+    {
+        innerAccuracy = acc;
     }
 
     public void startColliderGroupHit(string colliderName)
@@ -162,6 +175,8 @@ public class SpawnedInteractable : MonoBehaviour
 
     public int getAvgAccuracy()
     {
+        if (!wasHitInRightDirection()) return innerAccuracy;
+
         int colliderGroupsGreaterZero = 0;
         int accuracySumColliderGroups;
         if (uses5ColliderGroups)

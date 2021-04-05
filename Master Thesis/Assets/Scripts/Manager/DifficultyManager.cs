@@ -85,13 +85,13 @@ public class DifficultyManager : MonoBehaviour
     {
         switch (difficulty)
         {
-            case Difficulty.Just_Fun: return 0.7f;
-            case Difficulty.Easy: return 0.5f;
-            case Difficulty.Middle: return 0.4f;
-            case Difficulty.Hard: return 0.3f;
+            case Difficulty.Just_Fun: return 0.38f;
+            case Difficulty.Easy: return 0.35f;
+            case Difficulty.Middle: return 0.3f;
+            case Difficulty.Hard: return 0.25f;
             case Difficulty.Very_Hard: return 0.2f;
-            case Difficulty.Extreme: return 0.15f;
-            case Difficulty.Extra_Extreme: return 0.125f;
+            case Difficulty.Extreme: return 0.18f;
+            case Difficulty.Extra_Extreme: return 0.165f;
             default: return 0.4f;
         }
     }
@@ -100,13 +100,13 @@ public class DifficultyManager : MonoBehaviour
     {
         switch (difficulty)
         {
-            case Difficulty.Just_Fun: return 0.8f;
-            case Difficulty.Easy: return 0.9f;
-            case Difficulty.Middle: return 1.1f;
+            case Difficulty.Just_Fun: return 1.15f;
+            case Difficulty.Easy: return 1.2f;
+            case Difficulty.Middle: return 1.25f;
             case Difficulty.Hard: return 1.3f;
             case Difficulty.Very_Hard: return 1.5f;
-            case Difficulty.Extreme: return 1.7f;
-            case Difficulty.Extra_Extreme: return 1.8f;
+            case Difficulty.Extreme: return 1.5f;
+            case Difficulty.Extra_Extreme: return 1.5f;
             default: return 0.4f;
         }
     }

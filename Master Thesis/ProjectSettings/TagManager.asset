@@ -25,6 +25,10 @@ TagManager:
   - Plane
   - blueController
   - redController
+  - Start_Point_Two
+  - End_Point_Two
+  - angleCollider
+  - angleColliderMiddle
   layers:
   - Default
   - TransparentFX
