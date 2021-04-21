@@ -454,6 +454,7 @@ public class SpawnCubes : MonoBehaviour
         DifficultyManager inst = DifficultyManager.Instance;
         timeToHitGameObjects = inst.getTimeToHitObjects();
         scaleSpawnedGameObjects = inst.getScaleObjects();
+        Debug.Log("Scale: " + scaleSpawnedGameObjects);
     }
 
     public void updateDifficultyParameters(float time, float scale)

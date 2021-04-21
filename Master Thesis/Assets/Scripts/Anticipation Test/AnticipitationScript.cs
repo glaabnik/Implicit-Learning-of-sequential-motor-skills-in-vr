@@ -40,8 +40,13 @@ public class AnticipitationScript : MonoBehaviour
     public void Update()
     {
         startTimer += Time.deltaTime;
-        if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused || startTimer < 1.5f ) return;
-
+        if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused || startTimer < 1.5f)
+        {
+            sphere.activatePointer(true);
+            sphere.activatePointer(false);
+            return;
+        }
+       
         getLoadedSphereCoordinates();
         if (!cubePairSpawned && cubePairPointedSpawned && choiceDialogeMade)
         {
@@ -61,18 +66,23 @@ public class AnticipitationScript : MonoBehaviour
         }
         if(!choiceDialogeMade && sphere.bothCubesSpawned())
         {
-            spawnCubes.spawnGameObject(false, sphereCoordinates[sphereCoordinatesIndex], cubeRedNeutral);
+            /*spawnCubes.spawnGameObject(false, sphereCoordinates[sphereCoordinatesIndex], cubeRedNeutral);
             GameObject correctRightHandTargetSpawn = spawnCubes.getLastRightHandTarget().gameObject;
             sphere.colorRightSpawnedCube(correctRightHandTargetSpawn, distanceTolerance);
             spawnCubes.spawnGameObject(true, sphereCoordinates[sphereCoordinatesIndex], cubeBlueNeutral);
             GameObject correctLeftHandTargetSpawn = spawnCubes.getLastLeftHandTarget().gameObject;
             sphere.colorLeftSpawnedCube(correctLeftHandTargetSpawn, distanceTolerance);
+            */ // Feedback Code no longer used instead TO DO Logging of correct values + values taken from participant
+            sphere.activatePointer(true);
+            sphere.activatePointer(false);
             activateChoiceUI(sphereCoordinates[sphereCoordinatesIndex++]);
             choiceDialogeMade = true;
         }
         if(menu.choiceWasMade())
         {
             timer += Time.deltaTime;
+            sphere.deactivatePointer(false);
+            sphere.deactivatePointer(true);
         }
         if(timer > 3.5f)
         {

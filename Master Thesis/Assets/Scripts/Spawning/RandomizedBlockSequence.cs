@@ -20,9 +20,9 @@ public class RandomizedBlockSequence : BlockSequence
     private List<SphereCoordinates> sequenceOfSpawns;
     private int actIndexInList;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         sequenceOfSpawns = new List<SphereCoordinates>();
         for (int i = 0; i < countSphereCoordinatesOneIteration; ++i)
         {

@@ -28,7 +28,7 @@ public abstract class BlockSequence : MonoBehaviour
         return sum / (float) pointScoreAllIterations.Count;
     }
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         pointScoreAllIterations = new List<int>();
     }

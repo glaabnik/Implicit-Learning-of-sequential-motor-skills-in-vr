@@ -9,6 +9,8 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public Button button0B, button45B, button90B, button135B, button180B, button225B, button270B, button315B;
     public Text scoreRightAnwsers;
     public Canvas canvas;
+    public SphereToSpawnGreyCube sphere;
+    public CanvasDisablerOnStart cdos;
 
     private Button buttonRActive;
     private Button buttonBActive;
@@ -20,6 +22,14 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     void Start()
     {
         canvas.enabled = false;
+    }
+
+    public void startAntizipationstest()
+    {
+        cdos.resumeGame();
+        cdos.disableCanvas();
+        sphere.deactivatePointer(false);
+        sphere.deactivatePointer(true);
     }
 
     public void button0Red()

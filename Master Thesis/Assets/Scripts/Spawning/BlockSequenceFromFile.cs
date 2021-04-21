@@ -43,9 +43,9 @@ public class BlockSequenceFromFile : BlockSequence
         return result;
     }
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         sequenceOfSpawns = new List<SphereCoordinates>();
         if (!string.IsNullOrEmpty(filenameCsv)) LoadFixedSequenceOfSpawns.loadSpawnSequence(ref sequenceOfSpawns, filenameCsv);
     }
