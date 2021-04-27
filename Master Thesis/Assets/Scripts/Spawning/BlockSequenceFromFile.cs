@@ -10,6 +10,16 @@ public class BlockSequenceFromFile : BlockSequence
     private List<SphereCoordinates> sequenceOfSpawns;
     private int actIndexInList;
 
+    public override int getCubePairCount()
+    {
+        return sequenceOfSpawns.Count;
+    }
+
+    public override int getIterationCount()
+    {
+        return iterations;
+    }
+
     public override bool hasNextSphereCoordinates()
     {
         if (actIndexInList % sequenceOfSpawns.Count == 0 && actIndexInList > 0)

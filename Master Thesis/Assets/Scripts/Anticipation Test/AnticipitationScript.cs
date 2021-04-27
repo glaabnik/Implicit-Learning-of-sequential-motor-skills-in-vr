@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SerializeData;
 
 public class AnticipitationScript : MonoBehaviour
 {
@@ -18,12 +19,27 @@ public class AnticipitationScript : MonoBehaviour
     private int sphereCoordinatesIndex = 0;
     private bool cubePairPointedSpawned = true;
     private bool choiceDialogeMade = true;
+    private bool rotationZChoosenAdded = false;
+    private bool fileWritten = false;
     float timer = 0f;
     float startTimer = 0f;
-    
+
+    public List<TransformData> transformLeft, transformRight;
+    public List<TransformData> transformPointedLeft, transformPointedRight;
+    public List<float> rotationZLeft, rotationZRight;
+    public List<float> rotationZChoosenLeft, rotationZChoosenRight;
+
     public void Start()
     {
         notificationToSpawn.enabled = false;
+        transformLeft = new List<TransformData>();
+        transformRight = new List<TransformData>();
+        transformPointedLeft = new List<TransformData>();
+        transformPointedRight = new List<TransformData>();
+        rotationZLeft = new List<float>();
+        rotationZRight = new List<float>();
+        rotationZChoosenLeft = new List<float>();
+        rotationZChoosenRight = new List<float>();
     }
 
     private void getLoadedSphereCoordinates()
@@ -50,18 +66,31 @@ public class AnticipitationScript : MonoBehaviour
         getLoadedSphereCoordinates();
         if (!cubePairSpawned && cubePairPointedSpawned && choiceDialogeMade)
         {
-            if (sphereCoordinatesIndex >= sphereCoordinates.Length) return;
-
+            if (sphereCoordinatesIndex >= sphereCoordinates.Length)
+            {
+                if(!fileWritten)
+                {
+                    fileWritten = true;
+                    SerializeData.SerializeAntizipationTestData("antizipationtest", transformLeft, transformRight, transformPointedLeft, transformPointedRight,
+                        rotationZLeft, rotationZRight, rotationZChoosenLeft, rotationZChoosenRight);
+                }
+                return;
+            }
+            rotationZLeft.Add(sphereCoordinates[sphereCoordinatesIndex].rotationZ2);
+            rotationZRight.Add(sphereCoordinates[sphereCoordinatesIndex].rotationZ);
             spawnCubes.spawnCubesForSphereCoordinates(sphereCoordinates[sphereCoordinatesIndex++]);
             cubePairSpawned = true;
             cubePairPointedSpawned = false;
             choiceDialogeMade = false;
+
+            transformLeft.Add(new TransformData(spawnCubes.getTransformLastLeftCube()));
+            transformRight.Add(new TransformData(spawnCubes.getTransformLastRightCube()));
         }
         if(cubePairSpawned && spawnCubes.bothCubesDestroyedOrHit() && !cubePairPointedSpawned)
         {
             sphere.activateSpawningAbility();
-            sphere.setZRotationRight( (int) sphereCoordinates[sphereCoordinatesIndex].rotationZ);
-            sphere.setZRotationLeft((int)sphereCoordinates[sphereCoordinatesIndex].rotationZ2);
+            /*sphere.setZRotationRight( (int) sphereCoordinates[sphereCoordinatesIndex].rotationZ);
+            sphere.setZRotationLeft((int)sphereCoordinates[sphereCoordinatesIndex].rotationZ2);*/
             cubePairPointedSpawned = true;
         }
         if(!choiceDialogeMade && sphere.bothCubesSpawned())
@@ -73,6 +102,8 @@ public class AnticipitationScript : MonoBehaviour
             GameObject correctLeftHandTargetSpawn = spawnCubes.getLastLeftHandTarget().gameObject;
             sphere.colorLeftSpawnedCube(correctLeftHandTargetSpawn, distanceTolerance);
             */ // Feedback Code no longer used instead TO DO Logging of correct values + values taken from participant
+            transformPointedLeft.Add(new TransformData(sphere.getTransformLeft()));
+            transformPointedRight.Add(new TransformData(sphere.getTransformRight()));
             sphere.activatePointer(true);
             sphere.activatePointer(false);
             activateChoiceUI(sphereCoordinates[sphereCoordinatesIndex++]);
@@ -80,18 +111,25 @@ public class AnticipitationScript : MonoBehaviour
         }
         if(menu.choiceWasMade())
         {
+            if(!rotationZChoosenAdded)
+            {
+                rotationZChoosenRight.Add(menu.getRotationChoosenRed());
+                rotationZChoosenLeft.Add(menu.getRotationChoosenBlue());
+                rotationZChoosenAdded = true;
+            }
             timer += Time.deltaTime;
             sphere.deactivatePointer(false);
             sphere.deactivatePointer(true);
         }
         if(timer > 3.5f)
         {
+            timer = 0f;
+            cubePairSpawned = false;
+            rotationZChoosenAdded = false;
             spawnCubes.deleteAllSpawnedCubes();
             menu.Reset();
             menu.toggleUI();
             sphere.reset();
-            cubePairSpawned = false;
-            timer = 0f;
         }
     }
 

@@ -18,10 +18,21 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     private float rotationZRed, rotationZBlue;
     private bool choiceMade = false;
     private int scoreRightChoices = 0;
+    private float rotationZRedChoosen, rotationZBlueChoosen;
 
     void Start()
     {
         canvas.enabled = false;
+    }
+
+    public float getRotationChoosenRed()
+    {
+        return rotationZRedChoosen;
+    }
+
+    public float getRotationChoosenBlue()
+    {
+        return rotationZBlueChoosen;
     }
 
     public void startAntizipationstest()
@@ -35,6 +46,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button0Red()
     {
         buttonRActive = button0R;
+        rotationZRedChoosen = 0;
         resetAllRedButtons();
         selectButtonR(button0R);
     }
@@ -42,6 +54,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button45Red()
     {
         buttonRActive = button45R;
+        rotationZRedChoosen = 45;
         resetAllRedButtons();
         selectButtonR(button45R);
     }
@@ -49,6 +62,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button90Red()
     {
         buttonRActive = button90R;
+        rotationZRedChoosen = 90;
         resetAllRedButtons();
         selectButtonR(button90R);
     }
@@ -56,6 +70,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button135Red()
     {
         buttonRActive = button135R;
+        rotationZRedChoosen = 135;
         resetAllRedButtons();
         selectButtonR(button135R);
     }
@@ -63,6 +78,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button180Red()
     {
         buttonRActive = button180R;
+        rotationZRedChoosen = 180;
         resetAllRedButtons();
         selectButtonR(button180R);
     }
@@ -70,6 +86,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button225Red()
     {
         buttonRActive = button225R;
+        rotationZRedChoosen = 225;
         resetAllRedButtons();
         selectButtonR(button225R);
     }
@@ -77,6 +94,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button270Red()
     {
         buttonRActive = button270R;
+        rotationZRedChoosen = 270;
         resetAllRedButtons();
         selectButtonR(button270R);
     }
@@ -84,6 +102,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button315Red()
     {
         buttonRActive = button315R;
+        rotationZRedChoosen = 315;
         resetAllRedButtons();
         selectButtonR(button315R);
     }
@@ -93,6 +112,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button0Blue()
     {
         buttonBActive = button0B;
+        rotationZBlueChoosen = 0;
         resetAllBlueButtons();
         selectButtonB(button0B);
     }
@@ -100,6 +120,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button45Blue()
     {
         buttonBActive = button45B;
+        rotationZBlueChoosen = 45;
         resetAllBlueButtons();
         selectButtonB(button45B);
     }
@@ -107,6 +128,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button90Blue()
     {
         buttonBActive = button90B;
+        rotationZBlueChoosen = 90;
         resetAllBlueButtons();
         selectButtonB(button90B);
     }
@@ -114,6 +136,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button135Blue()
     {
         buttonBActive = button135B;
+        rotationZBlueChoosen = 135;
         resetAllBlueButtons();
         selectButtonB(button135B);
     }
@@ -121,6 +144,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button180Blue()
     {
         buttonBActive = button180B;
+        rotationZBlueChoosen = 180;
         resetAllBlueButtons();
         selectButtonB(button180B);
     }
@@ -128,6 +152,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button225Blue()
     {
         buttonBActive = button225B;
+        rotationZBlueChoosen = 225;
         resetAllBlueButtons();
         selectButtonB(button225B);
     }
@@ -135,6 +160,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button270Blue()
     {
         buttonBActive = button270B;
+        rotationZBlueChoosen = 270;
         resetAllBlueButtons();
         selectButtonB(button270B);
     }
@@ -142,6 +168,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     public void button315Blue()
     {
         buttonBActive = button315B;
+        rotationZBlueChoosen = 315;
         resetAllBlueButtons();
         selectButtonB(button315B);
     }

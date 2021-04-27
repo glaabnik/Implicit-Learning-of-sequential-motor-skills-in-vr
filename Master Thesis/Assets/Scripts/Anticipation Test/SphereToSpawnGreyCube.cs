@@ -24,13 +24,22 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     private bool pointerRightUsedForSpawning = false;
     private int zRotationLeft, zRotationRight;
     private GameObject cubeNeutralLeft, cubeNeutralRight;
-    private Vector3 positionSpawningUsed;
+    private Transform transformLeft, transformRight;
 
     void Start()
     {
         notificationToSpawn.enabled = false;
     }
 
+    public Transform getTransformLeft()
+    {
+        return transformLeft;
+    }
+
+    public Transform getTransformRight()
+    {
+        return transformRight;
+    }
     public void colorRightSpawnedCube(GameObject toCompare, float distanceAllowed)
     {
         float dist = (cubeNeutralRight.transform.position - toCompare.transform.position).magnitude;
@@ -63,7 +72,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         Vector3 local = menuToSpawnTransform.localPosition;
         //menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
-        notification.text = "Focus one activated pointer at ui window and press trigger button in order to spawn the next cube";
+        notification.text = "Focus right activated pointer at ui window and press trigger button in order to spawn the right cube";
         notificationToSpawn.enabled = true;
         activatePointer(false);
         canSpawnCube = true;
@@ -148,6 +157,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
             Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
             spawnCubes.spawnGameObject(true, adjustedPosition, new Vector3(0, 0, zRotationLeft), new Vector3(0.4f, 0.4f, 0.4f), cubeBlue);
             cubeNeutralLeft = spawnCubes.getLastLeftHandTarget().gameObject;
+            transformLeft = cubeNeutralLeft.transform;
             cubeSpawnedTwo = true;
             canSpawnCube = false;
             deactivatePointer(true);
@@ -161,11 +171,12 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
             Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
             spawnCubes.spawnGameObject(false, adjustedPosition, new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeRed);
             cubeNeutralRight = spawnCubes.getLastRightHandTarget().gameObject;
+            transformRight = cubeNeutralRight.transform;
             cubeSpawnedOne = true;
             activatePointer(true);
             deactivatePointer(false);
             Debug.Log("End of first spawning");
-            notification.text = "Focus one activated pointer at ui window and press trigger button in order to spawn the next cube";
+            notification.text = "Focus one activated pointer at ui window and press trigger button in order to spawn the left cube";
         }
     }
 

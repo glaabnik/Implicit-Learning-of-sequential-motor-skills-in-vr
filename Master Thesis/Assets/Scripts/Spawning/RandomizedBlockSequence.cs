@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomizedBlockSequence : BlockSequence
 {
-    public int countSphereCoordinatesOneIteration;
+    public int countCubePairs;
     public int iterations;
     public bool randomizeElevation = false;
     public int defaultElevation = 90;
@@ -20,11 +20,21 @@ public class RandomizedBlockSequence : BlockSequence
     private List<SphereCoordinates> sequenceOfSpawns;
     private int actIndexInList;
 
+    public override int getCubePairCount()
+    {
+        return countCubePairs;
+    }
+
+    public override int getIterationCount()
+    {
+        return iterations;
+    }
+
     public override void Awake()
     {
         base.Awake();
         sequenceOfSpawns = new List<SphereCoordinates>();
-        for (int i = 0; i < countSphereCoordinatesOneIteration; ++i)
+        for (int i = 0; i < countCubePairs; ++i)
         {
             generateRandomizedSphereCoordinates();
         } 
@@ -123,7 +133,27 @@ public class RandomizedBlockSequence : BlockSequence
                 sc.rotationZ2 = rotationZT;
             }
         }
+        swapLeftAndRightCoordinates(ref sc);
         sequenceOfSpawns.Add(sc);
+    }
+
+    private void swapLeftAndRightCoordinates(ref SphereCoordinates sc)
+    {
+        float phiTemp = sc.phi;
+        float thetaTemp = sc.theta;
+        float radiusTemp = sc.radius;
+        float rotationZTemp = sc.rotationZ;
+        Vector3 scaleTemp = sc.scale;
+        sc.phi = sc.phi2;
+        sc.theta = sc.theta2;
+        sc.radius = sc.radius2;
+        sc.rotationZ = sc.rotationZ2;
+        sc.scale = sc.scale2;
+        sc.phi2 = phiTemp;
+        sc.theta2 = thetaTemp;
+        sc.radius2 = radiusTemp;
+        sc.rotationZ2 = rotationZTemp;
+        sc.scale2 = scaleTemp;
     }
 
     private float checkPhi(float phi, float phi2)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class SphereCoordinates
 {
     public float phi;
@@ -66,6 +65,8 @@ public class SpawnCubes : MonoBehaviour
     private int roundGenerated = 0;
     private bool fileWritten = false;
     private List<SpawnedInteractable> listOfSpawnedCubes;
+    private Transform transformLeftCube, transformRightCube;
+    private List<int> listCubePairCount, listIterationCount, listBestPointScore, listPointScoreAllIterations, listAvgPointScore;
     void Start()
     {
         listOfSpawnedCubes = new List<SpawnedInteractable>();
@@ -77,6 +78,21 @@ public class SpawnCubes : MonoBehaviour
         updateDifficultyParameters();
         DifficultyManager dm = DifficultyManager.Instance;
         updateSphereRadius(dm.getSphereRadius());
+        listCubePairCount = new List<int>();
+        listIterationCount = new List<int>();
+        listBestPointScore = new List<int>();
+        listPointScoreAllIterations = new List<int>();
+        listAvgPointScore = new List<int>();
+    }
+
+    public Transform getTransformLastLeftCube()
+    {
+        return transformLeftCube;
+    }
+
+    public Transform getTransformLastRightCube()
+    {
+        return transformRightCube;
     }
 
     public BlockSequence getActBlockSequence()
@@ -109,8 +125,9 @@ public class SpawnCubes : MonoBehaviour
                                                                                                                                 // were allready spawned, then write the gathered sportgamedata to file
                                                                                                                                 // from now on there will nothing happen here anymore
         {
-            serializeSportGameData();
             fileWritten = true;
+            serializeSportGameData();
+            serializeBlockGameData();
         }
 
         float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f; // if the option animated spawning is active the cubes need exactly 2 seconds to fly to their destination were they can be hit
@@ -169,6 +186,22 @@ public class SpawnCubes : MonoBehaviour
         SerializeData.SerializeSportGameData("sportGameData", leftHand.listTimeNeededToHitObject, leftHand.listPrecisionWithThatObjectWasHit, leftHand.listEarnedPoints,
               rightHand.listTimeNeededToHitObject, rightHand.listPrecisionWithThatObjectWasHit, rightHand.listEarnedPoints, objectsSpawned, leftHand.countObjectsHit, rightHand.countObjectsHit,
               leftHand.listBlockPairNumber, rightHand.listBlockPairNumber, leftHand.listDifficulty, rightHand.listDifficulty);
+    }
+
+    private void serializeBlockGameData() // write sport game data to xml file
+    {
+        foreach (BlockSequence bs in blockSequences)
+        {
+            listCubePairCount.Add(bs.getCubePairCount());
+            listIterationCount.Add(bs.getIterationCount());
+            listBestPointScore.Add(bs.maxPointScoreOneIteration);
+            listAvgPointScore.Add( (int) bs.getAvgPointScoreOneIteration());
+            foreach (int pointScore in bs.pointScoreAllIterations)
+            {
+                listPointScoreAllIterations.Add(pointScore);
+            }
+        }
+        SerializeData.SerializeBlocks("blockData", blockSequences, listCubePairCount, listIterationCount, listBestPointScore, listAvgPointScore, listPointScoreAllIterations);
     }
 
     void OnDrawGizmosSelected() // draws sphere radius of where the cubes will spawn around the player in editor mode
@@ -436,8 +469,16 @@ public class SpawnCubes : MonoBehaviour
         si.setHmd_transform(hmd_transform);
         si.lookAt();
         listOfSpawnedCubes.Add(si);
-        if (leftHand) lastLeftHandTarget = si;
-        else lastRightHandTarget = si;
+        if (leftHand)
+        {
+            lastLeftHandTarget = si;
+            transformLeftCube = gameObject.transform;
+        }
+        else
+        {
+            lastRightHandTarget = si;
+            transformRightCube = gameObject.transform;
+        }
     }
 
     public void deleteAllSpawnedCubes()

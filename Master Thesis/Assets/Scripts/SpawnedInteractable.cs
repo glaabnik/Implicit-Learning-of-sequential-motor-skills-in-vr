@@ -347,7 +347,7 @@ public class SpawnedInteractable : MonoBehaviour
         Vector3 direction = rigidBody.transform.position - positionVector;
         forceDirection = direction;
         forcePrecision = precision;
-        rigidBody.AddForceAtPosition(direction * 20.0f * precision, transform.position);
+        rigidBody.AddForceAtPosition(direction * 10.0f * precision, transform.position);
         rigidBody.useGravity = true;
     }
 

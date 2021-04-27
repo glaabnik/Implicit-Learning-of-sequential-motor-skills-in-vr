@@ -8,6 +8,9 @@ public abstract class BlockSequence : MonoBehaviour
     public abstract SphereCoordinates nextSphereCoordinates();
     public abstract SphereCoordinates[] twoRandomSphereCoordinatesPairsForWholeSequence();
 
+    public abstract int getCubePairCount();
+    public abstract int getIterationCount();
+
     public int pointScoreActIteration;
     public int maxPointScoreOneIteration;
     public List<int> pointScoreAllIterations;
