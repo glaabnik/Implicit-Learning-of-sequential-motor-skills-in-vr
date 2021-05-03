@@ -87,12 +87,12 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
 
     public void setZRotationLeft(int n)
     {
-        //zRotationLeft = n;
+        zRotationLeft = n;
     }
 
     public void setZRotationRight(int n)
     {
-        //zRotationRight = n;
+        zRotationRight = n;
     }
 
     public void activatePointer(bool leftHand)

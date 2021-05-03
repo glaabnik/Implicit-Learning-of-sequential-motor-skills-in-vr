@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SportGameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cpandl.com">
+  <time_left />
+  <time_right />
+  <precision_left />
+  <precision_right />
+  <points_earned_left />
+  <points_earned_right />
+  <round_generated_left />
+  <round_generated_right />
+  <difficultyLeft />
+  <difficultyRight />
+  <spawnedObjectCount>120</spawnedObjectCount>
+  <countObjectsHitRightHand>0</countObjectsHitRightHand>
+  <countObjectsHitLeftHand>0</countObjectsHitLeftHand>
+</SportGameData>

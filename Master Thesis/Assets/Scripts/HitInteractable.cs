@@ -79,51 +79,6 @@ public class HitInteractable : MonoBehaviour
             Vector3 avg_contact_point = getAvgContactPoint(contacts);
             positionAngleMiddleColliderEntered = contact_point;
         }
-
-        if (other.gameObject.transform.parent != null)
-        {
-            SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
-            if (si == null || !si.isHittable()) return;
-
-            if (other.gameObject.CompareTag("precisionTwo"))
-            {
-                si.setInnerAccuracy(3);
-            }
-            if (other.gameObject.CompareTag("precisionThree"))
-            {
-                si.setInnerAccuracy(5);
-            }
-            if (other.gameObject.CompareTag("precisionFour"))
-            {
-                si.setInnerAccuracy(7);
-            }
-            if (other.gameObject.CompareTag("precisionFive"))
-            {
-                si.setInnerAccuracy(10);
-            }
-
-            if (other.gameObject.CompareTag("directionFirst"))
-            {
-                si.startColliderGroupHit(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionSecond"))
-            {
-                si.middleColliderGroupHit(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionThird"))
-            {
-                if (si.uses5ColliderGroups) si.middleColliderGroupHit2(other.gameObject.name);
-                else si.endColliderGroupHit(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionFourth"))
-            {
-                si.middleColliderGroupHit3(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionFith"))
-            {
-                si.endColliderGroupHit(other.gameObject.name);
-            }
-        }
     }
 
     private void OnCollisionStay(Collision collision)
@@ -202,14 +157,57 @@ public class HitInteractable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
-        if (si == null || !si.isHittable()) return;
-
-        if (other.gameObject.CompareTag("precisionOne"))
+        if (other.gameObject.transform.parent != null)
         {
-            interactionLocked = true;
-            //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
-            positionInitialPhysicsColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+
+            SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+            if (si == null || !si.isHittable()) return;
+
+            if (other.gameObject.CompareTag("precisionOne"))
+            {
+                interactionLocked = true;
+                //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+                positionInitialPhysicsColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            }
+        
+            if (other.gameObject.CompareTag("precisionTwo"))
+            {
+                si.setInnerAccuracy(3);
+            }
+            if (other.gameObject.CompareTag("precisionThree"))
+            {
+                si.setInnerAccuracy(5);
+            }
+            if (other.gameObject.CompareTag("precisionFour"))
+            {
+                si.setInnerAccuracy(7);
+            }
+            if (other.gameObject.CompareTag("precisionFive"))
+            {
+                si.setInnerAccuracy(10);
+            }
+
+            if (other.gameObject.CompareTag("directionFirst"))
+            {
+                si.startColliderGroupHit(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionSecond"))
+            {
+                si.middleColliderGroupHit(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionThird"))
+            {
+                if (si.uses5ColliderGroups) si.middleColliderGroupHit2(other.gameObject.name);
+                else si.endColliderGroupHit(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionFourth"))
+            {
+                si.middleColliderGroupHit3(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionFith"))
+            {
+                si.endColliderGroupHit(other.gameObject.name);
+            }
         }
     }
 

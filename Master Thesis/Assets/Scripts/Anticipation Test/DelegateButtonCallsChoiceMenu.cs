@@ -7,8 +7,8 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
 {
     public Button button0R, button45R, button90R, button135R, button180R, button225R, button270R, button315R;
     public Button button0B, button45B, button90B, button135B, button180B, button225B, button270B, button315B;
-    public Text scoreRightAnwsers;
     public Canvas canvas;
+    public AnticipitationScript anticipationScript;
     public SphereToSpawnGreyCube sphere;
     public CanvasDisablerOnStart cdos;
 
@@ -23,6 +23,11 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
     void Start()
     {
         canvas.enabled = false;
+    }
+
+    public int getScoreRightChoices()
+    {
+        return scoreRightChoices;
     }
 
     public float getRotationChoosenRed()
@@ -175,6 +180,8 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
 
     public void Reset()
     {
+        buttonRActive = null;
+        buttonBActive = null;
         choiceMade = false;
         resetAllRedButtons();
         resetAllBlueButtons();
@@ -202,11 +209,6 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
         selectButtonWithColor(button225B, Color.white);
         selectButtonWithColor(button270B, Color.white);
         selectButtonWithColor(button315B, Color.white);
-    }
-
-    private void updateSocreRightAnwsers()
-    {
-        scoreRightAnwsers.text = "Score right anwsers: " + scoreRightChoices;
     }
 
     public bool choiceWasMade()
@@ -262,36 +264,40 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
 
     public void showResults()
     {
-        if (buttonRActive == button0R && rotationZRed == 0) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else if (buttonRActive == button45R && rotationZRed == 45) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else if (buttonRActive == button90R && rotationZRed == 90) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else if (buttonRActive == button135R && rotationZRed == 135) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else if (buttonRActive == button180R && rotationZRed == 180) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else if (buttonRActive == button225R && rotationZRed == 225) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else if (buttonRActive == button270R && rotationZRed == 270) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else if (buttonRActive == button315R && rotationZRed == 315) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
-        else
-        {
-            selectButtonWithColor(buttonRActive, new Color(136 / 255.0f, 0 / 255.0f, 255 / 255.0f));
-            selectCorrectButtonRGreen();
-        }
+        if (buttonRActive == null || buttonBActive == null) return;
 
-        if (buttonBActive == button0B && rotationZBlue == 0) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else if (buttonBActive == button45B && rotationZBlue == 45) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else if (buttonBActive == button90B && rotationZBlue == 90) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else if (buttonBActive == button135B && rotationZBlue == 135) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else if (buttonBActive == button180B && rotationZBlue == 180) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else if (buttonBActive == button225B && rotationZBlue == 225) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else if (buttonBActive == button270B && rotationZBlue == 270) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else if (buttonBActive == button315B && rotationZBlue == 315) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
-        else
+        if (anticipationScript.showResultsChoiceMenu)
         {
-            selectButtonWithColor(buttonBActive, new Color(136 / 255.0f, 0 / 255.0f, 255 / 255.0f));
-            selectCorrectButtonBGreen();
+            if (buttonRActive == button0R && rotationZRed == 0) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else if (buttonRActive == button45R && rotationZRed == 45) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else if (buttonRActive == button90R && rotationZRed == 90) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else if (buttonRActive == button135R && rotationZRed == 135) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else if (buttonRActive == button180R && rotationZRed == 180) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else if (buttonRActive == button225R && rotationZRed == 225) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else if (buttonRActive == button270R && rotationZRed == 270) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else if (buttonRActive == button315R && rotationZRed == 315) selectButtonWithColorAndScoreOnePoint(buttonRActive, Color.green);
+            else
+            {
+                selectButtonWithColor(buttonRActive, new Color(136 / 255.0f, 0 / 255.0f, 255 / 255.0f));
+                selectCorrectButtonRGreen();
+            }
+
+            if (buttonBActive == button0B && rotationZBlue == 0) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else if (buttonBActive == button45B && rotationZBlue == 45) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else if (buttonBActive == button90B && rotationZBlue == 90) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else if (buttonBActive == button135B && rotationZBlue == 135) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else if (buttonBActive == button180B && rotationZBlue == 180) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else if (buttonBActive == button225B && rotationZBlue == 225) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else if (buttonBActive == button270B && rotationZBlue == 270) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else if (buttonBActive == button315B && rotationZBlue == 315) selectButtonWithColorAndScoreOnePoint(buttonBActive, Color.green);
+            else
+            {
+                selectButtonWithColor(buttonBActive, new Color(136 / 255.0f, 0 / 255.0f, 255 / 255.0f));
+                selectCorrectButtonBGreen();
+            }
         }
 
         choiceMade = true;
-        updateSocreRightAnwsers();
     }
 
     private void selectCorrectButtonRGreen()

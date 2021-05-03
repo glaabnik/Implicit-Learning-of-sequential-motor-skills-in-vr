@@ -33,6 +33,8 @@ public class SerializeData : MonoBehaviour
         IsNullable = true)]
     public class AntizipationTestData
     {
+        public List<Vector3> positionCubeHitLeft;
+        public List<Vector3> positionCubeHitRight;
         public List<Vector3> positionCubeOriginalLeft;
         public List<Vector3> positionCubeOriginalRight;
         public List<Vector3> positionCubePointedLeft;
@@ -42,11 +44,14 @@ public class SerializeData : MonoBehaviour
         public List<Vector3> rotationCubeOriginalRight;
         public List<Vector3> rotationCubePointedLeft;
         public List<Vector3> rotationCubePointedRight;
+        public List<Vector3> rotationCubeHitLeft;
+        public List<Vector3> rotationCubeHitRight;
 
         public List<float> rotationZOriginalLeft;
         public List<float> rotationZOriginalRight;
         public List<float> rotationZChoosenLeft;
         public List<float> rotationZChoosenRight;
+        public int scoreRightChoices;
     }
 
     [Serializable]
@@ -57,6 +62,11 @@ public class SerializeData : MonoBehaviour
 
         // Unity requires a default constructor for serialization
         public TransformData() { }
+
+        public TransformData(Vector3 position)
+        {
+            Position = position;
+        }
 
         public TransformData(Transform transform)
         {
@@ -118,7 +128,8 @@ public class SerializeData : MonoBehaviour
     }
 
     public static void SerializeAntizipationTestData(string filename, List<TransformData> originalLeft, List<TransformData> originalRight, List<TransformData> pointedLeft, List<TransformData> pointedRight,
-       List<float> rotationZOriginalLeft, List<float> rotationZOriginalRight, List<float> rotationZChoosenLeft, List<float> rotationZChoosenRight)
+        List<TransformData> hitLeft, List<TransformData> hitRight,
+       List<float> rotationZOriginalLeft, List<float> rotationZOriginalRight, List<float> rotationZChoosenLeft, List<float> rotationZChoosenRight, int scoreRightChoices)
     {
         int index = 1;
         string filenameComplete = filename + index.ToString();
@@ -137,17 +148,22 @@ public class SerializeData : MonoBehaviour
         atd.positionCubeOriginalRight = originalRight.ConvertAll(new Converter<TransformData, Vector3>(transformToPosition));
         atd.positionCubePointedLeft = pointedLeft.ConvertAll(new Converter<TransformData, Vector3>(transformToPosition));
         atd.positionCubePointedRight = pointedRight.ConvertAll(new Converter<TransformData, Vector3>(transformToPosition));
+        atd.positionCubeHitLeft = hitLeft.ConvertAll(new Converter<TransformData, Vector3>(transformToPosition));
+        atd.positionCubeHitRight = hitRight.ConvertAll(new Converter<TransformData, Vector3>(transformToPosition));
 
         atd.rotationCubeOriginalLeft = originalLeft.ConvertAll(new Converter<TransformData, Vector3>(transformToRotation));
         atd.rotationCubeOriginalRight = originalRight.ConvertAll(new Converter<TransformData, Vector3>(transformToRotation));
         atd.rotationCubePointedLeft = pointedLeft.ConvertAll(new Converter<TransformData, Vector3>(transformToRotation));
         atd.rotationCubePointedRight = pointedRight.ConvertAll(new Converter<TransformData, Vector3>(transformToRotation));
-
+        atd.rotationCubeHitLeft = hitLeft.ConvertAll(new Converter<TransformData, Vector3>(transformToRotation));
+        atd.rotationCubeHitRight = hitRight.ConvertAll(new Converter<TransformData, Vector3>(transformToRotation));
 
         atd.rotationZOriginalLeft = rotationZOriginalLeft;
         atd.rotationZOriginalRight = rotationZOriginalRight;
         atd.rotationZChoosenLeft = rotationZChoosenLeft;
         atd.rotationZChoosenRight = rotationZChoosenRight;
+
+        atd.scoreRightChoices = scoreRightChoices;
 
         ser.Serialize(writer, atd);
         writer.Close();
