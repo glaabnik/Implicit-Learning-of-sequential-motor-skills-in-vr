@@ -59,10 +59,56 @@ public class HitInteractable : MonoBehaviour
         if (other.gameObject.CompareTag("precisionOne"))
         {
             /*Vector3 contact_point = collision.GetContact(0).point;
-            positionInitialPhysicsColliderEntered = contact_point;
+            //positionInitialPhysicsColliderEntered = contact_point;
             //relevantPositionToAddForce = gameObject.transform.position;
-            relevantPositionToAddForce = positionInitialPhysicsColliderEntered;*/
+            relevantPositionToAddForce = contact_point;*/
         }
+        if (other.gameObject.transform.parent != null)
+        {
+            SpawnedInteractable si = other.gameObject.transform.parent.GetComponent<SpawnedInteractable>();
+
+            if (si == null || !si.isHittable()) return;
+
+            if (other.gameObject.CompareTag("precisionTwo"))
+            {
+                si.setInnerAccuracy(7);
+            }
+            if (other.gameObject.CompareTag("precisionThree"))
+            {
+                si.setInnerAccuracy(8);
+            }
+            if (other.gameObject.CompareTag("precisionFour"))
+            {
+                si.setInnerAccuracy(9);
+            }
+            if (other.gameObject.CompareTag("precisionFive"))
+            {
+                si.setInnerAccuracy(10);
+            }
+
+            if (other.gameObject.CompareTag("directionFirst"))
+            {
+                si.startColliderGroupHit(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionSecond"))
+            {
+                si.middleColliderGroupHit(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionThird"))
+            {
+                if (si.uses5ColliderGroups) si.middleColliderGroupHit2(other.gameObject.name);
+                else si.endColliderGroupHit(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionFourth"))
+            {
+                si.middleColliderGroupHit3(other.gameObject.name);
+            }
+            if (other.gameObject.CompareTag("directionFith"))
+            {
+                si.endColliderGroupHit(other.gameObject.name);
+            }
+        }
+
         if (other.gameObject.CompareTag("angleCollider"))
         {
             Vector3 contact_point = collision.GetContact(0).point;
@@ -149,10 +195,33 @@ public class HitInteractable : MonoBehaviour
         return (alpha_2D * Mathf.Rad2Deg) <= 45;
     }
 
+    private bool vectorHitDirectionDeviatesIdealVector(SpawnedInteractable si, Vector3 idealVectorlocal, Vector3 positionEntered, Vector3 positionLeft)
+    {
+        Vector3 calc_Vector_local = si.gameObject.transform.InverseTransformPoint(positionLeft) -
+                                    si.gameObject.transform.InverseTransformPoint(positionEntered);
+
+        Vector2 idealVectorlocal2D = new Vector2(idealVectorlocal.x, idealVectorlocal.y);
+        Vector2 calc_Vector_local2D = new Vector2(calc_Vector_local.x, calc_Vector_local.y);
+
+        float dot_product_2D = idealVectorlocal2D.x * calc_Vector_local2D.x + idealVectorlocal2D.y * calc_Vector_local2D.y;
+        float alpha_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
+
+        Debug.Log("Angle calculated: " + alpha_2D * Mathf.Rad2Deg);
+        angle = alpha_2D * Mathf.Rad2Deg;
+
+        return (alpha_2D * Mathf.Rad2Deg) >= 60;
+    }
+
     private bool vectorHitDirectionEqualsIdealVector(SpawnedInteractable si)
     {
         return vectorHitDirectionEqualsIdealVector(si, si.getIdealVectorLocal(), positionAngleMiddleColliderEntered, positionAngleMiddleColliderLeft) ||
                vectorHitDirectionEqualsIdealVector(si, si.getFrontIdealVectorLocal(), positionAngleFrontColliderEntered, positionAngleFrontColliderLeft);
+    }
+
+    private bool vectorHitDirectionDeviatesTooStrong(SpawnedInteractable si)
+    {
+        return vectorHitDirectionDeviatesIdealVector(si, si.getIdealVectorLocal(), positionAngleMiddleColliderEntered, positionAngleMiddleColliderLeft) ||
+               vectorHitDirectionDeviatesIdealVector(si, si.getFrontIdealVectorLocal(), positionAngleFrontColliderEntered, positionAngleFrontColliderLeft);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -166,47 +235,9 @@ public class HitInteractable : MonoBehaviour
             if (other.gameObject.CompareTag("precisionOne"))
             {
                 interactionLocked = true;
-                //relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
-                positionInitialPhysicsColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
-            }
-        
-            if (other.gameObject.CompareTag("precisionTwo"))
-            {
-                si.setInnerAccuracy(3);
-            }
-            if (other.gameObject.CompareTag("precisionThree"))
-            {
                 si.setInnerAccuracy(5);
-            }
-            if (other.gameObject.CompareTag("precisionFour"))
-            {
-                si.setInnerAccuracy(7);
-            }
-            if (other.gameObject.CompareTag("precisionFive"))
-            {
-                si.setInnerAccuracy(10);
-            }
-
-            if (other.gameObject.CompareTag("directionFirst"))
-            {
-                si.startColliderGroupHit(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionSecond"))
-            {
-                si.middleColliderGroupHit(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionThird"))
-            {
-                if (si.uses5ColliderGroups) si.middleColliderGroupHit2(other.gameObject.name);
-                else si.endColliderGroupHit(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionFourth"))
-            {
-                si.middleColliderGroupHit3(other.gameObject.name);
-            }
-            if (other.gameObject.CompareTag("directionFith"))
-            {
-                si.endColliderGroupHit(other.gameObject.name);
+                relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+                positionInitialPhysicsColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
             }
         }
     }
@@ -233,7 +264,7 @@ public class HitInteractable : MonoBehaviour
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
-            if (si.wasHitInRightDirection() || (vectorHitDirectionEqualsIdealVector(si) /*&& hitWasThroughWholeCube(positionInitialPhysicsColliderLeft, si)*/) )
+            if ( (si.wasHitInRightDirection() && !vectorHitDirectionDeviatesTooStrong(si)) || (vectorHitDirectionEqualsIdealVector(si) /*&& hitWasThroughWholeCube(positionInitialPhysicsColliderLeft, si)*/) )
             {
                 precision = si.getAvgAccuracy();
                 precisionPercent = si.getAvgAccuracyPercent();

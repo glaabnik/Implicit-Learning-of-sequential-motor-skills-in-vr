@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SerializeData;
 
 public class SphereCoordinates
 {
@@ -65,7 +66,7 @@ public class SpawnCubes : MonoBehaviour
     private int roundGenerated = 0;
     private bool fileWritten = false;
     private List<SpawnedInteractable> listOfSpawnedCubes;
-    private Transform transformLeftCube, transformRightCube;
+    private TransformData transformLeftCube, transformRightCube;
     private List<int> listCubePairCount, listIterationCount, listBestPointScore, listPointScoreAllIterations, listAvgPointScore;
     void Start()
     {
@@ -85,12 +86,12 @@ public class SpawnCubes : MonoBehaviour
         listAvgPointScore = new List<int>();
     }
 
-    public Transform getTransformLastLeftCube()
+    public TransformData getTransformDataLastLeftCube()
     {
         return transformLeftCube;
     }
 
-    public Transform getTransformLastRightCube()
+    public TransformData getTransformDataLastRightCube()
     {
         return transformRightCube;
     }
@@ -472,12 +473,12 @@ public class SpawnCubes : MonoBehaviour
         if (leftHand)
         {
             lastLeftHandTarget = si;
-            transformLeftCube = gameObject.transform;
+            transformLeftCube = new TransformData(gameObject.transform);
         }
         else
         {
             lastRightHandTarget = si;
-            transformRightCube = gameObject.transform;
+            transformRightCube = new TransformData(gameObject.transform);
         }
     }
 

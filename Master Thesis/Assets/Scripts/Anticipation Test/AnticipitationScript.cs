@@ -25,8 +25,10 @@ public class AnticipitationScript : MonoBehaviour
     private bool choiceDialogeMade = true;
     private bool rotationZChoosenAdded = false;
     private bool fileWritten = false;
+    private bool menuTimerStarted = false;
     float timer = 0f;
     float startTimer = 0f;
+    float menuTimer = 0f;
 
     public List<TransformData> transformHitLeft, transformHitRight;
     public List<TransformData> transformLeft, transformRight;
@@ -42,10 +44,13 @@ public class AnticipitationScript : MonoBehaviour
         transformRight = new List<TransformData>();
         transformPointedLeft = new List<TransformData>();
         transformPointedRight = new List<TransformData>();
+        transformHitLeft = new List<TransformData>();
+        transformHitRight = new List<TransformData>();
         rotationZLeft = new List<float>();
         rotationZRight = new List<float>();
         rotationZChoosenLeft = new List<float>();
         rotationZChoosenRight = new List<float>();
+        getLoadedSphereCoordinates();
     }
 
     private void getLoadedSphereCoordinates()
@@ -69,7 +74,6 @@ public class AnticipitationScript : MonoBehaviour
             return;
         }
        
-        getLoadedSphereCoordinates();
         if (!cubePairSpawned && cubePairPointedSpawned && choiceDialogeMade)
         {
             if (sphereCoordinatesIndex >= sphereCoordinates.Length)
@@ -83,8 +87,8 @@ public class AnticipitationScript : MonoBehaviour
                 return;
             }
             spawnCubes.spawnCubesForSphereCoordinates(sphereCoordinates[sphereCoordinatesIndex++]);
-            transformHitLeft.Add(new TransformData(spawnCubes.getTransformLastLeftCube()));
-            transformHitRight.Add(new TransformData(spawnCubes.getTransformLastRightCube()));
+            transformHitLeft.Add(spawnCubes.getTransformDataLastLeftCube());
+            transformHitRight.Add(spawnCubes.getTransformDataLastRightCube());
             rotationZLeft.Add(sphereCoordinates[sphereCoordinatesIndex].rotationZ2);
             rotationZRight.Add(sphereCoordinates[sphereCoordinatesIndex].rotationZ);
             cubePairSpawned = true;
@@ -108,8 +112,8 @@ public class AnticipitationScript : MonoBehaviour
                 spawnCubes.spawnGameObject(true, sphereCoordinates[sphereCoordinatesIndex], cubeBlueNeutral);
                 GameObject correctLeftHandTargetSpawn = spawnCubes.getLastLeftHandTarget().gameObject;
                 sphere.colorLeftSpawnedCube(correctLeftHandTargetSpawn, distanceTolerance);
-                transformLeft.Add(new TransformData(spawnCubes.getTransformLastLeftCube()));
-                transformRight.Add(new TransformData(spawnCubes.getTransformLastRightCube()));
+                transformLeft.Add(spawnCubes.getTransformDataLastLeftCube());
+                transformRight.Add(spawnCubes.getTransformDataLastRightCube());
             }
             else
             {
@@ -121,12 +125,21 @@ public class AnticipitationScript : MonoBehaviour
             transformPointedRight.Add(new TransformData(sphere.getTransformRight()));
             sphere.activatePointer(true);
             sphere.activatePointer(false);
-            activateChoiceUI(sphereCoordinates[sphereCoordinatesIndex++]);
+            menuTimerStarted = true;
             choiceDialogeMade = true;
+        }
+        if(menuTimerStarted)
+        {
+            menuTimer += Time.deltaTime;
+            if(menuTimer > 1.2)
+            {
+                menuTimerStarted = false;
+                activateChoiceUI(sphereCoordinates[sphereCoordinatesIndex++]);
+            }
         }
         if(choiceMenu.choiceWasMade())
         {
-            if(!rotationZChoosenAdded)
+            if (!rotationZChoosenAdded)
             {
                 rotationZChoosenRight.Add(choiceMenu.getRotationChoosenRed());
                 rotationZChoosenLeft.Add(choiceMenu.getRotationChoosenBlue());

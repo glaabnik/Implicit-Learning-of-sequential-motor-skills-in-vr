@@ -244,6 +244,7 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
 
     private void selectButtonWithColor(Button b, Color c)
     {
+        if (b == null) return;
         var colors = b.colors;
         colors.normalColor = c;
         colors.highlightedColor = c;
@@ -252,8 +253,13 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
 
     private void selectButtonWithColorAndScoreOnePoint(Button b, Color c)
     {
-        scoreRightChoices += 1;
+        scoreOnePoint();
         selectButtonWithColor(b, c);
+    }
+
+    private void scoreOnePoint()
+    {
+        scoreRightChoices += 1;
     }
 
     // Update is called once per frame
@@ -296,8 +302,29 @@ public class DelegateButtonCallsChoiceMenu : MonoBehaviour
                 selectCorrectButtonBGreen();
             }
         }
+        else
+        {
+            if (buttonRActive == button0R && rotationZRed == 0) scoreOnePoint();
+            else if (buttonRActive == button45R && rotationZRed == 45) scoreOnePoint();
+            else if (buttonRActive == button90R && rotationZRed == 90) scoreOnePoint();
+            else if (buttonRActive == button135R && rotationZRed == 135) scoreOnePoint();
+            else if (buttonRActive == button180R && rotationZRed == 180) scoreOnePoint();
+            else if (buttonRActive == button225R && rotationZRed == 225) scoreOnePoint();
+            else if (buttonRActive == button270R && rotationZRed == 270) scoreOnePoint();
+            else if (buttonRActive == button315R && rotationZRed == 315) scoreOnePoint();
+
+            if (buttonBActive == button0B && rotationZBlue == 0) scoreOnePoint();
+            else if (buttonBActive == button45B && rotationZBlue == 45) scoreOnePoint();
+            else if (buttonBActive == button90B && rotationZBlue == 90) scoreOnePoint();
+            else if (buttonBActive == button135B && rotationZBlue == 135) scoreOnePoint();
+            else if (buttonBActive == button180B && rotationZBlue == 180) scoreOnePoint();
+            else if (buttonBActive == button225B && rotationZBlue == 225) scoreOnePoint();
+            else if (buttonBActive == button270B && rotationZBlue == 270) scoreOnePoint();
+            else if (buttonBActive == button315B && rotationZBlue == 315) scoreOnePoint();
+        }
 
         choiceMade = true;
+       
     }
 
     private void selectCorrectButtonRGreen()

@@ -114,6 +114,7 @@ public class SpawnedInteractable : MonoBehaviour
         actAccuracyMiddle2 = 0;
         actAccuracyMiddle3 = 0;
         actAccuracyEnd = 0;
+        innerAccuracy = 0;
     }
 
     public void setInnerAccuracy(int acc)
