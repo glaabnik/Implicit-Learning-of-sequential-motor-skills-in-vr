@@ -26,6 +26,8 @@ public class AnticipitationScript : MonoBehaviour
     private bool rotationZChoosenAdded = false;
     private bool fileWritten = false;
     private bool menuTimerStarted = false;
+    private bool sphereMoved = false;
+    private float timeToWaitAfterChoice;
     float timer = 0f;
     float startTimer = 0f;
     float menuTimer = 0f;
@@ -51,6 +53,9 @@ public class AnticipitationScript : MonoBehaviour
         rotationZChoosenLeft = new List<float>();
         rotationZChoosenRight = new List<float>();
         getLoadedSphereCoordinates();
+        sphere.Initialise();
+        if (showResultsChoiceMenu) timeToWaitAfterChoice = 3.5f;
+        else timeToWaitAfterChoice = 0.2f;
     }
 
     private void getLoadedSphereCoordinates()
@@ -97,10 +102,17 @@ public class AnticipitationScript : MonoBehaviour
         }
         if(cubePairSpawned && spawnCubes.bothCubesDestroyedOrHit() && !cubePairPointedSpawned)
         {
+            sphere.moveMeshColliderUp();
+            if (sphere.getPosition().y >= 0) sphereMoved = true;
+        
+        }
+        if(sphereMoved)
+        {
+            cubePairPointedSpawned = true;
             sphere.activateSpawningAbility();
             /*sphere.setZRotationRight( (int) sphereCoordinates[sphereCoordinatesIndex].rotationZ);
             sphere.setZRotationLeft((int)sphereCoordinates[sphereCoordinatesIndex].rotationZ2);*/
-            cubePairPointedSpawned = true;
+            sphereMoved = false;
         }
         if(!choiceDialogeMade && sphere.bothCubesSpawned())
         {
@@ -125,6 +137,7 @@ public class AnticipitationScript : MonoBehaviour
             transformPointedRight.Add(new TransformData(sphere.getTransformRight()));
             sphere.activatePointer(true);
             sphere.activatePointer(false);
+            sphere.moveMeshColliderDown();
             menuTimerStarted = true;
             choiceDialogeMade = true;
         }
@@ -149,7 +162,7 @@ public class AnticipitationScript : MonoBehaviour
             sphere.deactivatePointer(false);
             sphere.deactivatePointer(true);
         }
-        if(timer > 3.5f)
+        if(timer > timeToWaitAfterChoice)
         {
             timer = 0f;
             cubePairSpawned = false;

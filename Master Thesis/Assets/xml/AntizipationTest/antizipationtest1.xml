@@ -2,508 +2,478 @@
 <AntizipationTestData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cpandl.com">
   <positionCubeHitLeft>
     <Vector3>
-      <x>1.83092022</x>
-      <y>1.412118</y>
-      <z>0.2213816</z>
+      <x>0.5367012</x>
+      <y>1.86161792</y>
+      <z>0.9493742</z>
     </Vector3>
     <Vector3>
-      <x>1.4313643</x>
-      <y>1.38257766</y>
-      <z>0.5713885</z>
+      <x>0.7403807</x>
+      <y>1.48695314</y>
+      <z>-0.3919347</z>
     </Vector3>
     <Vector3>
-      <x>1.09219122</x>
-      <y>1.98446071</y>
-      <z>1.06809533</z>
+      <x>0.6977576</x>
+      <y>0.7682573</y>
+      <z>0.562729061</z>
     </Vector3>
     <Vector3>
-      <x>1.40415525</x>
-      <y>1.57811534</y>
-      <z>-0.328862965</z>
+      <x>0.7345836</x>
+      <y>1.48349226</y>
+      <z>-0.3548174</z>
     </Vector3>
     <Vector3>
-      <x>1.16956627</x>
-      <y>1.58839738</y>
-      <z>0.808833</z>
+      <x>0.801809132</x>
+      <y>1.26957846</y>
+      <z>-0.114038356</z>
     </Vector3>
     <Vector3>
-      <x>1.118845</x>
-      <y>1.97137427</y>
-      <z>1.06584811</z>
+      <x>0.454497516</x>
+      <y>1.87084961</y>
+      <z>0.967441738</z>
     </Vector3>
     <Vector3>
-      <x>1.33582246</x>
-      <y>0.869610131</y>
-      <z>0.8322133</z>
+      <x>0.7250641</x>
+      <y>1.26492465</y>
+      <z>0.464622378</z>
     </Vector3>
     <Vector3>
-      <x>1.4454813</x>
-      <y>1.57327473</y>
-      <z>-0.191062659</z>
+      <x>0.8115016</x>
+      <y>1.57162035</y>
+      <z>-0.0335075632</z>
     </Vector3>
     <Vector3>
-      <x>1.55496585</x>
-      <y>1.67294252</y>
-      <z>0.169249162</z>
+      <x>0.5691809</x>
+      <y>1.47790742</y>
+      <z>0.820112</z>
     </Vector3>
   </positionCubeHitLeft>
   <positionCubeHitRight>
     <Vector3>
-      <x>1.77840292</x>
-      <y>2.11211944</y>
-      <z>0.01706449</z>
+      <x>0.7812831</x>
+      <y>1.06161845</y>
+      <z>0.544711</z>
     </Vector3>
     <Vector3>
-      <x>1.47915339</x>
-      <y>1.982577</y>
-      <z>0.231024012</z>
+      <x>0.456473321</x>
+      <y>1.48695266</y>
+      <z>-0.849316657</z>
     </Vector3>
     <Vector3>
-      <x>1.364013</x>
-      <y>1.334462</y>
-      <z>0.6063598</z>
+      <x>0.7905114</x>
+      <y>0.768253148</y>
+      <z>-0.132698253</z>
     </Vector3>
     <Vector3>
-      <x>1.14249623</x>
-      <y>1.57811534</y>
-      <z>-0.7713726</z>
+      <x>0.4729246</x>
+      <y>1.48349226</y>
+      <z>-0.797327042</z>
     </Vector3>
     <Vector3>
-      <x>1.35914028</x>
-      <y>2.08839869</y>
-      <z>0.4028959</z>
+      <x>0.7492918</x>
+      <y>1.96957994</y>
+      <z>-0.318355471</z>
     </Vector3>
     <Vector3>
-      <x>1.3634268</x>
-      <y>1.1713748</y>
-      <z>0.6611848</z>
+      <x>0.7263193</x>
+      <y>1.220851</y>
+      <z>0.5057062</z>
     </Vector3>
     <Vector3>
-      <x>1.42857623</x>
-      <y>0.869605958</y>
-      <z>0.136786</z>
+      <x>0.772853255</x>
+      <y>1.864924</y>
+      <z>0.124257885</z>
     </Vector3>
     <Vector3>
-      <x>1.16157389</x>
-      <y>1.57327425</y>
-      <z>-0.6484446</z>
+      <x>0.535752356</x>
+      <y>1.97162032</y>
+      <z>-0.748619258</z>
     </Vector3>
     <Vector3>
-      <x>1.27921653</x>
-      <y>2.0729425</y>
-      <z>-0.545862556</z>
+      <x>0.7587549</x>
+      <y>1.97790861</y>
+      <z>0.4141749</z>
     </Vector3>
   </positionCubeHitRight>
   <positionCubeOriginalLeft>
     <Vector3>
-      <x>1.428992</x>
-      <y>1.64126945</y>
-      <z>-0.171087533</z>
+      <x>0.753947</x>
+      <y>1.27113557</y>
+      <z>0.4075835</z>
     </Vector3>
     <Vector3>
-      <x>1.38176572</x>
-      <y>1.63991952</y>
-      <z>-0.197489634</z>
+      <x>0.688715756</x>
+      <y>0.77620393</y>
+      <z>0.5560618</z>
     </Vector3>
     <Vector3>
-      <x>1.2661202</x>
-      <y>1.64892852</y>
-      <z>0.7646206</z>
+      <x>0.802462935</x>
+      <y>1.56918824</y>
+      <z>-0.00567767955</z>
     </Vector3>
     <Vector3>
-      <x>1.12287807</x>
-      <y>1.7713815</y>
-      <z>0.9229107</z>
+      <x>0.48943</x>
+      <y>1.87561762</y>
+      <z>0.922394037</z>
     </Vector3>
     <Vector3>
-      <x>1.4619261</x>
-      <y>1.58046579</y>
-      <z>0.0292477943</z>
+      <x>0.7225023</x>
+      <y>1.47180128</y>
+      <z>-0.310130179</z>
     </Vector3>
     <Vector3>
-      <x>1.37058592</x>
-      <y>1.583084</y>
-      <z>0.6321506</z>
+      <x>0.5609558</x>
+      <y>1.46845162</y>
+      <z>0.84475857</z>
     </Vector3>
     <Vector3>
-      <x>1.61548281</x>
-      <y>1.66739082</y>
-      <z>0.192708358</z>
+      <x>0.7507488</x>
+      <y>1.46816528</y>
+      <z>-0.3282581</z>
     </Vector3>
     <Vector3>
-      <x>1.40859616</x>
-      <y>1.39824653</y>
-      <z>0.718614042</z>
+      <x>0.452356935</x>
+      <y>1.87796032</y>
+      <z>0.8853326</z>
     </Vector3>
     <Vector3>
-      <x>1.1596</x>
-      <y>1.76267993</y>
-      <z>1.07655919</z>
+      <x>0.7617554</x>
+      <y>1.27857471</y>
+      <z>-0.1525998</z>
     </Vector3>
   </positionCubeOriginalLeft>
   <positionCubeOriginalRight>
     <Vector3>
-      <x>1.14508462</x>
-      <y>1.64126933</y>
-      <z>-0.628469467</z>
+      <x>0.8017361</x>
+      <y>1.87113488</y>
+      <z>0.067219004</z>
     </Vector3>
     <Vector3>
-      <x>1.1201067</x>
-      <y>1.63991952</y>
-      <z>-0.63999933</z>
+      <x>0.7814696</x>
+      <y>0.776199758</y>
+      <z>-0.1393655</z>
     </Vector3>
     <Vector3>
-      <x>1.45569432</x>
-      <y>1.79954672</y>
-      <z>0.3586835</z>
+      <x>0.526713669</x>
+      <y>1.96918821</y>
+      <z>-0.7207894</z>
     </Vector3>
     <Vector3>
-      <x>1.39469993</x>
-      <y>1.56860065</y>
-      <z>0.4611751</z>
+      <x>0.7612518</x>
+      <y>1.225619</y>
+      <z>0.460658461</z>
     </Vector3>
     <Vector3>
-      <x>1.40940869</x>
-      <y>1.79564953</y>
-      <z>-0.175069332</z>
+      <x>0.438594878</x>
+      <y>1.4718008</y>
+      <z>-0.767512143</z>
     </Vector3>
     <Vector3>
-      <x>1.418375</x>
-      <y>1.76930547</y>
-      <z>0.2917861</z>
+      <x>0.7505299</x>
+      <y>1.96845281</y>
+      <z>0.4388215</z>
     </Vector3>
     <Vector3>
-      <x>1.3397336</x>
-      <y>1.78669691</y>
-      <z>-0.522403359</z>
+      <x>0.4890898</x>
+      <y>1.46816528</y>
+      <z>-0.770767748</z>
     </Vector3>
     <Vector3>
-      <x>1.50135</x>
-      <y>1.3983252</y>
-      <z>0.0231867712</z>
+      <x>0.6969388</x>
+      <y>1.07796085</y>
+      <z>0.48066932</z>
     </Vector3>
     <Vector3>
-      <x>1.404182</x>
-      <y>1.50913632</y>
-      <z>0.6718959</z>
+      <x>0.709238052</x>
+      <y>1.97857618</y>
+      <z>-0.3569169</z>
     </Vector3>
   </positionCubeOriginalRight>
   <positionCubePointedLeft>
     <Vector3>
-      <x>1.4296068</x>
-      <y>0.6668916</y>
-      <z>0.229629934</z>
+      <x>0.27257663</x>
+      <y>-3.69155444E-08</y>
+      <z>-0.0919845849</z>
     </Vector3>
     <Vector3>
-      <x>1.17024791</x>
-      <y>0.665343642</y>
-      <z>-0.457698</z>
+      <x>0.688693762</x>
+      <y>-1.53312385E-09</y>
+      <z>0.3981519</z>
     </Vector3>
     <Vector3>
-      <x>1.42988586</x>
-      <y>0.6516506</y>
-      <z>0.103058949</z>
+      <x>0.7413686</x>
+      <y>2.100106</y>
+      <z>0.381186962</z>
     </Vector3>
     <Vector3>
-      <x>1.22280228</x>
-      <y>0.77570796</y>
-      <z>-0.570126235</z>
+      <x>0.354378879</x>
+      <y>1.734016</y>
+      <z>1.04941523</z>
     </Vector3>
     <Vector3>
-      <x>1.31517911</x>
-      <y>1.0066725</y>
-      <z>0.7755202</z>
+      <x>0.647817135</x>
+      <y>2.225535</y>
+      <z>0.6282477</z>
     </Vector3>
     <Vector3>
-      <x>0.132210478</x>
-      <y>1.23380339</y>
-      <z>1.52719593</z>
+      <x>0.678765237</x>
+      <y>2.33618522</y>
+      <z>-0.331531018</z>
     </Vector3>
     <Vector3>
-      <x>1.44221616</x>
-      <y>1.07740331</y>
-      <z>-0.335397</z>
+      <x>0.6441918</x>
+      <y>2.28939581</y>
+      <z>-0.490467072</z>
     </Vector3>
     <Vector3>
-      <x>1.24407411</x>
-      <y>0.723313034</y>
-      <z>-0.495420963</z>
+      <x>0.34439</x>
+      <y>2.26331234</y>
+      <z>0.952864945</z>
     </Vector3>
     <Vector3>
-      <x>1.00516558</x>
-      <y>0.64309895</y>
-      <z>-0.676280856</z>
+      <x>0.65709</x>
+      <y>2.74304342</y>
+      <z>0.319799155</z>
     </Vector3>
   </positionCubePointedLeft>
   <positionCubePointedRight>
     <Vector3>
-      <x>1.28840172</x>
-      <y>0.868781447</y>
-      <z>-0.347530454</z>
+      <x>0.7994273</x>
+      <y>1.56415188</y>
+      <z>-0.225189075</z>
     </Vector3>
     <Vector3>
-      <x>0.864287555</x>
-      <y>0.8517742</y>
-      <z>-0.7835618</z>
+      <x>0.6554227</x>
+      <y>2.0310607</y>
+      <z>0.6600176</z>
     </Vector3>
     <Vector3>
-      <x>1.34321308</x>
-      <y>0.855002</y>
-      <z>-0.468466967</z>
+      <x>0.80956316</x>
+      <y>1.63595045</y>
+      <z>0.116776839</z>
     </Vector3>
     <Vector3>
-      <x>0.8268622</x>
-      <y>1.28743553</y>
-      <z>-0.9984202</z>
+      <x>0.580117464</x>
+      <y>2.11761045</y>
+      <z>0.7885579</z>
     </Vector3>
     <Vector3>
-      <x>1.08637369</x>
-      <y>1.22864544</y>
-      <z>-0.829326451</z>
+      <x>0.7459464</x>
+      <y>1.67167211</y>
+      <z>0.397939533</z>
     </Vector3>
     <Vector3>
-      <x>1.38680255</x>
-      <y>1.52891219</y>
-      <z>0.654825568</z>
+      <x>0.6929052</x>
+      <y>1.51281428</y>
+      <z>-0.3899716</z>
     </Vector3>
     <Vector3>
-      <x>0.6308905</x>
-      <y>1.34226477</y>
-      <z>-1.03661323</z>
+      <x>0.5866657</x>
+      <y>1.54143238</y>
+      <z>-0.6238202</z>
     </Vector3>
     <Vector3>
-      <x>0.106364392</x>
-      <y>0.8596026</y>
-      <z>-1.00230718</z>
+      <x>0.558929563</x>
+      <y>1.684146</y>
+      <z>0.7439316</z>
     </Vector3>
     <Vector3>
-      <x>-0.3302332</x>
-      <y>0.951160133</y>
-      <z>-0.8783462</z>
+      <x>0.759590566</x>
+      <y>2.084945</y>
+      <z>-0.09952304</z>
     </Vector3>
   </positionCubePointedRight>
   <rotationCubeOriginalLeft>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-  </rotationCubeOriginalLeft>
-  <rotationCubeOriginalRight>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>0</x>
-      <y>0</y>
-      <z>0</z>
-    </Vector3>
-  </rotationCubeOriginalRight>
-  <rotationCubePointedLeft>
-    <Vector3>
-      <x>319.542419</x>
-      <y>270.681152</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>319.457458</x>
-      <y>304.216766</y>
-      <z>2.24699875E-06</z>
-    </Vector3>
-    <Vector3>
-      <x>318.83725</x>
-      <y>266.387573</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>322.887543</x>
-      <y>302.3966</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>331.173737</x>
-      <y>243.0354</y>
-      <z>-9.74532E-07</z>
-    </Vector3>
-    <Vector3>
-      <x>340.1938</x>
-      <y>178.162735</y>
-      <z>2.83579684E-08</z>
-    </Vector3>
-    <Vector3>
-      <x>334.2994</x>
-      <y>298.66452</y>
-      <z>9.475082E-07</z>
-    </Vector3>
-    <Vector3>
-      <x>321.4303</x>
-      <y>306.911</y>
-      <z>1.091991E-06</z>
-    </Vector3>
-    <Vector3>
-      <x>318.858643</x>
-      <y>320.000732</y>
-      <z>0</z>
-    </Vector3>
-  </rotationCubePointedLeft>
-  <rotationCubePointedRight>
-    <Vector3>
-      <x>326.050873</x>
-      <y>298.789</y>
-      <z>1.02922093E-06</z>
-    </Vector3>
-    <Vector3>
-      <x>325.712952</x>
-      <y>325.873871</y>
-      <z>-1.033342E-06</z>
-    </Vector3>
-    <Vector3>
-      <x>325.586029</x>
-      <y>295.020416</y>
-      <z>-2.06981554E-06</z>
-    </Vector3>
-    <Vector3>
-      <x>342.254272</x>
-      <y>329.689423</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>339.8462</x>
-      <y>313.524841</y>
-      <z>4.54729417E-07</z>
-    </Vector3>
-    <Vector3>
-      <x>352.87384</x>
-      <y>249.833954</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>345.121216</x>
-      <y>345.425934</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>325.990051</x>
-      <y>7.06682348</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>329.295532</x>
-      <y>26.1674347</y>
-      <z>-4.964883E-07</z>
-    </Vector3>
-  </rotationCubePointedRight>
-  <rotationCubeHitLeft>
-    <Vector3>
-      <x>346.465729</x>
-      <y>279.008484</y>
-      <z>-4.3908E-07</z>
-    </Vector3>
     <Vector3>
       <x>346.465881</x>
       <y>254.151413</y>
       <z>0</z>
     </Vector3>
     <Vector3>
-      <x>13.5297461</x>
-      <y>226.909363</y>
-      <z>270</z>
+      <x>326.755</x>
+      <y>245.700043</y>
+      <z>-2.041705E-06</z>
+    </Vector3>
+    <Vector3>
+      <x>-5.464152E-06</x>
+      <y>272.7862</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>13.5297441</x>
+      <y>226.909348</y>
+      <z>4.390717E-07</z>
     </Vector3>
     <Vector3>
       <x>355.424622</x>
-      <y>288.725769</y>
-      <z>180</z>
+      <y>289.3898</y>
+      <z>-2.14125762E-07</z>
     </Vector3>
     <Vector3>
       <x>355.424561</x>
       <y>233.950287</y>
-      <z>90</z>
+      <z>0</z>
     </Vector3>
     <Vector3>
-      <x>13.5297413</x>
-      <y>227.003983</y>
-      <z>270</z>
+      <x>355.424622</x>
+      <y>288.725769</y>
+      <z>0</z>
     </Vector3>
     <Vector3>
-      <x>326.754974</x>
-      <y>245.700043</y>
+      <x>13.5297441</x>
+      <y>227.004</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>346.465729</x>
+      <y>279.008484</y>
+      <z>-4.3908E-07</z>
+    </Vector3>
+  </rotationCubeOriginalLeft>
+  <rotationCubeOriginalRight>
+    <Vector3>
+      <x>13.5298014</x>
+      <y>270</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>326.755249</x>
+      <y>279.1085</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>17.8209114</x>
+      <y>308.57547</y>
+      <z>-4.48402147E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>344.2972</x>
+      <y>251.744843</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>355.424561</x>
+      <y>314.267853</y>
+      <z>1.07062881E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>17.8208752</x>
+      <y>254.647217</y>
+      <z>-8.96804067E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>355.424622</x>
+      <y>312.466431</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>338.028168</x>
+      <y>248.929871</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>17.82089</x>
+      <y>288.725769</y>
+      <z>8.968042E-07</z>
+    </Vector3>
+  </rotationCubeOriginalRight>
+  <rotationCubePointedLeft>
+    <Vector3>
+      <x>295.064728</x>
+      <y>282.491943</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>306.4538</x>
+      <y>252.810913</y>
+      <z>-2.87381636E-06</z>
+    </Vector3>
+    <Vector3>
+      <x>23.32528</x>
+      <y>254.645966</y>
+      <z>-9.29761256E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>7.229909</x>
+      <y>218.376556</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>28.154047</x>
+      <y>244.619949</y>
+      <z>-9.683459E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>32.3713531</x>
+      <y>291.344849</y>
+      <z>1.01086664E-06</z>
+    </Vector3>
+    <Vector3>
+      <x>30.6847858</x>
+      <y>297.6201</y>
+      <z>9.927741E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>29.32819</x>
+      <y>221.235825</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>45.11605</x>
+      <y>256.179474</y>
+      <z>0</z>
+    </Vector3>
+  </rotationCubePointedLeft>
+  <rotationCubePointedRight>
+    <Vector3>
+      <x>359.31308</x>
+      <y>283.4257</y>
+      <z>-2.66823452E-08</z>
+    </Vector3>
+    <Vector3>
+      <x>20.1979656</x>
+      <y>240.595261</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>3.05173016</x>
+      <y>266.954</y>
+      <z>1.06873266E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>23.7984428</x>
+      <y>234.121674</y>
+      <z>-9.331159E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>4.60082245</x>
+      <y>255.822281</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>357.4353</x>
+      <y>293.322357</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>358.805634</x>
+      <y>304.3398</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>4.922463</x>
+      <y>233.714355</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>22.3503685</x>
+      <y>276.620056</y>
+      <z>9.23122343E-07</z>
+    </Vector3>
+  </rotationCubePointedRight>
+  <rotationCubeHitLeft>
+    <Vector3>
+      <x>13.529748</x>
+      <y>227.004</y>
       <z>270</z>
     </Vector3>
     <Vector3>
@@ -512,45 +482,45 @@
       <z>90</z>
     </Vector3>
     <Vector3>
-      <x>-5.464152E-06</x>
-      <y>272.7862</y>
-      <z>180</z>
-    </Vector3>
-  </rotationCubeHitLeft>
-  <rotationCubeHitRight>
-    <Vector3>
-      <x>17.8208866</x>
-      <y>288.725769</y>
-      <z>-3.856258E-05</z>
-    </Vector3>
-    <Vector3>
-      <x>13.5298014</x>
-      <y>270</y>
-      <z>0</z>
-    </Vector3>
-    <Vector3>
-      <x>344.2972</x>
-      <y>251.744843</y>
+      <x>326.754974</x>
+      <y>245.700043</y>
       <z>270</z>
     </Vector3>
     <Vector3>
       <x>355.424622</x>
-      <y>312.466431</y>
-      <z>90</z>
-    </Vector3>
-    <Vector3>
-      <x>17.82088</x>
-      <y>254.647217</y>
+      <y>288.725769</y>
       <z>180</z>
     </Vector3>
+    <Vector3>
+      <x>346.465729</x>
+      <y>279.008484</y>
+      <z>-4.3908E-07</z>
+    </Vector3>
+    <Vector3>
+      <x>13.5297461</x>
+      <y>226.909363</y>
+      <z>270</z>
+    </Vector3>
+    <Vector3>
+      <x>346.465881</x>
+      <y>254.151413</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
+      <x>-5.464152E-06</x>
+      <y>272.7862</y>
+      <z>180</z>
+    </Vector3>
+    <Vector3>
+      <x>355.424561</x>
+      <y>233.950287</y>
+      <z>90</z>
+    </Vector3>
+  </rotationCubeHitLeft>
+  <rotationCubeHitRight>
     <Vector3>
       <x>338.028168</x>
       <y>248.929871</y>
-      <z>180</z>
-    </Vector3>
-    <Vector3>
-      <x>326.755249</x>
-      <y>279.1085</y>
       <z>180</z>
     </Vector3>
     <Vector3>
@@ -559,54 +529,84 @@
       <z>270</z>
     </Vector3>
     <Vector3>
+      <x>326.755249</x>
+      <y>279.1085</y>
+      <z>180</z>
+    </Vector3>
+    <Vector3>
+      <x>355.424622</x>
+      <y>312.466431</y>
+      <z>90</z>
+    </Vector3>
+    <Vector3>
+      <x>17.8208866</x>
+      <y>288.725769</y>
+      <z>-3.856258E-05</z>
+    </Vector3>
+    <Vector3>
+      <x>344.2972</x>
+      <y>251.744843</y>
+      <z>270</z>
+    </Vector3>
+    <Vector3>
+      <x>13.5298014</x>
+      <y>270</y>
+      <z>0</z>
+    </Vector3>
+    <Vector3>
       <x>17.8209114</x>
       <y>308.57547</y>
       <z>90</z>
     </Vector3>
+    <Vector3>
+      <x>17.8208752</x>
+      <y>254.647217</y>
+      <z>180</z>
+    </Vector3>
   </rotationCubeHitRight>
   <rotationZOriginalLeft>
+    <float>-2.14148E-07</float>
+    <float>270</float>
+    <float>180</float>
+    <float>270</float>
+    <float>90</float>
     <float>90</float>
     <float>180</float>
-    <float>90</float>
     <float>270</float>
     <float>0</float>
-    <float>-2.14148E-07</float>
-    <float>180</float>
-    <float>270</float>
-    <float>270</float>
   </rotationZOriginalLeft>
   <rotationZOriginalRight>
-    <float>270</float>
-    <float>90</float>
-    <float>180</float>
-    <float>270</float>
-    <float>-3.757228E-05</float>
     <float>0</float>
+    <float>180</float>
+    <float>90</float>
+    <float>270</float>
+    <float>270</float>
+    <float>180</float>
     <float>90</float>
     <float>180</float>
-    <float>180</float>
+    <float>-3.757228E-05</float>
   </rotationZOriginalRight>
   <rotationZChoosenLeft>
+    <float>270</float>
+    <float>270</float>
     <float>180</float>
+    <float>270</float>
+    <float>90</float>
     <float>180</float>
-    <float>180</float>
-    <float>135</float>
-    <float>225</float>
-    <float>180</float>
-    <float>135</float>
-    <float>225</float>
-    <float>225</float>
+    <float>90</float>
+    <float>90</float>
+    <float>90</float>
   </rotationZChoosenLeft>
   <rotationZChoosenRight>
-    <float>315</float>
-    <float>315</float>
-    <float>225</float>
-    <float>315</float>
-    <float>315</float>
+    <float>90</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>90</float>
+    <float>270</float>
+    <float>90</float>
+    <float>270</float>
     <float>180</float>
-    <float>315</float>
-    <float>315</float>
-    <float>315</float>
   </rotationZChoosenRight>
-  <scoreRightChoices>0</scoreRightChoices>
+  <scoreRightChoices>5</scoreRightChoices>
 </AntizipationTestData>

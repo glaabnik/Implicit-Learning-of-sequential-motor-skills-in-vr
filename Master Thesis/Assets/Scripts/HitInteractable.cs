@@ -69,23 +69,6 @@ public class HitInteractable : MonoBehaviour
 
             if (si == null || !si.isHittable()) return;
 
-            if (other.gameObject.CompareTag("precisionTwo"))
-            {
-                si.setInnerAccuracy(7);
-            }
-            if (other.gameObject.CompareTag("precisionThree"))
-            {
-                si.setInnerAccuracy(8);
-            }
-            if (other.gameObject.CompareTag("precisionFour"))
-            {
-                si.setInnerAccuracy(9);
-            }
-            if (other.gameObject.CompareTag("precisionFive"))
-            {
-                si.setInnerAccuracy(10);
-            }
-
             if (other.gameObject.CompareTag("directionFirst"))
             {
                 si.startColliderGroupHit(other.gameObject.name);
@@ -195,6 +178,23 @@ public class HitInteractable : MonoBehaviour
         return (alpha_2D * Mathf.Rad2Deg) <= 45;
     }
 
+    private int getAngleVectorHitDirectionToIdealVector(SpawnedInteractable si, Vector3 idealVectorlocal, Vector3 positionEntered, Vector3 positionLeft)
+    {
+        Vector3 calc_Vector_local = si.gameObject.transform.InverseTransformPoint(positionLeft) -
+                                   si.gameObject.transform.InverseTransformPoint(positionEntered);
+
+        Vector2 idealVectorlocal2D = new Vector2(idealVectorlocal.x, idealVectorlocal.y);
+        Vector2 calc_Vector_local2D = new Vector2(calc_Vector_local.x, calc_Vector_local.y);
+
+        float dot_product_2D = idealVectorlocal2D.x * calc_Vector_local2D.x + idealVectorlocal2D.y * calc_Vector_local2D.y;
+        float alpha_2D = Mathf.Acos(dot_product_2D / (idealVectorlocal2D.magnitude * calc_Vector_local2D.magnitude));
+
+        Debug.Log("Angle calculated: " + alpha_2D * Mathf.Rad2Deg);
+        angle = alpha_2D * Mathf.Rad2Deg;
+
+        return (int) angle;
+    }
+
     private bool vectorHitDirectionDeviatesIdealVector(SpawnedInteractable si, Vector3 idealVectorlocal, Vector3 positionEntered, Vector3 positionLeft)
     {
         Vector3 calc_Vector_local = si.gameObject.transform.InverseTransformPoint(positionLeft) -
@@ -218,6 +218,23 @@ public class HitInteractable : MonoBehaviour
                vectorHitDirectionEqualsIdealVector(si, si.getFrontIdealVectorLocal(), positionAngleFrontColliderEntered, positionAngleFrontColliderLeft);
     }
 
+    private int getAnglePrecision(SpawnedInteractable si)
+    {
+        int angleOne = getAngleVectorHitDirectionToIdealVector(si, si.getIdealVectorLocal(), positionAngleMiddleColliderEntered, positionAngleMiddleColliderLeft);
+        int angleTwo = getAngleVectorHitDirectionToIdealVector(si, si.getFrontIdealVectorLocal(), positionAngleFrontColliderEntered, positionAngleFrontColliderLeft);
+        if (angleOne < 5 || angleTwo < 5) return 10;
+        if (angleOne < 10 || angleTwo < 10) return 9;
+        if (angleOne < 15 || angleTwo < 15) return 8;
+        if (angleOne < 20|| angleTwo < 20) return 7;
+        if (angleOne < 25 || angleTwo < 25) return 6;
+        if (angleOne < 30 || angleTwo < 30) return 5;
+        if (angleOne < 33 || angleTwo < 33) return 4;
+        if (angleOne < 36 || angleTwo < 36) return 3;
+        if (angleOne < 39 || angleTwo < 39) return 2;
+        if (angleOne < 46 || angleTwo < 46) return 1;
+        else return 0;
+    }
+
     private bool vectorHitDirectionDeviatesTooStrong(SpawnedInteractable si)
     {
         return vectorHitDirectionDeviatesIdealVector(si, si.getIdealVectorLocal(), positionAngleMiddleColliderEntered, positionAngleMiddleColliderLeft) ||
@@ -235,9 +252,26 @@ public class HitInteractable : MonoBehaviour
             if (other.gameObject.CompareTag("precisionOne"))
             {
                 interactionLocked = true;
-                si.setInnerAccuracy(5);
+                si.setInnerAccuracy(1);
                 relevantPositionToAddForce = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
                 positionInitialPhysicsColliderEntered = gameObject.GetComponent<Collider>().ClosestPoint(si.getCenter());
+            }
+
+            if (other.gameObject.CompareTag("precisionTwo"))
+            {
+                si.setInnerAccuracy(3);
+            }
+            if (other.gameObject.CompareTag("precisionThree"))
+            {
+                si.setInnerAccuracy(5);
+            }
+            if (other.gameObject.CompareTag("precisionFour"))
+            {
+                si.setInnerAccuracy(8);
+            }
+            if (other.gameObject.CompareTag("precisionFive"))
+            {
+                si.setInnerAccuracy(10);
             }
         }
     }
@@ -261,12 +295,15 @@ public class HitInteractable : MonoBehaviour
         if (!pointsRewarded && hitOnObjectWasIntended(positionInitialPhysicsColliderLeft, si))
         {
             int precision = 0;
+            int anglePrecision = 0;
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
             if ( (si.wasHitInRightDirection() && !vectorHitDirectionDeviatesTooStrong(si)) || (vectorHitDirectionEqualsIdealVector(si) /*&& hitWasThroughWholeCube(positionInitialPhysicsColliderLeft, si)*/) )
             {
                 precision = si.getAvgAccuracy();
+                anglePrecision = getAnglePrecision(si);
+                if (anglePrecision * si.getInnerAccuracy() / 10.0 > precision) precision = (int) (anglePrecision * si.getInnerAccuracy() / 10.0f);
                 precisionPercent = si.getAvgAccuracyPercent();
 
                 if (precision == 1) pointsEarned = (int)(percentRemainingTime * 10);

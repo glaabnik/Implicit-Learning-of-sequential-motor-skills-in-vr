@@ -40,6 +40,7 @@ public class SpawnCubes : MonoBehaviour
     public GameObject leftHandGameObject;
     public GameObject rightHandGameObjectDiagonal;
     public GameObject leftHandGameObjectDiagonal;
+    public BreakWindow breakWindow;
     public float sphereRadius;
     public float timeToHitGameObjects;
     public float timeToWaitBetween;
@@ -49,6 +50,8 @@ public class SpawnCubes : MonoBehaviour
     public bool turnLoadedSequenceTowardsPlayer = false;
     public bool playBackgroundMusic = true;
     public bool noAutomatedSpawning = false;
+    public bool makeBreakBetweenBlocks = true;
+    public int breakTimeInSeconds = 30;
     public BlockSequence[] blockSequences;
 
     // Debug Variables
@@ -59,6 +62,7 @@ public class SpawnCubes : MonoBehaviour
     private int blockSequenceIndex = 0;
     private float timeCounter;
     private float instantiateTimeCounter;
+    private float breakTimer = 30.0f;
     private bool instantiated;
     private SpawnedInteractable lastLeftHandTarget;
     private SpawnedInteractable lastRightHandTarget;
@@ -122,6 +126,9 @@ public class SpawnCubes : MonoBehaviour
     {
         if (noAutomatedSpawning || fileWritten || DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
 
+        
+
+
         if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length && !fileWritten) // check if there is a valid blockSequenceArrray and all elements of the block array
                                                                                                                                 // were allready spawned, then write the gathered sportgamedata to file
                                                                                                                                 // from now on there will nothing happen here anymore
@@ -130,6 +137,16 @@ public class SpawnCubes : MonoBehaviour
             serializeSportGameData();
             serializeBlockGameData();
         }
+
+        breakTimer += Time.deltaTime;
+
+        if (breakTimer <= breakTimeInSeconds)
+        {
+            breakWindow.enableWindow();
+            breakWindow.updateRemainingTime(breakTimeInSeconds - breakTimer);
+            return;
+        }
+        else breakWindow.disableWindow();
 
         float animationTimeBonus = animatedSpawning ? 2.0f : 0.0f; // if the option animated spawning is active the cubes need exactly 2 seconds to fly to their destination were they can be hit
                                                                    // so this has be taken into calculation when measuring the time a player needed or has to hit the cubes
@@ -147,7 +164,6 @@ public class SpawnCubes : MonoBehaviour
         if(instantiateTimeCounter >= timeToWaitBetween && !instantiated) // check if instantiation time has passed and the current cube pair was not already instantiated
         {
             spawnCubesForBothHandsInSightOfCameraDirection(); // spawns one cube pair
-            instantiated = true;
         }
 
         if(timeCounter >= timeToHitGameObjects + animationTimeBonus) // Clean up remaining not hit cubes, if the time to hit the cubes passed, then reinitialise relevant variables
@@ -222,14 +238,21 @@ public class SpawnCubes : MonoBehaviour
         if (blockSequences == null || blockSequences.Length == 0) // no list of spawn points => randomized spawning of cubes
         {
             spawnRandomCubesForBothHands();
+            instantiated = true;
         }
         else                                                       // spawning of elements in the current blockelement from blockarray ( => blockArray[blockCurrentIndex].getNextSphereCoordinates())
         {
             if (blockSequenceIndex >= blockSequences.Length) return;
-            if (!blockSequences[blockSequenceIndex].hasNextSphereCoordinates()) ++blockSequenceIndex;
+            if (!blockSequences[blockSequenceIndex].hasNextSphereCoordinates())
+            {
+                breakTimer = 0f;
+                ++blockSequenceIndex;
+                return;
+            }
             if (blockSequenceIndex >= blockSequences.Length) return;
             SphereCoordinates sc = blockSequences[blockSequenceIndex].nextSphereCoordinates();
             spawnCubesForSphereCoordinates(sc);
+            instantiated = true;
         }
     }
 
@@ -429,7 +452,7 @@ public class SpawnCubes : MonoBehaviour
         }
         else
         {
-            degPhi = sc.phi;
+            degPhi = sc.phi + phiOffset;
             degTheta = sc.theta;
             radius = sc.radius;
             if (useScaleFromSphereCoordinates)

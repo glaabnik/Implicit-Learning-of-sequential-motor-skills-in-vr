@@ -15,7 +15,9 @@ public class RandomizedBlockSequence : BlockSequence
     public int offsetRightSideRangeMax = -15;
     public float scaleSpawnedGameObjects;
     public float sphereRadius;
+    public bool diagonalArrowsAreUsed = false;
     public bool redAndBlueCubesCanBeInterchanged = false;
+    
 
     private List<SphereCoordinates> sequenceOfSpawns;
     private int actIndexInList;
@@ -178,6 +180,8 @@ public class RandomizedBlockSequence : BlockSequence
     private int getRandomRotationZ()
     {
         int z = Random.Range(0, 7);
-        return z * 45;
+        int z2 = Random.Range(0, 3);
+        if (diagonalArrowsAreUsed) return z * 45;
+        else return z2 * 90;
     }
 }

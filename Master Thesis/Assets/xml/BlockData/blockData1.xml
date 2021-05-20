@@ -7,31 +7,43 @@
     <int>9</int>
   </listCubePairCount>
   <listIterationCount>
-    <int>2</int>
-    <int>2</int>
-    <int>2</int>
-    <int>2</int>
+    <int>5</int>
+    <int>5</int>
+    <int>5</int>
+    <int>5</int>
   </listIterationCount>
   <listBestPointScoreAllIterations>
-    <int>980</int>
-    <int>1072</int>
-    <int>928</int>
-    <int>1006</int>
+    <int>1130</int>
+    <int>1109</int>
+    <int>1076</int>
+    <int>1005</int>
   </listBestPointScoreAllIterations>
   <listAvgPointScoreAllIterations>
-    <int>577</int>
-    <int>1053</int>
-    <int>854</int>
-    <int>973</int>
+    <int>987</int>
+    <int>976</int>
+    <int>920</int>
+    <int>858</int>
   </listAvgPointScoreAllIterations>
   <listPointScoreAllIterations>
-    <int>980</int>
-    <int>175</int>
-    <int>1035</int>
-    <int>1072</int>
-    <int>928</int>
-    <int>781</int>
-    <int>1006</int>
-    <int>941</int>
+    <int>866</int>
+    <int>1070</int>
+    <int>1130</int>
+    <int>867</int>
+    <int>1003</int>
+    <int>1109</int>
+    <int>925</int>
+    <int>1044</int>
+    <int>959</int>
+    <int>847</int>
+    <int>894</int>
+    <int>919</int>
+    <int>833</int>
+    <int>879</int>
+    <int>1076</int>
+    <int>864</int>
+    <int>859</int>
+    <int>775</int>
+    <int>788</int>
+    <int>1005</int>
   </listPointScoreAllIterations>
 </BlockGameData>

@@ -102,6 +102,11 @@ public class SpawnedInteractable : MonoBehaviour
         return end_point_front.transform.localPosition - start_point_front.transform.localPosition;
     }
 
+    public int getInnerAccuracy()
+    {
+        return innerAccuracy;
+    }
+
     public void resetColliderGroupsHit()
     {
         startColliderHit = false;

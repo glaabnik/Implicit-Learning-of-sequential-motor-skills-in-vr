@@ -25,10 +25,28 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     private int zRotationLeft, zRotationRight;
     private GameObject cubeNeutralLeft, cubeNeutralRight;
     private Transform transformLeft, transformRight;
+    private MeshCollider meshCollider;
 
-    void Start()
+    public void Initialise()
     {
+        meshCollider = GetComponent<MeshCollider>();
+        moveMeshColliderDown();
         notificationToSpawn.enabled = false;
+    }
+
+    public Vector3 getPosition()
+    {
+        return meshCollider.transform.localPosition;
+    }
+
+    public void moveMeshColliderUp()
+    {
+        meshCollider.transform.Translate(new Vector3(0, 3.0f * Time.deltaTime / 2.5f, 0));
+    }
+
+    public void moveMeshColliderDown()
+    {
+        meshCollider.transform.Translate(new Vector3(0, -3.0f, 0));
     }
 
     public Transform getTransformLeft()
@@ -72,7 +90,7 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         Vector3 local = menuToSpawnTransform.localPosition;
         //menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
-        notification.text = "Focus right activated pointer at ui window and press trigger button in order to spawn the right cube";
+        notification.text = "Press trigger button in order to spawn the right cube inside the sphere";
         notificationToSpawn.enabled = true;
         activatePointer(false);
         canSpawnCube = true;
@@ -149,13 +167,13 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     {
         Debug.Log("Start Using called!!!");
 
-        base.StartUsing(currentUsingObject);
+        //base.StartUsing(currentUsingObject);
         if (canSpawnCube && cubeSpawnedOne && !cubeSpawnedTwo /*&& activePointerNotUsedForSpawning()*/)
         {
             assignActivePointerUsedForSpawning();
-            Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
-            Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
-            spawnCubes.spawnGameObject(true, adjustedPosition, new Vector3(0, 0, zRotationLeft), new Vector3(0.4f, 0.4f, 0.4f), cubeBlue);
+            //Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
+            //Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
+            spawnCubes.spawnGameObject(true, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationLeft), new Vector3(0.4f, 0.4f, 0.4f), cubeBlue);
             cubeNeutralLeft = spawnCubes.getLastLeftHandTarget().gameObject;
             transformLeft = cubeNeutralLeft.transform;
             cubeSpawnedTwo = true;
@@ -164,19 +182,19 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
             Debug.Log("End of second spawning");
             notificationToSpawn.enabled = false;
         }
-        if (canSpawnCube && !cubeSpawnedOne /*&& activePointerNotUsedForSpawning()*/)
+        if (canSpawnCube && !cubeSpawnedOne /*&& activePointerNotUsedForSpawning()*/ )
         {
             assignActivePointerUsedForSpawning();
-            Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
-            Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
-            spawnCubes.spawnGameObject(false, adjustedPosition, new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeRed);
+            //Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
+            //Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
+            spawnCubes.spawnGameObject(false, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeRed);
             cubeNeutralRight = spawnCubes.getLastRightHandTarget().gameObject;
             transformRight = cubeNeutralRight.transform;
             cubeSpawnedOne = true;
             activatePointer(true);
             deactivatePointer(false);
             Debug.Log("End of first spawning");
-            notification.text = "Focus one activated pointer at ui window and press trigger button in order to spawn the left cube";
+            notification.text = "Press trigger button in order to spawn the left cube inside the sphere";
         }
     }
 
