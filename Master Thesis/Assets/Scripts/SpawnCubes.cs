@@ -41,6 +41,7 @@ public class SpawnCubes : MonoBehaviour
     public GameObject rightHandGameObjectDiagonal;
     public GameObject leftHandGameObjectDiagonal;
     public BreakWindow breakWindow;
+    public CanvasDisablerOnStart difficultySettingsMenu;
     public float sphereRadius;
     public float timeToHitGameObjects;
     public float timeToWaitBetween;
@@ -51,6 +52,7 @@ public class SpawnCubes : MonoBehaviour
     public bool playBackgroundMusic = true;
     public bool noAutomatedSpawning = false;
     public bool makeBreakBetweenBlocks = true;
+    public bool p_key_to_pause_game = false;
     public int breakTimeInSeconds = 30;
     public BlockSequence[] blockSequences;
 
@@ -88,6 +90,7 @@ public class SpawnCubes : MonoBehaviour
         listBestPointScore = new List<int>();
         listPointScoreAllIterations = new List<int>();
         listAvgPointScore = new List<int>();
+        difficultySettingsMenu.setPlayerCanOpenCanvas(!p_key_to_pause_game);
     }
 
     public TransformData getTransformDataLastLeftCube()
@@ -126,8 +129,12 @@ public class SpawnCubes : MonoBehaviour
     {
         if (noAutomatedSpawning || fileWritten || DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
 
-        
-
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            difficultySettingsMenu.enableCanvas();
+            difficultySettingsMenu.pauseGame();
+            return;
+        }
 
         if (blockSequences != null && blockSequences.Length > 0 && blockSequenceIndex >= blockSequences.Length && !fileWritten) // check if there is a valid blockSequenceArrray and all elements of the block array
                                                                                                                                 // were allready spawned, then write the gathered sportgamedata to file

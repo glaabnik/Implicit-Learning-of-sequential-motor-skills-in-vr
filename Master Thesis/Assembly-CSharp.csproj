@@ -52,9 +52,6 @@
     <UnityVersion>2018.4.25f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -582,7 +579,6 @@
     <None Include="Assets\xml\BlockData\blockData1.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData7.xml" />
     <None Include="Assets\xml\SportGame\sportGameData4.xml" />
-    <None Include="Assets\xml\AntizipationTest\antizipationtest10.xml" />
     <None Include="Assets\xml\BlockData\blockData4.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData5.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData4.xml" />
@@ -594,10 +590,8 @@
     <None Include="Assets\xml\SportGame\Old Files\sportGameData12.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData15.xml" />
     <None Include="Assets\xml\AntizipationTest\antizipationtest2.xml" />
-    <None Include="Assets\xml\AntizipationTest\antizipationtest7.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData3.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData13.xml" />
-    <None Include="Assets\xml\AntizipationTest\antizipationtest9.xml" />
     <None Include="Assets\xml\SportGame\sportGameData1.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData11.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData13.xml" />
@@ -614,11 +608,9 @@
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
     <None Include="Assets\xml\SportGame\Old\sportGameData6.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAdditive.shader" />
-    <None Include="Assets\xml\AntizipationTest\antizipationtest6.xml" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\TransparentFresnelBehind.shader" />
     <None Include="Assets\SteamVR\readme.txt" />
     <None Include="Assets\xml\SportGame\Old\sportGameData17.xml" />
-    <None Include="Assets\xml\AntizipationTest\antizipationtest8.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\Unlit_TransparentColor.shader" />
     <None Include="Assets\hitori_yubin_soundpack\yubin_readme.txt" />
@@ -630,19 +622,19 @@
     <None Include="Assets\xml\SportGame\Old\sportGameData9.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -846,7 +838,7 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/glaabnik/Master Thesis Git/Master Thesis/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

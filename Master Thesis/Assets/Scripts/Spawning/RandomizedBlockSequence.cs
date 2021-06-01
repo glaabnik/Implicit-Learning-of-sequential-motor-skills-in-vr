@@ -17,6 +17,7 @@ public class RandomizedBlockSequence : BlockSequence
     public float sphereRadius;
     public bool diagonalArrowsAreUsed = false;
     public bool redAndBlueCubesCanBeInterchanged = false;
+    public bool allCubePairsAreRandom = true;
     
 
     private List<SphereCoordinates> sequenceOfSpawns;
@@ -36,7 +37,9 @@ public class RandomizedBlockSequence : BlockSequence
     {
         base.Awake();
         sequenceOfSpawns = new List<SphereCoordinates>();
-        for (int i = 0; i < countCubePairs; ++i)
+        int multiplicator = 1;
+        if (allCubePairsAreRandom) multiplicator = iterations;
+        for (int i = 0; i < countCubePairs * multiplicator; ++i)
         {
             generateRandomizedSphereCoordinates();
         } 
@@ -160,8 +163,8 @@ public class RandomizedBlockSequence : BlockSequence
 
     private float checkPhi(float phi, float phi2)
     {
-        if (Mathf.Abs((phi - phi2)) < 40)
-            return phi2 + 50;
+        if (Mathf.Abs((phi - phi2)) < 30)
+            return phi2 + 30;
         else return phi;
     }
 

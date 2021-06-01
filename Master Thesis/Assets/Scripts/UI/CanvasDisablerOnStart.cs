@@ -6,11 +6,26 @@ using UnityEngine.UI;
 public class CanvasDisablerOnStart : MonoBehaviour
 {
     private Canvas canvas;
+    private bool playerCanOpenCanvas = false;
     void Start()
     {
         canvas = GetComponent<Canvas>();
         canvas.enabled = true;
         pauseGame();
+    }
+
+    public void setPlayerCanOpenCanvas(bool b)
+    {
+        playerCanOpenCanvas = b;
+    }
+
+    public void enalbeCanvasConditional()
+    {
+        if(playerCanOpenCanvas)
+        {
+            enableCanvas();
+            pauseGame();
+        }
     }
 
     public void enableCanvas()

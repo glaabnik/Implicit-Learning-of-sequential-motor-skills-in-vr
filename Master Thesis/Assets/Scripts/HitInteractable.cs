@@ -299,6 +299,7 @@ public class HitInteractable : MonoBehaviour
             float precisionPercent = 0.0f;
             float percentRemainingTime = si.getRemainingTimeInPercent();
             int pointsEarned = 0;
+            int precisionPointsEarned = 0;
             if ( (si.wasHitInRightDirection() && !vectorHitDirectionDeviatesTooStrong(si)) || (vectorHitDirectionEqualsIdealVector(si) /*&& hitWasThroughWholeCube(positionInitialPhysicsColliderLeft, si)*/) )
             {
                 precision = si.getAvgAccuracy();
@@ -306,17 +307,19 @@ public class HitInteractable : MonoBehaviour
                 if (anglePrecision * si.getInnerAccuracy() / 10.0 > precision) precision = (int) (anglePrecision * si.getInnerAccuracy() / 10.0f);
                 precisionPercent = si.getAvgAccuracyPercent();
 
-                if (precision == 1) pointsEarned = (int)(percentRemainingTime * 10);
-                if (precision == 2) pointsEarned = (int)(percentRemainingTime * 15);
-                if (precision == 3) pointsEarned = (int)(percentRemainingTime * 20);
-                if (precision == 4) pointsEarned = (int)(percentRemainingTime * 30);
-                if (precision == 5) pointsEarned = (int)(percentRemainingTime * 35);
+                if (precision == 1) precisionPointsEarned = 3;
+                if (precision == 2) precisionPointsEarned = 5;
+                if (precision == 3) precisionPointsEarned = 10;
+                if (precision == 4) precisionPointsEarned = 15;
+                if (precision == 5) precisionPointsEarned = 20;
 
-                if (precision == 6) pointsEarned = (int)(percentRemainingTime * 50);
-                if (precision == 7) pointsEarned = (int)(percentRemainingTime * 60);
-                if (precision == 8) pointsEarned = (int)(percentRemainingTime * 75);
-                if (precision == 9) pointsEarned = (int)(percentRemainingTime * 90);
-                if (precision == 10) pointsEarned = (int)(percentRemainingTime * 100);
+                if (precision == 6) precisionPointsEarned = 25;
+                if (precision == 7) precisionPointsEarned = 35;
+                if (precision == 8) precisionPointsEarned = 45;
+                if (precision == 9) precisionPointsEarned = 50;
+                if (precision == 10) precisionPointsEarned = 60;
+
+                pointsEarned = (int)(percentRemainingTime * 60 + precisionPointsEarned);
 
                 pointsEarned = (int) (pointsEarned * DifficultyManager.Instance.getPointModifier());
             }
