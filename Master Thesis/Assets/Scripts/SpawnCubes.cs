@@ -65,6 +65,7 @@ public class SpawnCubes : MonoBehaviour
     private float timeCounter;
     private float instantiateTimeCounter;
     private float breakTimer = 30.0f;
+    private int actBreakTime;
     private bool instantiated;
     private SpawnedInteractable lastLeftHandTarget;
     private SpawnedInteractable lastRightHandTarget;
@@ -90,6 +91,7 @@ public class SpawnCubes : MonoBehaviour
         listBestPointScore = new List<int>();
         listPointScoreAllIterations = new List<int>();
         listAvgPointScore = new List<int>();
+        actBreakTime = breakTimeInSeconds;
         difficultySettingsMenu.setPlayerCanOpenCanvas(!p_key_to_pause_game);
     }
 
@@ -147,10 +149,10 @@ public class SpawnCubes : MonoBehaviour
 
         breakTimer += Time.deltaTime;
 
-        if (breakTimer <= breakTimeInSeconds)
+        if (breakTimer <= actBreakTime)
         {
             breakWindow.enableWindow();
-            breakWindow.updateRemainingTime(breakTimeInSeconds - breakTimer);
+            breakWindow.updateRemainingTime(actBreakTime - breakTimer);
             return;
         }
         else breakWindow.disableWindow();
@@ -253,6 +255,8 @@ public class SpawnCubes : MonoBehaviour
             if (!blockSequences[blockSequenceIndex].hasNextSphereCoordinates())
             {
                 breakTimer = 0f;
+                if (blockSequences[blockSequenceIndex].waitTimeAfterCompletion > 0) actBreakTime = blockSequences[blockSequenceIndex].waitTimeAfterCompletion;
+                else actBreakTime = breakTimeInSeconds;
                 ++blockSequenceIndex;
                 return;
             }

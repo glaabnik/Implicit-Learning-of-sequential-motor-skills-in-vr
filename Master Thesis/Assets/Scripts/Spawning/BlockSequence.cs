@@ -7,6 +7,7 @@ public abstract class BlockSequence : MonoBehaviour
     public abstract bool hasNextSphereCoordinates();
     public abstract SphereCoordinates nextSphereCoordinates();
     public abstract SphereCoordinates[] twoRandomSphereCoordinatesPairsForWholeSequence();
+    public int waitTimeAfterCompletion = 0;
 
     public abstract int getCubePairCount();
     public abstract int getIterationCount();
