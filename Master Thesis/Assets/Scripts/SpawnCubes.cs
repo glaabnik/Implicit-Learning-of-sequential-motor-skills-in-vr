@@ -64,7 +64,7 @@ public class SpawnCubes : MonoBehaviour
     private int blockSequenceIndex = 0;
     private float timeCounter;
     private float instantiateTimeCounter;
-    private float breakTimer = 30.0f;
+    private float breakTimer;
     private int actBreakTime;
     private bool instantiated;
     private SpawnedInteractable lastLeftHandTarget;
@@ -92,6 +92,7 @@ public class SpawnCubes : MonoBehaviour
         listPointScoreAllIterations = new List<int>();
         listAvgPointScore = new List<int>();
         actBreakTime = breakTimeInSeconds;
+        breakTimer = actBreakTime + 10.0f;
         difficultySettingsMenu.setPlayerCanOpenCanvas(!p_key_to_pause_game);
     }
 

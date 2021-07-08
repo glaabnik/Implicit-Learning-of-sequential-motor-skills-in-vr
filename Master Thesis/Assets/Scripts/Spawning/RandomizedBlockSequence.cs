@@ -37,9 +37,7 @@ public class RandomizedBlockSequence : BlockSequence
     {
         base.Awake();
         sequenceOfSpawns = new List<SphereCoordinates>();
-        int multiplicator = 1;
-        if (allCubePairsAreRandom) multiplicator = iterations;
-        for (int i = 0; i < countCubePairs * multiplicator; ++i)
+        for (int i = 0; i < countCubePairs; ++i)
         {
             generateRandomizedSphereCoordinates();
         } 
@@ -52,6 +50,14 @@ public class RandomizedBlockSequence : BlockSequence
             if (pointScoreActIteration > maxPointScoreOneIteration) maxPointScoreOneIteration = pointScoreActIteration;
             pointScoreAllIterations.Add(pointScoreActIteration);
             pointScoreActIteration = 0;
+            if(allCubePairsAreRandom)
+            {
+                sequenceOfSpawns.Clear();
+                for (int i = 0; i < countCubePairs; ++i)
+                {
+                    generateRandomizedSphereCoordinates();
+                }
+            }
         }
         return actIndexInList < iterations * sequenceOfSpawns.Count;
     }
