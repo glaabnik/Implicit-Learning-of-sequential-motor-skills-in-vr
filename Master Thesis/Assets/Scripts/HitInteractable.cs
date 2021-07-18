@@ -289,7 +289,7 @@ public class HitInteractable : MonoBehaviour
 
         if (!hitOnObjectWasIntended(positionInitialPhysicsColliderLeft, si))
         {
-            SoundManager.Instance.PlayHitSound(12, 0.5f);
+            //SoundManager.Instance.PlayHitSound(12, 0.5f);
         }
 
         if (!pointsRewarded && hitOnObjectWasIntended(positionInitialPhysicsColliderLeft, si))

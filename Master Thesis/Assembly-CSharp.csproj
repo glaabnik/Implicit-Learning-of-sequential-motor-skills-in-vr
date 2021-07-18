@@ -557,6 +557,7 @@
     <None Include="Assets\SteamVR\Resources\SteamVR_ClearAll.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
     <None Include="Assets\xml\SportGame\Old\sportGameData15.xml" />
+    <None Include="Assets\xml\Nikolai\blockData8.xml" />
     <None Include="Assets\xml\SportGame\sportGameData6.xml" />
     <None Include="Assets\xml\BlockData\blockData2.xml" />
     <None Include="Assets\xml\BlockData\blockData5.xml" />
@@ -570,12 +571,14 @@
     <None Include="Assets\xml\SportGame\Old\sportGameData3.xml" />
     <None Include="Assets\TS Sounds\Read Me.txt" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-LightSaber.shader" />
+    <None Include="Assets\xml\Nikolai\blockData7.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData20.xml" />
     <None Include="Assets\Fantasy Arcade RPG Freedom World Sounds - Free Package\assetexplain.txt" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData10.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-LightSaber.shader" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\UIOverlay.shader" />
     <None Include="Assets\xml\SportGame\Old\sportGameData7.xml" />
+    <None Include="Assets\xml\AntizipationTest\Study\antizipationtest1.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
     <None Include="Assets\xml\SportGame\Old\sportGameData18.xml" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\VRTK_OutlineBasic.shader" />
@@ -587,6 +590,7 @@
     <None Include="Assets\xml\SportGame\sportGameData4.xml" />
     <None Include="Assets\xml\AntizipationTest\antizipationtest6.xml" />
     <None Include="Assets\xml\BlockData\blockData4.xml" />
+    <None Include="Assets\xml\Nikolai\sportGameData8.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData5.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData4.xml" />
     <None Include="Assets\xml\BlockData\blockData3.xml" />
@@ -609,6 +613,7 @@
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAlphaBlended.shader" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData9.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAlphaBlended.shader" />
+    <None Include="Assets\xml\Nikolai\sportGameData7.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData4.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData14.xml" />
@@ -625,6 +630,8 @@
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\_SingleLineShader.cginc" />
     <None Include="Assets\xml\SportGame\Old\sportGameData14.xml" />
+    <None Include="Assets\xml\BlockData\Study\blockData1.xml" />
+    <None Include="Assets\xml\SportGame\Study\sportGameData1.xml" />
     <None Include="Assets\xml\SportGame\sportGameData5.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData9.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />

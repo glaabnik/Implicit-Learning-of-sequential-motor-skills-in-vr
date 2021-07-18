@@ -153,7 +153,8 @@ public class SpawnCubes : MonoBehaviour
         if (breakTimer <= actBreakTime)
         {
             breakWindow.enableWindow();
-            breakWindow.updateRemainingTime(actBreakTime - breakTimer);
+            if (blockSequenceIndex >= blockSequences.Length) breakWindow.messageGameFinished();
+            else breakWindow.updateRemainingTime(actBreakTime - breakTimer);
             return;
         }
         else breakWindow.disableWindow();

@@ -22,6 +22,7 @@ public class RandomizedBlockSequence : BlockSequence
 
     private List<SphereCoordinates> sequenceOfSpawns;
     private int actIndexInList;
+    private float lastRotationZLeft = -1, lastRotationZRight = -1;
 
     public override int getCubePairCount()
     {
@@ -103,9 +104,11 @@ public class RandomizedBlockSequence : BlockSequence
         radiusRight = sphereRadius;
 
         rotationZLeft = getRandomRotationZ();
-        while (rotationZLeft == getLastRotationZ()) rotationZLeft = getRandomRotationZ();
+        while (rotationZLeft == lastRotationZLeft) { rotationZLeft = getRandomRotationZ(); }
+        lastRotationZLeft = rotationZLeft;
         rotationZRight = getRandomRotationZ();
-        while (rotationZRight == getLastRotationZ2()) rotationZRight = getRandomRotationZ();
+        while (rotationZRight == lastRotationZRight) { rotationZRight = getRandomRotationZ(); }
+        lastRotationZRight = rotationZRight;
 
         scaleLeft = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
         scaleRight = new Vector3(scaleSpawnedGameObjects, scaleSpawnedGameObjects, scaleSpawnedGameObjects);
@@ -174,22 +177,10 @@ public class RandomizedBlockSequence : BlockSequence
         else return phi;
     }
 
-    private float getLastRotationZ()
-    {
-        if (sequenceOfSpawns.Count > 0) return sequenceOfSpawns[sequenceOfSpawns.Count - 1].rotationZ;
-        else return -1;
-    }
-
-    private float getLastRotationZ2()
-    {
-        if (sequenceOfSpawns.Count > 0) return sequenceOfSpawns[sequenceOfSpawns.Count - 1].rotationZ2;
-        else return -1;
-    }
-
     private int getRandomRotationZ()
     {
-        int z = Random.Range(0, 7);
-        int z2 = Random.Range(0, 3);
+        int z = Random.Range(0, 8);
+        int z2 = Random.Range(0, 4);
         if (diagonalArrowsAreUsed) return z * 45;
         else return z2 * 90;
     }
