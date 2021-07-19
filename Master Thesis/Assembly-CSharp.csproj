@@ -548,9 +548,11 @@
     <None Include="Assets\xml\SportGame\Old\sportGameData5.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\_LineStripShader.cginc" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData1.xml" />
+    <None Include="Assets\xml\BlockData\blockData7.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData2.xml" />
     <None Include="Assets\xml\AntizipationTest\antizipationtest1.xml" />
+    <None Include="Assets\xml\SportGame\Study\sportGameData2.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData6.xml" />
     <None Include="Assets\Blade Sounds\Blade Sounds Readme.txt" />
     <None Include="Assets\xml\SportGame\sportGameData2.xml" />
@@ -589,6 +591,7 @@
     <None Include="Assets\xml\SportGame\Old Files\sportGameData7.xml" />
     <None Include="Assets\xml\SportGame\sportGameData4.xml" />
     <None Include="Assets\xml\AntizipationTest\antizipationtest6.xml" />
+    <None Include="Assets\xml\SportGame\sportGameData7.xml" />
     <None Include="Assets\xml\BlockData\blockData4.xml" />
     <None Include="Assets\xml\Nikolai\sportGameData8.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData5.xml" />
@@ -597,6 +600,7 @@
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAdditive.shader" />
     <None Include="Assets\xml\SportGame\Old\sportGameData19.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData8.xml" />
+    <None Include="Assets\xml\AntizipationTest\Study\antizipationtest2.xml" />
     <None Include="Assets\xml\hit data tested.txt" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData12.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData15.xml" />
@@ -611,6 +615,7 @@
     <None Include="Assets\xml\SportGame\sportGameData3.xml" />
     <None Include="Assets\VRTK\Source\Scripts\Internal\Shaders\VRTK_TunnelEffect.shader" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAlphaBlended.shader" />
+    <None Include="Assets\xml\BlockData\Study\blockData2.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData9.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAlphaBlended.shader" />
     <None Include="Assets\xml\Nikolai\sportGameData7.xml" />
