@@ -404,10 +404,18 @@ public class SpawnedInteractable : MonoBehaviour
             remainingTime -= Time.deltaTime;
         }
        
-        if(startFadingOut)
+        
+
+    }
+
+    void FixedUpdate()
+    {
+        if (DifficultyManager.Instance == null || DifficultyManager.Instance.gamePaused) return;
+
+        if (startFadingOut)
         {
             Color objectColor = renderer.material.color;
-            float fadeAmount = objectColor.a - (fadeSpeed * Time.deltaTime);
+            float fadeAmount = objectColor.a - (fadeSpeed * Time.fixedTime);
             objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
             renderer.material.color = objectColor;
 
@@ -420,12 +428,11 @@ public class SpawnedInteractable : MonoBehaviour
                 startFadingOut = false;
             }
         }
-        if(rigidbodyShouldBeMoving)
+        if (rigidbodyShouldBeMoving)
         {
             if (rigidBody.velocity.magnitude <= 0.0001f)
                 addForceToRigidBody(forceDirection, forcePrecision);
             else rigidbodyShouldBeMoving = false;
         }
-
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SportGameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cpandl.com">
+  <time_left>
+    <float>2.57653761</float>
+    <float>2.85382652</float>
+  </time_left>
+  <time_right>
+    <float>1.88755178</float>
+  </time_right>
+  <precision_left>
+    <float>0.3</float>
+    <float>0.5</float>
+  </precision_left>
+  <precision_right>
+    <float>0.5</float>
+  </precision_right>
+  <points_earned_left>
+    <int>18</int>
+    <int>47</int>
+  </points_earned_left>
+  <points_earned_right>
+    <int>42</int>
+  </points_earned_right>
+  <round_generated_left>
+    <int>7</int>
+    <int>8</int>
+  </round_generated_left>
+  <round_generated_right>
+    <int>8</int>
+  </round_generated_right>
+  <difficultyLeft>
+    <Difficulty>Middle</Difficulty>
+    <Difficulty>Middle</Difficulty>
+  </difficultyLeft>
+  <difficultyRight>
+    <Difficulty>Middle</Difficulty>
+  </difficultyRight>
+  <spawnedObjectCount>18</spawnedObjectCount>
+  <countObjectsHitRightHand>2</countObjectsHitRightHand>
+  <countObjectsHitLeftHand>1</countObjectsHitLeftHand>
+</SportGameData>

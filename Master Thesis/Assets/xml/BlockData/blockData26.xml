@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BlockGameData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cpandl.com">
+  <listCubePairCount>
+    <int>9</int>
+  </listCubePairCount>
+  <listIterationCount>
+    <int>1</int>
+  </listIterationCount>
+  <listBestPointScoreAllIterations>
+    <int>930</int>
+  </listBestPointScoreAllIterations>
+  <listAvgPointScoreAllIterations>
+    <int>930</int>
+  </listAvgPointScoreAllIterations>
+  <listPointScoreAllIterations>
+    <int>930</int>
+  </listPointScoreAllIterations>
+</BlockGameData>
