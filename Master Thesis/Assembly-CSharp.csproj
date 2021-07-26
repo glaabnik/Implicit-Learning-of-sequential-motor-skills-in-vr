@@ -587,6 +587,7 @@
     <None Include="Assets\xml\SportGame\sportGameData27.xml" />
     <None Include="Assets\xml\BlockData\blockData5.xml" />
     <None Include="Assets\xml\AntizipationTest\Study\antizipationtest3.xml" />
+    <None Include="Assets\xml\BlockData\blockData38.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData12.xml" />
     <None Include="Assets\xml\BlockData\blockData9.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData1.xml" />
@@ -608,6 +609,7 @@
     <None Include="Assets\xml\Nikolai\blockData7.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData20.xml" />
     <None Include="Assets\Fantasy Arcade RPG Freedom World Sounds - Free Package\assetexplain.txt" />
+    <None Include="Assets\xml\BlockData\blockData37.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData7.xml" />
     <None Include="Assets\xml\SportGame\sportGameData9.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData10.xml" />
@@ -645,6 +647,7 @@
     <None Include="Assets\xml\SportGame\Old Files\sportGameData5.xml" />
     <None Include="Assets\xml\BlockData\blockData29.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData4.xml" />
+    <None Include="Assets\xml\SportGame\sportGameData38.xml" />
     <None Include="Assets\xml\SportGame\sportGameData21.xml" />
     <None Include="Assets\xml\BlockData\blockData3.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAdditive.shader" />
@@ -671,6 +674,7 @@
     <None Include="Assets\xml\SportGame\Old Files\sportGameData13.xml" />
     <None Include="Assets\xml\BlockData\blockData8.xml" />
     <None Include="Assets\xml\AntizipationTest\Study\antizipationtest14.xml" />
+    <None Include="Assets\xml\AntizipationTest\Study\antizipationtest15.xml" />
     <None Include="Assets\xml\SportGame\sportGameData28.xml" />
     <None Include="Assets\xml\SportGame\sportGameData1.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData11.xml" />
@@ -680,6 +684,7 @@
     <None Include="Assets\xml\BlockData\Study\blockData7.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData4.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData10.xml" />
+    <None Include="Assets\xml\SportGame\sportGameData37.xml" />
     <None Include="Assets\xml\AntizipationTest\antizipationtest4.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData14.xml" />
     <None Include="Assets\xml\SportGame\sportGameData3.xml" />
@@ -705,6 +710,7 @@
     <None Include="Assets\xml\SportGame\Old Files\sportGameData4.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData14.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
+    <None Include="Assets\xml\BlockData\Study\blockData15.xml" />
     <None Include="Assets\xml\BlockData\blockData25.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData6.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAdditive.shader" />
@@ -727,6 +733,7 @@
     <None Include="Assets\xml\BlockData\Study\blockData1.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData1.xml" />
     <None Include="Assets\xml\BlockData\Study\blockData9.xml" />
+    <None Include="Assets\xml\SportGame\Study\sportGameData15.xml" />
     <None Include="Assets\xml\SportGame\sportGameData5.xml" />
     <None Include="Assets\xml\BlockData\blockData36.xml" />
     <None Include="Assets\xml\BlockData\blockData30.xml" />
