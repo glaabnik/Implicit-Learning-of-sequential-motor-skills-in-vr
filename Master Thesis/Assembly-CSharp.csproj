@@ -560,6 +560,7 @@
     <None Include="Assets\xml\AntizipationTest\Study\antizipationtest13.xml" />
     <None Include="Assets\xml\BlockData\Study\blockData6.xml" />
     <None Include="Assets\xml\BlockData\Study\blockData3.xml" />
+    <None Include="Assets\xml\BlockData\blockData32.xml" />
     <None Include="Assets\xml\BlockData\blockData19.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData2.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData6.xml" />
@@ -570,6 +571,7 @@
     <None Include="Assets\xml\SportGame\sportGameData2.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_ClearAll.shader" />
     <None Include="Assets\xml\BlockData\blockData17.xml" />
+    <None Include="Assets\xml\BlockData\Study\blockData14.xml" />
     <None Include="Assets\xml\BlockData\blockData24.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData6.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
@@ -583,6 +585,7 @@
     <None Include="Assets\xml\SportGame\sportGameData27.xml" />
     <None Include="Assets\xml\BlockData\blockData5.xml" />
     <None Include="Assets\xml\AntizipationTest\Study\antizipationtest3.xml" />
+    <None Include="Assets\xml\BlockData\blockData38.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData12.xml" />
     <None Include="Assets\xml\BlockData\blockData9.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData1.xml" />
@@ -599,10 +602,12 @@
     <None Include="Assets\xml\SportGame\Old\sportGameData3.xml" />
     <None Include="Assets\TS Sounds\Read Me.txt" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-LightSaber.shader" />
+    <None Include="Assets\xml\BlockData\blockData28.xml" />
     <None Include="Assets\xml\SportGame\sportGameData22.xml" />
     <None Include="Assets\xml\Nikolai\blockData7.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData20.xml" />
     <None Include="Assets\Fantasy Arcade RPG Freedom World Sounds - Free Package\assetexplain.txt" />
+    <None Include="Assets\xml\BlockData\blockData37.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData7.xml" />
     <None Include="Assets\xml\SportGame\sportGameData9.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData10.xml" />
@@ -640,6 +645,7 @@
     <None Include="Assets\xml\SportGame\Old Files\sportGameData5.xml" />
     <None Include="Assets\xml\BlockData\blockData29.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData4.xml" />
+    <None Include="Assets\xml\SportGame\sportGameData38.xml" />
     <None Include="Assets\xml\SportGame\sportGameData21.xml" />
     <None Include="Assets\xml\BlockData\blockData3.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAdditive.shader" />
@@ -665,6 +671,9 @@
     <None Include="Assets\xml\SportGame\Old Files\sportGameData3.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData13.xml" />
     <None Include="Assets\xml\BlockData\blockData8.xml" />
+    <None Include="Assets\xml\AntizipationTest\Study\antizipationtest14.xml" />
+    <None Include="Assets\xml\AntizipationTest\Study\antizipationtest15.xml" />
+    <None Include="Assets\xml\SportGame\sportGameData28.xml" />
     <None Include="Assets\xml\SportGame\sportGameData1.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData11.xml" />
     <None Include="Assets\xml\SportGame\sportGameData15.xml" />
@@ -673,7 +682,9 @@
     <None Include="Assets\xml\BlockData\Study\blockData7.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData4.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData10.xml" />
+    <None Include="Assets\xml\SportGame\sportGameData37.xml" />
     <None Include="Assets\xml\AntizipationTest\antizipationtest4.xml" />
+    <None Include="Assets\xml\SportGame\Study\sportGameData14.xml" />
     <None Include="Assets\xml\SportGame\sportGameData3.xml" />
     <None Include="Assets\xml\AntizipationTest\Study\antizipationtest6.xml" />
     <None Include="Assets\xml\BlockData\blockData15.xml" />
@@ -690,12 +701,14 @@
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\LineStrip-TextureAlphaBlended.shader" />
     <None Include="Assets\xml\Nikolai\sportGameData7.xml" />
     <None Include="Assets\xml\BlockData\Study\blockData4.xml" />
+    <None Include="Assets\xml\SportGame\sportGameData32.xml" />
     <None Include="Assets\xml\SportGame\sportGameData16.xml" />
     <None Include="Assets\xml\SportGame\sportGameData33.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData4.xml" />
     <None Include="Assets\xml\SportGame\Old Files\sportGameData14.xml" />
     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
+    <None Include="Assets\xml\BlockData\Study\blockData15.xml" />
     <None Include="Assets\xml\BlockData\blockData25.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData6.xml" />
     <None Include="Assets\VolumetricLines\BuiltInRenderPipeline\Shaders\SingleLine-TextureAdditive.shader" />
@@ -718,11 +731,14 @@
     <None Include="Assets\xml\BlockData\Study\blockData1.xml" />
     <None Include="Assets\xml\SportGame\Study\sportGameData1.xml" />
     <None Include="Assets\xml\BlockData\Study\blockData9.xml" />
+    <None Include="Assets\xml\SportGame\Study\sportGameData15.xml" />
     <None Include="Assets\xml\SportGame\sportGameData5.xml" />
+    <None Include="Assets\xml\BlockData\blockData36.xml" />
     <None Include="Assets\xml\BlockData\blockData30.xml" />
     <None Include="Assets\xml\SportGame\Old\sportGameData9.xml" />
     <None Include="Assets\xml\BlockData\blockData14.xml" />
     <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
+    <None Include="Assets\xml\SportGame\sportGameData36.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Niko/nikolaiglaab/Master Thesis/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
