@@ -117,9 +117,14 @@ public class LevelEditorWindow : EditorWindow
             Debug.Log("Level Editor scene isn`t active. First open the Level Editor scene");
             return;
         }
+        GameObject[] gameObjectsSelected = new GameObject[Selection.transforms.Length];
         for (int i = 0; i < Selection.transforms.Length; i++)
         {
-            GameObject go = Selection.transforms[i].gameObject;
+            gameObjectsSelected[i] = Selection.transforms[i].gameObject;
+        }
+        for (int i = 0; i < Selection.transforms.Length; i++)
+        {
+            GameObject go = gameObjectsSelected[i];
             if (go.CompareTag("blue") || go.CompareTag("red"))
             {
                 SpawnedInteractable si = go.GetComponent<SpawnedInteractable>();
@@ -232,9 +237,14 @@ public class LevelEditorWindow : EditorWindow
             Debug.Log("Level Editor scene isn`t active. First open the Level Editor scene");
             return;
         }
+        GameObject[] gameObjectsSelected = new GameObject[Selection.transforms.Length];
+        for(int i= 0; i < Selection.transforms.Length; i++)
+        {
+            gameObjectsSelected[i] = Selection.transforms[i].gameObject;
+        }
         for (int i = 0; i < Selection.transforms.Length; i++)
         {
-            GameObject go = Selection.transforms[i].gameObject;
+            GameObject go = gameObjectsSelected[i];
             if (go.CompareTag("blue") || go.CompareTag("red"))
             {
                 if (randomizedHeight)

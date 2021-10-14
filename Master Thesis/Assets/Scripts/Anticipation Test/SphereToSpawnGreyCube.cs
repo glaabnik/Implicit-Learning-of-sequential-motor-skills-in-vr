@@ -89,7 +89,6 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     public void activateSpawningAbility()
     {
         Vector3 local = menuToSpawnTransform.localPosition;
-        //menuToSpawnTransform.localPosition = local - new Vector3(0, 0, 1.5f);
         notification.text = "Press trigger button in order to spawn the right cube inside the sphere";
         notificationToSpawn.enabled = true;
         activatePointer(false);
@@ -166,13 +165,9 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
     public override void StartUsing(VRTK_InteractUse currentUsingObject = null)
     {
         Debug.Log("Start Using called!!!");
-
-        //base.StartUsing(currentUsingObject);
-        if (canSpawnCube && cubeSpawnedOne && !cubeSpawnedTwo /*&& activePointerNotUsedForSpawning()*/)
+        if (canSpawnCube && cubeSpawnedOne && !cubeSpawnedTwo)
         {
             assignActivePointerUsedForSpawning();
-            //Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
-            //Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
             spawnCubes.spawnGameObject(true, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationLeft), new Vector3(0.4f, 0.4f, 0.4f), cubeBlue);
             cubeNeutralLeft = spawnCubes.getLastLeftHandTarget().gameObject;
             transformLeft = cubeNeutralLeft.transform;
@@ -182,11 +177,9 @@ public class SphereToSpawnGreyCube : VRTK_InteractableObject
             Debug.Log("End of second spawning");
             notificationToSpawn.enabled = false;
         }
-        if (canSpawnCube && !cubeSpawnedOne /*&& activePointerNotUsedForSpawning()*/ )
+        if (canSpawnCube && !cubeSpawnedOne)
         {
             assignActivePointerUsedForSpawning();
-            //Vector3 res = spawnCubes.cartesianToSphereCoordinate(getRelevantSpawnPosition());
-            //Vector3 adjustedPosition = spawnCubes.sphereToCartesianCoordinate(res[1], res[0], res[2]);
             spawnCubes.spawnGameObject(false, getRelevantSpawnPosition(), new Vector3(0, 0, zRotationRight), new Vector3(0.4f, 0.4f, 0.4f), cubeRed);
             cubeNeutralRight = spawnCubes.getLastRightHandTarget().gameObject;
             transformRight = cubeNeutralRight.transform;

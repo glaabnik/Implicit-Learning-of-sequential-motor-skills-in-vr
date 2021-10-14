@@ -110,8 +110,6 @@ public class AnticipitationScript : MonoBehaviour
         {
             cubePairPointedSpawned = true;
             sphere.activateSpawningAbility();
-            /*sphere.setZRotationRight( (int) sphereCoordinates[sphereCoordinatesIndex].rotationZ);
-            sphere.setZRotationLeft((int)sphereCoordinates[sphereCoordinatesIndex].rotationZ2);*/
             sphereMoved = false;
         }
         if(!choiceDialogeMade && sphere.bothCubesSpawned())

@@ -75,11 +75,11 @@
     <Compile Include="Assets\Scripts\EditorScripts\LevelEditorWindow.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPoint.cs" />
     <Compile Include="Assets\Scripts\EditorScripts\LookAtPointEditor.cs" />
-    <Compile Include="Assets\Scripts\HitInteractable.cs" />
+    <Compile Include="Assets\Scripts\Main\HitInteractable.cs" />
+    <Compile Include="Assets\Scripts\Main\SpawnCubes.cs" />
+    <Compile Include="Assets\Scripts\Main\SpawnedInteractable.cs" />
     <Compile Include="Assets\Scripts\Manager\DifficultyManager.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
-    <Compile Include="Assets\Scripts\SpawnCubes.cs" />
-    <Compile Include="Assets\Scripts\SpawnedInteractable.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequence.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequenceFromFile.cs" />
     <Compile Include="Assets\Scripts\Spawning\BlockSequenceOneHandRandom.cs" />

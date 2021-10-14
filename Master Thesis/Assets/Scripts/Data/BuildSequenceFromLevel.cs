@@ -51,11 +51,12 @@ public class BuildSequenceFromLevel : MonoBehaviour
             }
         }
 
+        // Sorting of red and blue cubes by their defined ID in SpawnedInteractable
         redCubes.Sort((obj1, obj2) => obj1.GetComponent<SpawnedInteractable>().getId().CompareTo(obj2.GetComponent<SpawnedInteractable>().getId()));
         blueCubes.Sort((obj1, obj2) => obj1.GetComponent<SpawnedInteractable>().getId().CompareTo(obj2.GetComponent<SpawnedInteractable>().getId()));
 
         List<SphereCoordinates> list = new List<SphereCoordinates>();
-        // iterate root objects and do something
+        // build list of sphereCoordinates to write in csv-file
         for (int i = 0; i < redCubes.Count; ++i)
         {
             Vector2 res = cartesianToSphereCoordinate(redCubes[i].transform.position);

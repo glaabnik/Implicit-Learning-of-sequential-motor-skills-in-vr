@@ -16,6 +16,8 @@ public abstract class BlockSequence : MonoBehaviour
     public int maxPointScoreOneIteration;
     public List<int> pointScoreAllIterations;
 
+    
+
     public virtual void addToPointScore(int val)
     {
         pointScoreActIteration += val;
